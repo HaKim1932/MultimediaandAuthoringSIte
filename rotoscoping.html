@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rotoscoping — Hannah Kim F. Nariz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:#0d0a14; --surface:#130e1e; --card:#1a1228; --border:#2c1f4a;
+      --muted:#3d2d6a; --mid:#8b7ab0; --light:#c4b8e0; --white:#ede8f5;
+      --accent:#a855f7; --accent2:#7c3aed; --accent3:#c084fc; --glow:rgba(168,85,247,0.15);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Outfit',sans-serif; background:var(--bg); color:var(--white); }
+    nav {
+      background:rgba(13,10,20,0.92); backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--border); padding:0 2.5rem;
+      display:flex; align-items:center; justify-content:space-between;
+      height:64px; position:sticky; top:0; z-index:100;
+    }
+    .nav-brand { font-family:'Libre Baskerville',serif; font-size:1.05rem; color:var(--white); letter-spacing:0.03em; text-decoration:none; }
+    .nav-dot { color:var(--accent); margin:0 2px; }
+    .nav-links { display:flex; gap:0.3rem; }
+    .nav-links a { color:var(--mid); text-decoration:none; font-size:0.82rem; font-weight:500; padding:0.4rem 1.1rem; border-radius:30px; letter-spacing:0.05em; transition:color 0.2s,background 0.2s; }
+    .nav-links a:hover { color:var(--white); background:var(--muted); }
+
+    .hero { padding:5rem 2.5rem 4rem; border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+    .hero-orb { position:absolute; width:500px; height:500px; border-radius:50%; top:-150px; right:-100px; background:radial-gradient(circle,rgba(124,58,237,0.14) 0%,transparent 70%); pointer-events:none; }
+    .breadcrumb { font-size:0.72rem; color:var(--muted); margin-bottom:1.5rem; letter-spacing:0.1em; text-transform:uppercase; }
+    .breadcrumb a { color:inherit; text-decoration:none; transition:color 0.2s; }
+    .breadcrumb a:hover { color:var(--accent3); }
+    .hero h1 { font-family:'Libre Baskerville',serif; font-size:clamp(2.5rem,6vw,4.5rem); color:var(--white); font-weight:700; line-height:1.1; margin-bottom:0.6rem; }
+    .hero p { max-width:660px; color:var(--mid); font-size:0.9rem; line-height:1.85; font-weight:300; }
+
+    .content { max-width:1060px; margin:0 auto; padding:5rem 2.5rem; }
+    .block-title { font-family:'Libre Baskerville',serif; font-size:1.8rem; color:var(--white); margin-bottom:0.3rem; font-weight:700; margin-top:4.5rem; }
+    .block-title:first-child { margin-top:0; }
+    .block-sub { font-size:0.7rem; letter-spacing:0.2em; color:var(--accent3); text-transform:uppercase; margin-bottom:2rem; display:flex; align-items:center; gap:10px; }
+    .block-sub::before { content:''; width:20px; height:1px; background:var(--accent); }
+    .body-text { font-size:0.9rem; line-height:1.9; color:var(--mid); margin-bottom:2rem; max-width:720px; font-weight:300; }
+
+    /* VIDEO */
+    .video-wrap { border:1px solid var(--border); background:#000; border-radius:14px; aspect-ratio:16/9; margin-bottom:0.8rem; overflow:hidden; box-shadow:0 0 60px rgba(124,58,237,0.12); }
+    .video-wrap iframe { width:100%; height:100%; border:none; display:block; }
+    .video-placeholder { width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; background:var(--surface); color:var(--mid); font-size:0.85rem; }
+    .play-ring { width:64px; height:64px; border:1.5px solid var(--muted); border-radius:50%; display:flex; align-items:center; justify-content:center; transition:border-color 0.2s; }
+    .video-label { font-size:0.76rem; color:var(--muted); margin-bottom:2.5rem; letter-spacing:0.05em; }
+
+    /* MODULE GRID */
+    .module-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:1rem; }
+    .module-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden; transition:border-color 0.25s,transform 0.25s,box-shadow 0.25s; }
+    .module-card:hover { border-color:var(--accent2); transform:translateY(-3px); box-shadow:0 12px 40px rgba(124,58,237,0.15); }
+    .module-thumb { aspect-ratio:16/9; background:var(--card); display:flex; align-items:center; justify-content:center; position:relative; border-bottom:1px solid var(--border); }
+    .thumb-glow { position:absolute; inset:0; background:radial-gradient(ellipse at center,rgba(168,85,247,0.08),transparent 70%); }
+    .module-play { width:42px; height:42px; border:1.5px solid var(--muted); border-radius:50%; display:flex; align-items:center; justify-content:center; position:relative; z-index:1; transition:border-color 0.2s; }
+    .module-card:hover .module-play { border-color:var(--accent3); }
+    .week-badge { position:absolute; top:10px; left:10px; font-size:0.65rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent3); background:rgba(13,10,20,0.7); border:1px solid var(--border); padding:3px 9px; border-radius:20px; z-index:1; }
+    .module-body { padding:1.2rem 1.3rem 1.4rem; }
+    .module-body h4 { font-family:'Libre Baskerville',serif; font-size:1.05rem; color:var(--white); margin-bottom:0.45rem; }
+    .module-body p { font-size:0.82rem; color:var(--mid); line-height:1.72; font-weight:300; }
+    .module-locked { display:flex; align-items:center; gap:5px; font-size:0.68rem; color:var(--muted); margin-top:0.8rem; letter-spacing:0.06em; text-transform:uppercase; }
+
+    footer { border-top:1px solid var(--border); background:var(--surface); text-align:center; padding:2.5rem 1.5rem; font-size:0.8rem; letter-spacing:0.04em; color:var(--muted); line-height:2.2; margin-top:5rem; }
+    footer span { color:var(--mid); }
+    @media(max-width:600px){ .hero,.content{ padding-left:1.2rem; padding-right:1.2rem; } nav{ padding:0 1.2rem; } }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-brand">Hannah Kim<span class="nav-dot">·</span>Nariz</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-orb"></div>
+    <div class="breadcrumb"><a href="index.html">Home</a> &rsaquo; Rotoscoping</div>
+    <h1>Rotoscoping</h1>
+    <p>Rotoscoping is the technique of animating by tracing over live-action video footage frame by frame. Originally patented in 1917, it has evolved into a fine art form used across film, music videos, and digital media. This project documents the full creative process — from raw footage to finished animated output.</p>
+  </div>
+
+  <div class="content">
+
+    <h2 class="block-title">Final Output</h2>
+    <div class="block-sub">Completed Work</div>
+    <p class="body-text">The completed rotoscoping animation — the culmination of 12 clips of frame-by-frame tracing, coloring, and editing in Photoshop.</p>
+    <div class="video-wrap">
+      <div class="video-placeholder">
+        <div class="play-ring"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3L13 8L5 13V3Z" fill="#8b7ab0"/></svg></div>
+        <span>Rotoscoping — Final Output</span>
+        <span style="font-size:0.72rem;opacity:0.5;">Replace with your YouTube embed URL</span>
+      </div>
+      <!-- REPLACE WITH: <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" allowfullscreen></iframe> -->
+    </div>
+    <p class="video-label">Final animated output &nbsp;·&nbsp; Add your YouTube embed URL inside the video-wrap div above.</p>
+
+    <h2 class="block-title">Step-by-Step Tutorial</h2>
+    <div class="block-sub">Process</div>
+    <p class="body-text">A guided walkthrough of the rotoscoping workflow — from preparing your applications to editing the final frames in Photoshop.</p>
+
+    <div class="module-grid">
+      <div class="module-card">
+        <div class="module-thumb"><div class="thumb-glow"></div><div class="week-badge">Step 1</div><div class="module-play"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 2.5L11 7L4 11.5V2.5Z" fill="#8b7ab0"/></svg></div></div>
+        <div class="module-body">
+          <h4>Prepare the Applications</h4>
+          <p>Set up all required software — including Adobe After Effects and Photoshop — and ensure your project files and folders are properly organized before starting.</p>
+          <div class="module-locked"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><rect x="2" y="5" width="8" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="currentColor" stroke-width="1.2"/></svg> Video tutorial — see description</div>
+        </div>
+      </div>
+      <div class="module-card">
+        <div class="module-thumb"><div class="thumb-glow"></div><div class="week-badge">Step 2</div><div class="module-play"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 2.5L11 7L4 11.5V2.5Z" fill="#8b7ab0"/></svg></div></div>
+        <div class="module-body">
+          <h4>Split the Video into 5-Second Clips</h4>
+          <p>Cut your reference footage into manageable 5-second segments. This makes frame-by-frame tracing more organized and prevents the project from becoming overwhelming.</p>
+          <div class="module-locked"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><rect x="2" y="5" width="8" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="currentColor" stroke-width="1.2"/></svg> Video tutorial — see description</div>
+        </div>
+      </div>
+      <div class="module-card">
+        <div class="module-thumb"><div class="thumb-glow"></div><div class="week-badge">Step 3</div><div class="module-play"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 2.5L11 7L4 11.5V2.5Z" fill="#8b7ab0"/></svg></div></div>
+        <div class="module-body">
+          <h4>Open After Effects &amp; Export via Render Queue</h4>
+          <p>Import the clips into After Effects. Once ready, go to <em>Composition → Add to Render Queue</em>, configure output settings, and render the frame sequence.</p>
+          <div class="module-locked"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><rect x="2" y="5" width="8" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="currentColor" stroke-width="1.2"/></svg> Video tutorial — see description</div>
+        </div>
+      </div>
+      <div class="module-card">
+        <div class="module-thumb"><div class="thumb-glow"></div><div class="week-badge">Step 4</div><div class="module-play"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 2.5L11 7L4 11.5V2.5Z" fill="#8b7ab0"/></svg></div></div>
+        <div class="module-body">
+          <h4>Import Rendered Frames into Photoshop</h4>
+          <p>After rendering is complete, open Photoshop and import the exported frames. Each frame becomes a layer ready for tracing and editing.</p>
+          <div class="module-locked"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><rect x="2" y="5" width="8" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="currentColor" stroke-width="1.2"/></svg> Video tutorial — see description</div>
+        </div>
+      </div>
+      <div class="module-card">
+        <div class="module-thumb"><div class="thumb-glow"></div><div class="week-badge">Step 5</div><div class="module-play"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 2.5L11 7L4 11.5V2.5Z" fill="#8b7ab0"/></svg></div></div>
+        <div class="module-body">
+          <h4>Edit the Rendered Frames</h4>
+          <p>Trace over each frame in Photoshop using brushes or the pen tool. Apply colors, clean up edges, and build the rotoscoped animation layer by layer.</p>
+          <div class="module-locked"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><rect x="2" y="5" width="8" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="currentColor" stroke-width="1.2"/></svg> Video tutorial — see description</div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="block-title">Weekly Progress</h2>
+    <div class="block-sub">5-Second Clips</div>
+    <p class="body-text">Each module represents one 5-second clip — rendered from After Effects and edited frame by frame in Photoshop across 12 weeks.</p>
+    <div class="module-grid" id="clips-grid"></div>
+  </div>
+
+  <footer>
+    © 2026 Hannah Kim F. Nariz &nbsp;|&nbsp; BSIT-NS-2A<br/>
+    <span>All rights reserved. &nbsp;|&nbsp; For educational purposes only.</span>
+  </footer>
+
+  <script>
+    const clips = [
+      { n:1,  title:"Clip 1 — 0:00–0:05",  desc:"First 5-second segment rendered from After Effects and edited frame by frame in Photoshop." },
+      { n:2,  title:"Clip 2 — 0:05–0:10",  desc:"Second clip imported as a frame sequence and traced over in Photoshop." },
+      { n:3,  title:"Clip 3 — 0:10–0:15",  desc:"Third clip edited — maintaining consistent line style and color from previous segments." },
+      { n:4,  title:"Clip 4 — 0:15–0:20",  desc:"Fourth 5-second segment with continued frame-by-frame rotoscoping and color fills applied." },
+      { n:5,  title:"Clip 5 — 0:20–0:25",  desc:"Fifth clip processed through the render queue and edited in Photoshop." },
+      { n:6,  title:"Clip 6 — 0:25–0:30",  desc:"Sixth segment — refining motion flow and smoothing transitions between frames." },
+      { n:7,  title:"Clip 7 — 0:30–0:35",  desc:"Seventh clip with mid-project style review — adjustments made for visual consistency." },
+      { n:8,  title:"Clip 8 — 0:35–0:40",  desc:"Eighth segment edited with improved coloring technique based on earlier clip feedback." },
+      { n:9,  title:"Clip 9 — 0:40–0:45",  desc:"Ninth clip — detailed frame edits and cleanup of complex motion sequences." },
+      { n:10, title:"Clip 10 — 0:45–0:50", desc:"Tenth clip processed and edited — focus on smooth animation curves and clean outlines." },
+      { n:11, title:"Clip 11 — 0:50–0:55", desc:"Eleventh segment — near-final clip with refined shading and finishing detail work." },
+      { n:12, title:"Clip 12 — 0:55–1:00", desc:"Final 5-second clip completed. All segments combined for the finished rotoscoping output." },
+    ];
+    document.getElementById('clips-grid').innerHTML = clips.map(c => `
+      <div class="module-card">
+        <div class="module-thumb">
+          <div class="thumb-glow"></div>
+          <div class="week-badge">Week ${c.n}</div>
+          <div class="module-play"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 2.5L11 7L4 11.5V2.5Z" fill="#8b7ab0"/></svg></div>
+        </div>
+        <div class="module-body">
+          <h4>${c.title}</h4>
+          <p>${c.desc}</p>
+          <div class="module-locked"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><rect x="2" y="5" width="8" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="currentColor" stroke-width="1.2"/></svg> Weekly video — see description</div>
+        </div>
+      </div>`).join('');
+  </script>
+</body>
+</html>
