@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3D Rendering — Hannah Kim F. Nariz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:#0d0a14; --surface:#130e1e; --card:#1a1228; --border:#2c1f4a;
+      --muted:#3d2d6a; --mid:#8b7ab0; --light:#c4b8e0; --white:#ede8f5;
+      --accent:#a855f7; --accent2:#7c3aed; --accent3:#c084fc; --glow:rgba(168,85,247,0.15);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Outfit',sans-serif; background:var(--bg); color:var(--white); }
+    nav {
+      background:rgba(13,10,20,0.92); backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--border); padding:0 2.5rem;
+      display:flex; align-items:center; justify-content:space-between;
+      height:64px; position:sticky; top:0; z-index:100;
+    }
+    .nav-brand { font-family:'Libre Baskerville',serif; font-size:1.05rem; color:var(--white); letter-spacing:0.03em; text-decoration:none; }
+    .nav-dot { color:var(--accent); margin:0 2px; }
+    .nav-links { display:flex; gap:0.3rem; }
+    .nav-links a { color:var(--mid); text-decoration:none; font-size:0.82rem; font-weight:500; padding:0.4rem 1.1rem; border-radius:30px; letter-spacing:0.05em; transition:color 0.2s,background 0.2s; }
+    .nav-links a:hover { color:var(--white); background:var(--muted); }
+
+    .hero { padding:5rem 2.5rem 4rem; border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+    .hero-orb { position:absolute; width:500px; height:500px; border-radius:50%; top:-150px; right:-100px; background:radial-gradient(circle,rgba(124,58,237,0.14) 0%,transparent 70%); pointer-events:none; }
+    .breadcrumb { font-size:0.72rem; color:var(--muted); margin-bottom:1.5rem; letter-spacing:0.1em; text-transform:uppercase; }
+    .breadcrumb a { color:inherit; text-decoration:none; transition:color 0.2s; }
+    .breadcrumb a:hover { color:var(--accent3); }
+    .hero h1 { font-family:'Libre Baskerville',serif; font-size:clamp(2.5rem,6vw,4.5rem); color:var(--white); font-weight:700; line-height:1.1; margin-bottom:0.6rem; }
+    .hero p { max-width:660px; color:var(--mid); font-size:0.9rem; line-height:1.85; font-weight:300; }
+
+    .content { max-width:1060px; margin:0 auto; padding:5rem 2.5rem; }
+    .block-title { font-family:'Libre Baskerville',serif; font-size:1.8rem; color:var(--white); margin-bottom:0.3rem; font-weight:700; margin-top:4.5rem; }
+    .block-title:first-child { margin-top:0; }
+    .block-sub { font-size:0.7rem; letter-spacing:0.2em; color:var(--accent3); text-transform:uppercase; margin-bottom:2rem; display:flex; align-items:center; gap:10px; }
+    .block-sub::before { content:''; width:20px; height:1px; background:var(--accent); }
+    .body-text { font-size:0.9rem; line-height:1.9; color:var(--mid); margin-bottom:2rem; max-width:720px; font-weight:300; }
+
+    /* VIDEO */
+    .video-wrap { border:1px solid var(--border); background:#000; border-radius:14px; aspect-ratio:16/9; margin-bottom:0.8rem; overflow:hidden; box-shadow:0 0 60px rgba(124,58,237,0.12); }
+    .video-wrap iframe { width:100%; height:100%; border:none; display:block; }
+    .video-placeholder { width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; background:var(--surface); color:var(--mid); font-size:0.85rem; }
+    .play-ring { width:64px; height:64px; border:1.5px solid var(--muted); border-radius:50%; display:flex; align-items:center; justify-content:center; }
+    .video-label { font-size:0.76rem; color:var(--muted); margin-bottom:2.5rem; letter-spacing:0.05em; }
+
+    /* TOOLS */
+    .tools-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:1rem; }
+    .tool-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.5rem; transition:border-color 0.2s,background 0.2s; }
+    .tool-card:hover { border-color:var(--accent2); background:var(--card); }
+    .tool-icon { font-size:1.4rem; margin-bottom:0.7rem; }
+    .tool-name { font-weight:600; font-size:0.9rem; color:var(--white); margin-bottom:0.4rem; }
+    .tool-desc { font-size:0.8rem; color:var(--mid); line-height:1.72; font-weight:300; }
+
+    /* CALCULATOR */
+    .calc-box { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:2rem; margin-bottom:0.5rem; }
+    .calc-row { display:flex; gap:1rem; align-items:flex-end; flex-wrap:wrap; margin-bottom:1rem; }
+    .calc-field { display:flex; flex-direction:column; gap:6px; flex:1; min-width:180px; }
+    .calc-field label { font-size:0.68rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--mid); }
+    .calc-field input {
+      padding:0.68rem 1rem; border:1px solid var(--border); background:var(--card);
+      font-family:'Outfit',sans-serif; font-size:0.95rem; color:var(--white);
+      border-radius:8px; transition:border-color 0.2s; outline:none;
+    }
+    .calc-field input:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(168,85,247,0.15); }
+    .calc-btn {
+      padding:0.7rem 2rem; background:var(--accent2); color:#fff;
+      border:none; font-family:'Outfit',sans-serif; font-size:0.85rem;
+      font-weight:600; letter-spacing:0.06em; border-radius:8px;
+      cursor:pointer; transition:background 0.2s,box-shadow 0.2s; white-space:nowrap;
+    }
+    .calc-btn:hover { background:var(--accent); box-shadow:0 0 20px rgba(168,85,247,0.3); }
+    .calc-hint { font-size:0.76rem; color:var(--muted); letter-spacing:0.03em; }
+
+    /* PLANET CARDS */
+    .planets-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(268px,1fr)); gap:1rem; margin-top:1.5rem; }
+    .planet-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; overflow:hidden; transition:border-color 0.25s,transform 0.25s,box-shadow 0.25s; }
+    .planet-card:hover { border-color:var(--accent2); transform:translateY(-4px); box-shadow:0 16px 50px rgba(124,58,237,0.18); }
+    .planet-header { padding:1.3rem 1.4rem 1rem; display:flex; align-items:center; gap:12px; border-bottom:1px solid var(--border); }
+    .planet-emoji { font-size:2.1rem; line-height:1; }
+    .planet-name { font-family:'Libre Baskerville',serif; font-size:1.15rem; color:var(--white); font-weight:700; }
+    .planet-type { font-size:0.68rem; color:var(--muted); margin-top:2px; letter-spacing:0.08em; text-transform:uppercase; }
+    .planet-stats { padding:1rem 1.4rem; display:grid; grid-template-columns:1fr 1fr; gap:0.8rem 0.5rem; border-bottom:1px solid var(--border); }
+    .planet-stat-label { font-size:0.64rem; color:var(--muted); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:2px; }
+    .planet-stat-val { font-size:0.85rem; color:var(--light); font-weight:500; }
+    .planet-age-row { padding:1rem 1.4rem; display:flex; justify-content:space-between; align-items:center; background:linear-gradient(135deg,rgba(124,58,237,0.12),rgba(168,85,247,0.06)); }
+    .planet-age-label { font-size:0.7rem; color:var(--mid); letter-spacing:0.08em; text-transform:uppercase; }
+    .planet-age-val { font-family:'Libre Baskerville',serif; font-size:1.5rem; color:var(--accent3); font-weight:700; }
+    .planet-age-val.empty { font-family:'Outfit',sans-serif; font-size:0.75rem; color:var(--muted); font-weight:300; }
+
+    footer { border-top:1px solid var(--border); background:var(--surface); text-align:center; padding:2.5rem 1.5rem; font-size:0.8rem; letter-spacing:0.04em; color:var(--muted); line-height:2.2; margin-top:5rem; }
+    footer span { color:var(--mid); }
+    @media(max-width:600px){ .hero,.content{ padding-left:1.2rem; padding-right:1.2rem; } nav{ padding:0 1.2rem; } .calc-row{ flex-direction:column; } }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-brand">Hannah Kim<span class="nav-dot">·</span>Nariz</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-orb"></div>
+    <div class="breadcrumb"><a href="index.html">Home</a> &rsaquo; 3D Rendering</div>
+    <h1>3D Rendering<br/>Solar System</h1>
+    <p>3D rendering is the process of converting three-dimensional digital models into two-dimensional images using simulated light, materials, and camera perspectives. This project brings the solar system to life through accurate modeling, planetary textures, and orbital mechanics.</p>
+  </div>
+
+  <div class="content">
+
+    <h2 class="block-title">Final Output</h2>
+    <div class="block-sub">Completed Work</div>
+    <p class="body-text">The completed 3D rendered solar system animation — featuring all eight planets in orbit around the Sun, with accurate relative sizing, texturing, and lighting simulation.</p>
+    <div class="video-wrap">
+      <div class="video-placeholder">
+        <div class="play-ring"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3L13 8L5 13V3Z" fill="#8b7ab0"/></svg></div>
+        <span>3D Solar System — Final Render</span>
+        <span style="font-size:0.72rem;opacity:0.5;">Replace with your YouTube embed URL</span>
+      </div>
+      <!-- REPLACE WITH: <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" allowfullscreen></iframe> -->
+    </div>
+    <p class="video-label">Solar System 3D Render — Final Output &nbsp;·&nbsp; Add your YouTube embed URL inside the video-wrap div above.</p>
+
+    <h2 class="block-title">Tools &amp; Technologies</h2>
+    <div class="block-sub">Production Stack</div>
+    <p class="body-text">The following tools and concepts were used in the production of the 3D solar system rendering project.</p>
+    <div class="tools-grid">
+      <div class="tool-card"><div class="tool-icon">🎛️</div><div class="tool-name">3D Modeling Software</div><div class="tool-desc">Used to create spherical meshes for each celestial body, set orbital paths, and animate planetary rotations.</div></div>
+      <div class="tool-card"><div class="tool-icon">💡</div><div class="tool-name">Lighting &amp; Shading</div><div class="tool-desc">Point lights simulate the Sun's radiance. Ambient and directional lights create depth and realistic shadow casting.</div></div>
+      <div class="tool-card"><div class="tool-icon">🖼️</div><div class="tool-name">Texture Mapping</div><div class="tool-desc">High-resolution planetary surface maps (NASA textures) were UV-mapped onto spherical geometry for photorealism.</div></div>
+      <div class="tool-card"><div class="tool-icon">📷</div><div class="tool-name">Camera &amp; Composition</div><div class="tool-desc">Animated camera paths orbit the scene to showcase each planet, using depth-of-field to focus attention.</div></div>
+      <div class="tool-card"><div class="tool-icon">⚙️</div><div class="tool-name">Rendering Engine</div><div class="tool-desc">A ray-tracing or rasterization engine converts 3D geometry to 2D pixels with realistic light bounce.</div></div>
+      <div class="tool-card"><div class="tool-icon">🎬</div><div class="tool-name">Video Compositing</div><div class="tool-desc">Rendered frames were composited into a final video, with color grading applied for a cinematic space atmosphere.</div></div>
+    </div>
+
+    <h2 class="block-title">Planetary Age Calculator</h2>
+    <div class="block-sub">Interactive Tool</div>
+    <p class="body-text">Every planet takes a different amount of time to orbit the Sun — meaning your age is different on each one. Enter your Earth age to discover how old you are across the solar system.</p>
+
+    <div class="calc-box">
+      <div class="calc-row">
+        <div class="calc-field">
+          <label>Your Age (in Earth years)</label>
+          <input type="number" id="age-input" min="0" max="150" step="0.1" placeholder="e.g. 20" />
+        </div>
+        <button class="calc-btn" onclick="calculateAges()">Calculate ›</button>
+      </div>
+      <p class="calc-hint">* Age, revolutions completed, and orbital period are all calculated from your Earth age using each planet's orbital data.</p>
+    </div>
+
+    <div class="planets-grid" id="planets-grid"></div>
+
+  </div>
+
+  <footer>
+    © 2026 Hannah Kim F. Nariz &nbsp;|&nbsp; BSIT-NS-2A<br/>
+    <span>All rights reserved. &nbsp;|&nbsp; For educational purposes only.</span>
+  </footer>
+
+  <script>
+    const planets = [
+      { name:'Sun',     emoji:'☀️',  type:'Star',               orbitalPeriodDays:365.25,   distance:'0 AU — center of solar system' },
+      { name:'Mercury', emoji:'🪨',  type:'Terrestrial Planet', orbitalPeriodDays:87.97,    distance:'0.387 AU (57.9M km)' },
+      { name:'Venus',   emoji:'🌕',  type:'Terrestrial Planet', orbitalPeriodDays:224.70,   distance:'0.723 AU (108.2M km)' },
+      { name:'Earth',   emoji:'🌍',  type:'Terrestrial Planet', orbitalPeriodDays:365.25,   distance:'1.000 AU (149.6M km)' },
+      { name:'Mars',    emoji:'🔴',  type:'Terrestrial Planet', orbitalPeriodDays:686.97,   distance:'1.524 AU (227.9M km)' },
+      { name:'Jupiter', emoji:'🟠',  type:'Gas Giant',          orbitalPeriodDays:4332.59,  distance:'5.203 AU (778.6M km)' },
+      { name:'Saturn',  emoji:'🪐',  type:'Gas Giant',          orbitalPeriodDays:10759.22, distance:'9.537 AU (1.43B km)' },
+      { name:'Uranus',  emoji:'🔵',  type:'Ice Giant',          orbitalPeriodDays:30688.50, distance:'19.19 AU (2.87B km)' },
+      { name:'Neptune', emoji:'🫧',  type:'Ice Giant',          orbitalPeriodDays:60195.00, distance:'30.07 AU (4.50B km)' },
+    ];
+
+    function renderCards(earthAge) {
+      const grid = document.getElementById('planets-grid');
+      const hasAge = earthAge !== null && !isNaN(earthAge);
+      const earthDays = hasAge ? earthAge * 365.25 : null;
+
+      grid.innerHTML = planets.map(p => {
+        const periodYears = p.orbitalPeriodDays / 365.25;
+        const periodFmt = periodYears >= 1
+          ? periodYears.toFixed(2) + ' Earth yrs'
+          : p.orbitalPeriodDays.toFixed(2) + ' Earth days';
+        const revsPerYear = 365.25 / p.orbitalPeriodDays;
+        const revsFmt = revsPerYear >= 1
+          ? revsPerYear.toFixed(2) + ' / Earth yr'
+          : (1 / revsPerYear).toFixed(2) + ' Earth yrs / orbit';
+
+        let ageDisplay, totalRevsDisplay;
+        if (hasAge) {
+          const planetAge = earthDays / p.orbitalPeriodDays;
+          ageDisplay = `<span class="planet-age-val">${planetAge.toFixed(2)}</span>`;
+          totalRevsDisplay = planetAge.toFixed(2) + ' orbits';
+        } else {
+          ageDisplay = `<span class="planet-age-val empty">Enter age above</span>`;
+          totalRevsDisplay = '—';
+        }
+
+        return `
+          <div class="planet-card">
+            <div class="planet-header">
+              <div class="planet-emoji">${p.emoji}</div>
+              <div>
+                <div class="planet-name">${p.name}</div>
+                <div class="planet-type">${p.type}</div>
+              </div>
+            </div>
+            <div class="planet-stats">
+              <div>
+                <div class="planet-stat-label">Orbital Period</div>
+                <div class="planet-stat-val">${periodFmt}</div>
+              </div>
+              <div>
+                <div class="planet-stat-label">Revolutions / yr</div>
+                <div class="planet-stat-val">${revsFmt}</div>
+              </div>
+              <div>
+                <div class="planet-stat-label">Distance from Sun</div>
+                <div class="planet-stat-val">${p.distance}</div>
+              </div>
+              <div>
+                <div class="planet-stat-label">Orbits Completed</div>
+                <div class="planet-stat-val">${totalRevsDisplay}</div>
+              </div>
+            </div>
+            <div class="planet-age-row">
+              <span class="planet-age-label">Your age on ${p.name}</span>
+              ${ageDisplay}
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    function calculateAges() {
+      const val = parseFloat(document.getElementById('age-input').value);
+      if (isNaN(val) || val < 0) { alert('Please enter a valid age.'); return; }
+      if (val > 150) { alert('Please enter a realistic age (0–150).'); return; }
+      renderCards(val);
+    }
+
+    document.getElementById('age-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter') calculateAges();
+    });
+
+    renderCards(null);
+  </script>
+
+</body>
+</html>
