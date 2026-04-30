@@ -147,10 +147,56 @@
 
     <h2 class="block-title">Weekly Progress</h2>
     <div class="block-sub">5-Second Clips</div>
-    <p class="body-text">Each module represents one 5-second clip — rendered from After Effects and edited frame by frame in Photoshop across 12 weeks.</p>
-    <div class="module-grid" id="clips-grid"></div>
-  </div>
+    <p class="body-text">Each module represents one 5-second clip. Rendered from After Effects and edited frame by frame for 12 weeks.</p>
+    <div class="weeks-grid" id="weeks-grid">
+ 
 
+        <!-- WEEK 1 — YouTube embed -->
+      <div class="week-card">
+        <div class="week-video">
+          <iframe
+            src="https://www.youtube.com/embed/tLQrlXWi1dM"
+            allowfullscreen
+            title="Week 1 Progress">
+          </iframe>
+        </div>
+        <div class="week-body">
+          <span class="week-badge">Week 1</span>
+          <h4>Clip 1 — 0:00–0:05</h4>
+     </div>
+      </div>
+
+      <!-- WEEK 2 — YouTube embed -->
+      <div class="week-card">
+        <div class="week-video">
+          <iframe
+            src="https://www.youtube.com/embed/qgv9d9oyrJM"
+            allowfullscreen
+            title="Week 2 Progress">
+          </iframe>
+        </div>
+        <div class="week-body">
+          <span class="week-badge">Week 2</span>
+          <h4>Clip 2 — 0:05–0:10</h4>
+           </div>
+      </div>
+
+           <div class="week-card">
+        <div class="week-video">
+          <iframe
+            src="https://www.youtube.com/embed/28vaLHJOr9Q"
+            allowfullscreen
+            title="Week 3 Progress">
+          </iframe>
+        </div>
+        <div class="week-body">
+          <span class="week-badge">Week 3</span>
+          <h4>Clip 3 — 0:05–0:10</h4>
+           </div>
+      </div>
+      
+        </div><!-- end weeks-grid, weeks 2-12 rendered below by JS -->
+   </div>
   <footer>
     © 2026 Hannah Kim F. Nariz &nbsp;|&nbsp; BSIT-NS-2A<br/>
     <span>All rights reserved. &nbsp;|&nbsp; For educational purposes only.</span>
@@ -158,10 +204,7 @@
 
   <script>
     const clips = [
-      { n:1,  title:"Clip 1 — 0:00–0:05",  desc:"First 5-second segment rendered from After Effects and edited frame by frame in Photoshop." },
-      { n:2,  title:"Clip 2 — 0:05–0:10",  desc:"Second clip imported as a frame sequence and traced over in Photoshop." },
-      { n:3,  title:"Clip 3 — 0:10–0:15",  desc:"Third clip edited — maintaining consistent line style and color from previous segments." },
-      { n:4,  title:"Clip 4 — 0:15–0:20",  desc:"Fourth 5-second segment with continued frame-by-frame rotoscoping and color fills applied." },
+{ n:4,  title:"Clip 4 — 0:15–0:20",  desc:"Fourth 5-second segment with continued frame-by-frame rotoscoping and color fills applied." },
       { n:5,  title:"Clip 5 — 0:20–0:25",  desc:"Fifth clip processed through the render queue and edited in Photoshop." },
       { n:6,  title:"Clip 6 — 0:25–0:30",  desc:"Sixth segment — refining motion flow and smoothing transitions between frames." },
       { n:7,  title:"Clip 7 — 0:30–0:35",  desc:"Seventh clip with mid-project style review — adjustments made for visual consistency." },
