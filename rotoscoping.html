@@ -62,6 +62,30 @@
     .module-body p { font-size:0.82rem; color:var(--mid); line-height:1.72; font-weight:300; }
     .module-locked { display:flex; align-items:center; gap:5px; font-size:0.68rem; color:var(--muted); margin-top:0.8rem; letter-spacing:0.06em; text-transform:uppercase; }
 
+    /* WEEKLY PROGRESS CARDS */
+    .weeks-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.2rem; }
+    .week-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden; transition:border-color 0.25s,transform 0.25s,box-shadow 0.25s; }
+    .week-card:hover { border-color:var(--accent2); transform:translateY(-3px); box-shadow:0 12px 40px rgba(124,58,237,0.15); }
+    .week-video { aspect-ratio:16/9; background:#000; border-bottom:1px solid var(--border); overflow:hidden; position:relative; }
+    .week-video iframe { width:100%; height:100%; border:none; display:block; }
+    .week-video .video-placeholder-sm { width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; background:var(--card); color:var(--mid); font-size:0.8rem; }
+    .week-body { padding:1rem 1.2rem 1.2rem; display:flex; flex-direction:column; gap:0.35rem; }
+    .week-body .week-badge { position:static; font-size:0.65rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent3); background:rgba(168,85,247,0.1); border:1px solid rgba(168,85,247,0.25); padding:3px 9px; border-radius:20px; width:fit-content; }
+    .week-body h4 { font-family:'Libre Baskerville',serif; font-size:0.95rem; color:var(--white); }
+
+    /* STEP CARDS — image thumbnails */
+    .step-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:1rem; }
+    .step-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden; transition:border-color 0.25s,transform 0.25s,box-shadow 0.25s; }
+    .step-card:hover { border-color:var(--accent2); transform:translateY(-3px); box-shadow:0 12px 40px rgba(124,58,237,0.15); }
+    .step-thumb { aspect-ratio:16/9; background:var(--card); position:relative; border-bottom:1px solid var(--border); overflow:hidden; }
+    .step-thumb img { width:100%; height:100%; object-fit:cover; display:block; }
+    .step-thumb video { width:100%; height:100%; object-fit:cover; display:block; }
+    .step-thumb .thumb-glow { position:absolute; inset:0; background:radial-gradient(ellipse at center,rgba(168,85,247,0.1),transparent 70%); pointer-events:none; }
+    .step-thumb .week-badge { position:absolute; top:10px; left:10px; font-size:0.65rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent3); background:rgba(13,10,20,0.75); border:1px solid var(--border); padding:3px 9px; border-radius:20px; z-index:1; }
+    .step-body { padding:1.2rem 1.3rem 1.4rem; }
+    .step-body h4 { font-family:'Libre Baskerville',serif; font-size:1rem; color:var(--white); margin-bottom:0.4rem; }
+    .step-body p { font-size:0.82rem; color:var(--mid); line-height:1.72; font-weight:300; }
+
     footer { border-top:1px solid var(--border); background:var(--surface); text-align:center; padding:2.5rem 1.5rem; font-size:0.8rem; letter-spacing:0.04em; color:var(--muted); line-height:2.2; margin-top:5rem; }
     footer span { color:var(--mid); }
     @media(max-width:600px){ .hero,.content{ padding-left:1.2rem; padding-right:1.2rem; } nav{ padding:0 1.2rem; } }
@@ -100,49 +124,89 @@
 
     <h2 class="block-title">Step-by-Step Tutorial</h2>
     <div class="block-sub">Process</div>
-    <p class="body-text">A guided walkthrough of the rotoscoping workflow — from preparing your applications to editing the final frames in Photoshop.</p>
+    <p class="body-text">A guided walkthrough of the rotoscoping workflow — from your video reference all the way through to the final exported render.</p>
 
-    <div class="module-grid">
-      <div class="module-card">
-        <div class="module-thumb"><div class="thumb-glow"></div><div class="week-badge">Step 1</div><div class="module-play"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 2.5L11 7L4 11.5V2.5Z" fill="#8b7ab0"/></svg></div></div>
-        <div class="module-body">
-          <h4>Prepare the Applications</h4>
-          <p>Set up all required software — including Adobe After Effects and Photoshop — and ensure your project files and folders are properly organized before starting.</p>
-          <div class="module-locked"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><rect x="2" y="5" width="8" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="currentColor" stroke-width="1.2"/></svg> Video tutorial — see description</div>
+    <div class="step-grid">
+      <!-- Step 1 — Video Reference -->
+      <div class="step-card">
+        <div class="step-thumb">
+          <video src="images/source.mp4" muted loop playsinline
+            onmouseenter="this.play()" onmouseleave="this.pause();this.currentTime=0">
+          </video>
+          <div class="thumb-glow"></div>
+          <div class="week-badge">Step 1</div>
+        </div>
+        <div class="step-body">
+          <h4>Video Reference</h4>
+          <p>Start with your source footage. Study the motion, lighting, and key poses before beginning any frame work.</p>
         </div>
       </div>
-      <div class="module-card">
-        <div class="module-thumb"><div class="thumb-glow"></div><div class="week-badge">Step 2</div><div class="module-play"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 2.5L11 7L4 11.5V2.5Z" fill="#8b7ab0"/></svg></div></div>
-        <div class="module-body">
-          <h4>Split the Video into 5-Second Clips</h4>
-          <p>Cut your reference footage into manageable 5-second segments. This makes frame-by-frame tracing more organized and prevents the project from becoming overwhelming.</p>
-          <div class="module-locked"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><rect x="2" y="5" width="8" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="currentColor" stroke-width="1.2"/></svg> Video tutorial — see description</div>
+
+      <!-- Step 2 — Import to AE -->
+      <div class="step-card">
+        <div class="step-thumb">
+          <img src="images/step 1 - import to ae.jpg" alt="Import to After Effects" loading="lazy" />
+          <div class="thumb-glow"></div>
+          <div class="week-badge">Step 2</div>
+        </div>
+        <div class="step-body">
+          <h4>Import to After Effects</h4>
+          <p>Bring your source video into After Effects. Set up your composition, match the frame rate and resolution to your reference footage, and organize your project panel.</p>
         </div>
       </div>
-      <div class="module-card">
-        <div class="module-thumb"><div class="thumb-glow"></div><div class="week-badge">Step 3</div><div class="module-play"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 2.5L11 7L4 11.5V2.5Z" fill="#8b7ab0"/></svg></div></div>
-        <div class="module-body">
-          <h4>Open After Effects &amp; Export via Render Queue</h4>
-          <p>Import the clips into After Effects. Once ready, go to <em>Composition → Add to Render Queue</em>, configure output settings, and render the frame sequence.</p>
-          <div class="module-locked"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><rect x="2" y="5" width="8" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="currentColor" stroke-width="1.2"/></svg> Video tutorial — see description</div>
+
+      <!-- Step 3 — Freeze -->
+      <div class="step-card">
+        <div class="step-thumb">
+          <img src="images/step 2 freeze.jpg" alt="Freeze frame" loading="lazy" />
+          <div class="thumb-glow"></div>
+          <div class="week-badge">Step 3</div>
+        </div>
+        <div class="step-body">
+          <h4>Freeze Frame</h4>
+          <p>Freeze the video at key moments to isolate individual frames for tracing. Carefully examine each pose and decide where to place your anchor points and paths.</p>
         </div>
       </div>
-      <div class="module-card">
-        <div class="module-thumb"><div class="thumb-glow"></div><div class="week-badge">Step 4</div><div class="module-play"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 2.5L11 7L4 11.5V2.5Z" fill="#8b7ab0"/></svg></div></div>
-        <div class="module-body">
-          <h4>Import Rendered Frames into Photoshop</h4>
-          <p>After rendering is complete, open Photoshop and import the exported frames. Each frame becomes a layer ready for tracing and editing.</p>
-          <div class="module-locked"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><rect x="2" y="5" width="8" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="currentColor" stroke-width="1.2"/></svg> Video tutorial — see description</div>
+
+      <!-- Step 4 — Separate Layers -->
+      <div class="step-card">
+        <div class="step-thumb">
+          <img src="images/step 3 - separate layers.jpg" alt="Separate layers" loading="lazy" />
+          <div class="thumb-glow"></div>
+          <div class="week-badge">Step 4</div>
+        </div>
+        <div class="step-body">
+          <h4>Separate Layers</h4>
+          <p>Break your composition into distinct layers — body parts, background, foreground elements. Keeping layers separate gives you more control when animating and coloring.</p>
         </div>
       </div>
-      <div class="module-card">
-        <div class="module-thumb"><div class="thumb-glow"></div><div class="week-badge">Step 5</div><div class="module-play"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 2.5L11 7L4 11.5V2.5Z" fill="#8b7ab0"/></svg></div></div>
-        <div class="module-body">
-          <h4>Edit the Rendered Frames</h4>
-          <p>Trace over each frame in Photoshop using brushes or the pen tool. Apply colors, clean up edges, and build the rotoscoped animation layer by layer.</p>
-          <div class="module-locked"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><rect x="2" y="5" width="8" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="currentColor" stroke-width="1.2"/></svg> Video tutorial — see description</div>
+
+      <!-- Step 5 — Trace Each Layer -->
+      <div class="step-card">
+        <div class="step-thumb">
+          <img src="images/step 4 - trace each layer.jpg" alt="Trace each layer" loading="lazy" />
+          <div class="thumb-glow"></div>
+          <div class="week-badge">Step 5</div>
+        </div>
+        <div class="step-body">
+          <h4>Trace Each Layer</h4>
+          <p>Go frame by frame and trace over each layer using the pen tool or brushes. Clean outlines here make everything easier downstream.</p>
         </div>
       </div>
+
+      <!-- Step 6 — Export the Render -->
+      <div class="step-card">
+        <div class="step-thumb">
+          <img src="images/step 5 - export the render.jpg" alt="Export the render" loading="lazy" />
+          <div class="thumb-glow"></div>
+          <div class="week-badge">Step 6</div>
+        </div>
+        <div class="step-body">
+          <h4>Export the Render</h4>
+          <p>Send your composition to the Render Queue. Configure your output settings and export the final animated sequence as a video file.</p>
+        </div>
+      </div>
+
     </div>
 
     <h2 class="block-title">Weekly Progress</h2>
@@ -163,7 +227,7 @@
         <div class="week-body">
           <span class="week-badge">Week 1</span>
           <h4>Clip 1 — 0:00–0:05</h4>
-     </div>
+        </div>
       </div>
 
       <!-- WEEK 2 — YouTube embed -->
@@ -178,10 +242,10 @@
         <div class="week-body">
           <span class="week-badge">Week 2</span>
           <h4>Clip 2 — 0:05–0:10</h4>
-           </div>
+        </div>
       </div>
 
-           <div class="week-card">
+      <div class="week-card">
         <div class="week-video">
           <iframe
             src="https://www.youtube.com/embed/28vaLHJOr9Q"
@@ -191,11 +255,11 @@
         </div>
         <div class="week-body">
           <span class="week-badge">Week 3</span>
-          <h4>Clip 3 — 0:05–0:10</h4>
-           </div>
+          <h4>Clip 3 — 0:10–0:15</h4>
+        </div>
       </div>
       
-        </div><!-- end weeks-grid, weeks 2-12 rendered below by JS -->
+        </div><!-- end weeks-grid, weeks 4-12 rendered by JS below -->
    </div>
   <footer>
     © 2026 Hannah Kim F. Nariz &nbsp;|&nbsp; BSIT-NS-2A<br/>
@@ -204,29 +268,30 @@
 
   <script>
     const clips = [
-{ n:4,  title:"Clip 4 — 0:15–0:20",  desc:"Fourth 5-second segment with continued frame-by-frame rotoscoping and color fills applied." },
-      { n:5,  title:"Clip 5 — 0:20–0:25",  desc:"Fifth clip processed through the render queue and edited in Photoshop." },
-      { n:6,  title:"Clip 6 — 0:25–0:30",  desc:"Sixth segment — refining motion flow and smoothing transitions between frames." },
-      { n:7,  title:"Clip 7 — 0:30–0:35",  desc:"Seventh clip with mid-project style review — adjustments made for visual consistency." },
-      { n:8,  title:"Clip 8 — 0:35–0:40",  desc:"Eighth segment edited with improved coloring technique based on earlier clip feedback." },
-      { n:9,  title:"Clip 9 — 0:40–0:45",  desc:"Ninth clip — detailed frame edits and cleanup of complex motion sequences." },
-      { n:10, title:"Clip 10 — 0:45–0:50", desc:"Tenth clip processed and edited — focus on smooth animation curves and clean outlines." },
-      { n:11, title:"Clip 11 — 0:50–0:55", desc:"Eleventh segment — near-final clip with refined shading and finishing detail work." },
-      { n:12, title:"Clip 12 — 0:55–1:00", desc:"Final 5-second clip completed. All segments combined for the finished rotoscoping output." },
+      { n:4,  title:"Clip 4 — 0:15–0:20" },
+      { n:5,  title:"Clip 5 — 0:20–0:25" },
+      { n:6,  title:"Clip 6 — 0:25–0:30" },
+      { n:7,  title:"Clip 7 — 0:30–0:35" },
+      { n:8,  title:"Clip 8 — 0:35–0:40" },
+      { n:9,  title:"Clip 9 — 0:40–0:45" },
+      { n:10, title:"Clip 10 — 0:45–0:50" },
+      { n:11, title:"Clip 11 — 0:50–0:55" },
+      { n:12, title:"Clip 12 — 0:55–1:00" },
     ];
-    document.getElementById('clips-grid').innerHTML = clips.map(c => `
-      <div class="module-card">
-        <div class="module-thumb">
-          <div class="thumb-glow"></div>
-          <div class="week-badge">Week ${c.n}</div>
-          <div class="module-play"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M4 2.5L11 7L4 11.5V2.5Z" fill="#8b7ab0"/></svg></div>
+    const grid = document.getElementById('weeks-grid');
+    grid.insertAdjacentHTML('beforeend', clips.map(c => `
+      <div class="week-card">
+        <div class="week-video">
+          <div class="video-placeholder-sm">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#3d2d6a" stroke-width="1.5"/><path d="M14 12L24 18L14 24V12Z" fill="#8b7ab0"/></svg>
+            <span>Week ${c.n} — Add YouTube embed</span>
+          </div>
         </div>
-        <div class="module-body">
+        <div class="week-body">
+          <span class="week-badge">Week ${c.n}</span>
           <h4>${c.title}</h4>
-          <p>${c.desc}</p>
-          <div class="module-locked"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><rect x="2" y="5" width="8" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="currentColor" stroke-width="1.2"/></svg> Weekly video — see description</div>
         </div>
-      </div>`).join('');
+      </div>`).join(''));
   </script>
 </body>
 </html>
