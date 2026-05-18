@@ -57,25 +57,81 @@
     .tool-desc { font-size:0.8rem; color:var(--mid); line-height:1.72; font-weight:300; }
 
     /* CALCULATOR */
-    .calc-box { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:2rem; margin-bottom:0.5rem; }
-    .calc-row { display:flex; gap:1rem; align-items:flex-end; flex-wrap:wrap; margin-bottom:1rem; }
-    .calc-field { display:flex; flex-direction:column; gap:6px; flex:1; min-width:180px; }
-    .calc-field label { font-size:0.68rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--mid); }
-    .calc-field input {
-      padding:0.68rem 1rem; border:1px solid var(--border); background:var(--card);
-      font-family:'Outfit',sans-serif; font-size:0.95rem; color:var(--white);
-      border-radius:8px; transition:border-color 0.2s; outline:none;
-    }
-    .calc-field input:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(168,85,247,0.15); }
-    .calc-btn {
-      padding:0.7rem 2rem; background:var(--accent2); color:#fff;
-      border:none; font-family:'Outfit',sans-serif; font-size:0.85rem;
-      font-weight:600; letter-spacing:0.06em; border-radius:8px;
-      cursor:pointer; transition:background 0.2s,box-shadow 0.2s; white-space:nowrap;
-    }
-    .calc-btn:hover { background:var(--accent); box-shadow:0 0 20px rgba(168,85,247,0.3); }
-    .calc-hint { font-size:0.76rem; color:var(--muted); letter-spacing:0.03em; }
+<style>
+.calc-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 2rem;
+  margin-bottom: 0.5rem;
+}
 
+.calc-row {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.calc-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 180px;
+}
+
+.calc-field label {
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mid);
+}
+
+.calc-field input {
+  padding: 0.68rem 1rem;
+  border: 1px solid var(--border);
+  background: var(--card);
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.95rem;
+  color: var(--white);
+  border-radius: 8px;
+  transition: border-color 0.2s;
+  outline: none;
+}
+
+.calc-field input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.15);
+}
+
+.calc-btn {
+  padding: 0.7rem 2rem;
+  background: var(--accent2);
+  color: #fff;
+  border: none;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
+}
+
+.calc-btn:hover {
+  background: var(--accent);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+}
+
+.calc-hint {
+  font-size: 0.76rem;
+  color: var(--muted);
+  letter-spacing: 0.03em;
+}
+</style>
     /* PLANET CARDS */
     .planets-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(268px,1fr)); gap:1rem; margin-top:1.5rem; }
     .planet-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; overflow:hidden; transition:border-color 0.25s,transform 0.25s,box-shadow 0.25s; }
