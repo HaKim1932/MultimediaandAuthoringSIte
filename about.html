@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>About — Hannah Kim F. Nariz</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500;600&family=Cinzel:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
     :root {
       --bg:       #03020a;
       --surface:  #0a0718;
-      --card:     rgba(12,8,28,0.8);
+      --card:     rgba(12,8,28,0.85);
       --border:   rgba(160,120,255,0.12);
-      --border2:  rgba(160,120,255,0.25);
+      --border2:  rgba(160,120,255,0.28);
       --text:     #ede8fa;
       --muted:    #6a58a0;
       --mid:      #9080c0;
@@ -21,68 +21,79 @@
       --accent3:  #48cae4;
       --gold:     #f5c842;
       --serif:    'Cormorant Garamond', serif;
+      --cinzel:   'Cinzel', serif;
       --sans:     'Jost', sans-serif;
       --ease:     cubic-bezier(0.23,1,0.32,1);
     }
-
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior:smooth; }
+    body { font-family:var(--sans); background:var(--bg); color:var(--text); overflow-x:hidden; cursor:none; }
 
-    body {
-      font-family: var(--sans);
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-      cursor: none;
-    }
+    /* ── CURSOR ── */
+    #cursor { position:fixed; width:10px; height:10px; border-radius:50%; background:var(--accent2); pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:width 0.3s,height 0.3s,background 0.3s; mix-blend-mode:difference; }
+    #cursor-ring { position:fixed; width:36px; height:36px; border-radius:50%; border:1px solid rgba(199,125,255,0.5); pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:width 0.4s,height 0.4s,opacity 0.3s; }
+    #bg-canvas { position:fixed; inset:0; z-index:0; pointer-events:none; }
 
-    /* ── CUSTOM CURSOR ── */
-    #cursor {
-      position:fixed; width:10px; height:10px; border-radius:50%;
-      background:var(--accent2); pointer-events:none; z-index:9999;
-      transform:translate(-50%,-50%);
-      transition:transform 0.08s, width 0.3s, height 0.3s, background 0.3s;
-      mix-blend-mode: difference;
+    /* ── CINEMATIC INTRO OVERLAY ── */
+    #cinematic-intro {
+      position:fixed; inset:0; z-index:1000;
+      background:#000;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      gap:0;
+      pointer-events:none;
     }
-    #cursor-ring {
-      position:fixed; width:36px; height:36px; border-radius:50%;
-      border:1px solid rgba(199,125,255,0.5); pointer-events:none; z-index:9998;
-      transform:translate(-50%,-50%);
-      transition:transform 0.18s var(--ease), width 0.4s, height 0.4s, opacity 0.3s;
+    #cinematic-intro .ci-bar-top,
+    #cinematic-intro .ci-bar-bottom {
+      position:absolute; left:0; right:0; height:80px;
+      background:#000;
+      transition:height 1.2s cubic-bezier(0.77,0,0.175,1);
     }
-
-    /* ── CANVAS ── */
-    #bg-canvas {
-      position:fixed; inset:0; z-index:0; pointer-events:none;
+    #cinematic-intro .ci-bar-top { top:0; }
+    #cinematic-intro .ci-bar-bottom { bottom:0; }
+    #cinematic-intro.bars-open .ci-bar-top { height:0; }
+    #cinematic-intro.bars-open .ci-bar-bottom { height:0; }
+    .ci-logo {
+      font-family:var(--cinzel); font-size:clamp(1.2rem,3vw,2.2rem);
+      letter-spacing:0.35em; color:#fff; opacity:0;
+      text-transform:uppercase;
+      animation:ciLogoIn 1.2s var(--ease) forwards 0.3s;
     }
+    .ci-sub {
+      font-family:var(--sans); font-size:0.6rem; letter-spacing:0.55em;
+      text-transform:uppercase; color:rgba(255,255,255,0.4); opacity:0;
+      margin-top:0.6rem;
+      animation:ciLogoIn 1s var(--ease) forwards 0.7s;
+    }
+    .ci-line {
+      width:0; height:1px; background:linear-gradient(to right,transparent,var(--accent2),transparent);
+      margin:1rem 0;
+      animation:ciLineIn 1s var(--ease) forwards 0.9s;
+    }
+    @keyframes ciLogoIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes ciLineIn { from{width:0} to{width:220px} }
 
     /* ── NAV ── */
     nav {
       position:fixed; top:0; left:0; right:0; z-index:200;
       height:68px; display:flex; align-items:center; justify-content:space-between;
       padding:0 3rem;
-      background:rgba(3,2,10,0.55);
-      backdrop-filter:blur(22px);
+      background:rgba(3,2,10,0.55); backdrop-filter:blur(22px);
       border-bottom:1px solid var(--border);
+      transform:translateY(-100%); animation:navDrop 0.9s var(--ease) forwards 2.2s;
     }
-    .nav-brand {
-      font-family:var(--serif); font-size:1.1rem; font-weight:400;
-      color:var(--text); text-decoration:none; letter-spacing:0.08em;
-      display:flex; align-items:center; gap:4px;
-    }
-    .brand-dot {
-      display:inline-block; width:5px; height:5px; border-radius:50%;
-      background:var(--accent2); margin:0 2px;
-      animation:pulse 2.5s ease-in-out infinite;
-    }
+    @keyframes navDrop { to{transform:translateY(0)} }
+    .nav-brand { font-family:var(--serif); font-size:1.1rem; font-weight:400; color:var(--text); text-decoration:none; letter-spacing:0.08em; display:flex; align-items:center; gap:4px; }
+    .brand-dot { display:inline-block; width:5px; height:5px; border-radius:50%; background:var(--accent2); margin:0 2px; animation:pulse 2.5s ease-in-out infinite; }
     .nav-links { display:flex; gap:0.2rem; }
-    .nav-links a {
-      font-size:0.74rem; font-weight:400; letter-spacing:0.12em;
-      text-transform:uppercase; color:var(--muted); text-decoration:none;
-      padding:0.4rem 1rem; border-radius:30px;
-      transition:color 0.25s, background 0.25s;
-    }
+    .nav-links a { font-size:0.74rem; font-weight:400; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); text-decoration:none; padding:0.4rem 1rem; border-radius:30px; transition:color 0.25s,background 0.25s; }
     .nav-links a:hover, .nav-links a.active { color:var(--text); background:rgba(155,93,229,0.15); }
+
+    /* ── CINEMATIC SCAN LINES ── */
+    .scanlines {
+      position:fixed; inset:0; z-index:1;
+      pointer-events:none;
+      background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.025) 2px,rgba(0,0,0,0.025) 4px);
+    }
 
     /* ── HERO ── */
     .hero {
@@ -90,277 +101,190 @@
       min-height:100vh;
       display:grid; grid-template-columns:1fr 1fr;
       align-items:center;
-      padding:9rem 3rem 6rem;
-      gap:4rem;
-      overflow:hidden;
+      padding:9rem 3rem 6rem; gap:4rem; overflow:hidden;
     }
     .hero::before {
-      content:'';
-      position:absolute; inset:0;
-      background:radial-gradient(ellipse 70% 80% at 30% 50%, rgba(80,30,180,0.2), transparent 65%);
+      content:''; position:absolute; inset:0;
+      background:radial-gradient(ellipse 70% 80% at 30% 50%,rgba(80,30,180,0.22),transparent 65%);
       pointer-events:none;
     }
 
-    /* Cinematic scan lines */
-    .hero::after {
-      content:'';
-      position:absolute; inset:0; pointer-events:none; z-index:1;
-      background:repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
-    }
+    /* ── PHOTO COLUMN ── */
+    .photo-col { position:relative; display:flex; justify-content:center; align-items:center; z-index:2; }
+    .photo-frame-outer { position:relative; width:340px; height:420px; }
 
-    /* ── PHOTO FRAME ── */
-    .photo-col {
-      position:relative; display:flex; justify-content:center; align-items:center;
-      z-index:2;
+    /* Cinematic vignette glow behind photo */
+    .photo-glow {
+      position:absolute; inset:-40px;
+      background:radial-gradient(ellipse at center, rgba(155,93,229,0.18) 0%, transparent 70%);
+      pointer-events:none; z-index:0;
+      animation:glowPulse 4s ease-in-out infinite;
     }
-    .photo-frame-outer {
-      position:relative; width:340px; height:420px;
-    }
-    /* Decorative corner brackets */
-    .frame-bracket {
-      position:absolute; width:30px; height:30px;
-      border-color:var(--accent2); border-style:solid; border-width:0;
-    }
+    @keyframes glowPulse { 0%,100%{opacity:0.6;transform:scale(1)} 50%{opacity:1;transform:scale(1.08)} }
+
+    .frame-bracket { position:absolute; width:30px; height:30px; border-color:var(--accent2); border-style:solid; border-width:0; }
     .frame-bracket.tl { top:-2px; left:-2px; border-top-width:1.5px; border-left-width:1.5px; }
     .frame-bracket.tr { top:-2px; right:-2px; border-top-width:1.5px; border-right-width:1.5px; }
     .frame-bracket.bl { bottom:-2px; left:-2px; border-bottom-width:1.5px; border-left-width:1.5px; }
     .frame-bracket.br { bottom:-2px; right:-2px; border-bottom-width:1.5px; border-right-width:1.5px; }
 
-    /* Orbit rings around photo */
-    .photo-orbit {
-      position:absolute; border-radius:50%;
-      border:1px solid rgba(155,93,229,0.2);
-      top:50%; left:50%;
-      transform:translate(-50%,-50%);
-      pointer-events:none;
-    }
-    .photo-orbit:nth-child(1){ width:420px; height:420px; animation:spinOrbit 40s linear infinite; }
-    .photo-orbit:nth-child(2){ width:500px; height:500px; animation:spinOrbit 65s linear infinite reverse; border-color:rgba(72,202,228,0.1); }
-
-    /* Orbit dots */
-    .orbit-sparkle {
-      position:absolute; top:0; left:50%;
-      transform:translate(-50%,-50%);
-      width:6px; height:6px; border-radius:50%;
-      background:var(--accent2);
-      box-shadow:0 0 8px 2px rgba(199,125,255,0.7);
-    }
-    .orbit-sparkle2 {
-      position:absolute; top:0; left:50%;
-      transform:translate(-50%,-50%);
-      width:4px; height:4px; border-radius:50%;
-      background:var(--accent3);
-      box-shadow:0 0 8px 2px rgba(72,202,228,0.6);
-    }
+    .photo-orbit { position:absolute; border-radius:50%; border:1px solid rgba(155,93,229,0.18); top:50%; left:50%; transform:translate(-50%,-50%); pointer-events:none; }
+    .photo-orbit:nth-child(1){ width:440px; height:440px; animation:spinOrbit 40s linear infinite; }
+    .photo-orbit:nth-child(2){ width:530px; height:530px; animation:spinOrbit 65s linear infinite reverse; border-color:rgba(72,202,228,0.1); }
+    .photo-orbit:nth-child(3){ width:620px; height:620px; animation:spinOrbit 90s linear infinite; border-color:rgba(155,93,229,0.06); border-style:dashed; }
+    .orbit-sparkle { position:absolute; top:0; left:50%; transform:translate(-50%,-50%); width:6px; height:6px; border-radius:50%; background:var(--accent2); box-shadow:0 0 10px 3px rgba(199,125,255,0.7); }
+    .orbit-sparkle2 { position:absolute; top:0; left:50%; transform:translate(-50%,-50%); width:4px; height:4px; border-radius:50%; background:var(--accent3); box-shadow:0 0 10px 3px rgba(72,202,228,0.7); }
+    .orbit-sparkle3 { position:absolute; top:0; left:50%; transform:translate(-50%,-50%); width:3px; height:3px; border-radius:50%; background:var(--gold); box-shadow:0 0 8px 2px rgba(245,200,66,0.6); }
 
     .photo-frame {
-      width:100%; height:100%;
-      border-radius:4px;
-      overflow:hidden;
+      width:100%; height:100%; border-radius:4px; overflow:hidden;
       border:1px solid var(--border2);
-      background:linear-gradient(145deg, rgba(20,12,44,0.9), rgba(8,5,20,0.95));
-      position:relative;
-      box-shadow:
-        0 0 0 1px rgba(155,93,229,0.08),
-        0 40px 80px rgba(0,0,0,0.6),
-        0 0 60px rgba(155,93,229,0.12);
+      background:linear-gradient(145deg,rgba(20,12,44,0.9),rgba(8,5,20,0.95));
+      position:relative; z-index:1;
+      box-shadow:0 0 0 1px rgba(155,93,229,0.08), 0 40px 80px rgba(0,0,0,0.6), 0 0 80px rgba(155,93,229,0.15);
+      animation:heroPhotoIn 1.2s var(--ease) forwards 1.8s; opacity:0;
     }
-    .photo-placeholder {
+    @keyframes heroPhotoIn { from{opacity:0;transform:scale(0.93) translateY(20px)} to{opacity:1;transform:scale(1) translateY(0)} }
+
+    /* ── PHOTO AREA — YOUR IMAGE GOES HERE ── */
+    .photo-img-area {
       width:100%; height:100%;
-      display:flex; flex-direction:column;
-      align-items:center; justify-content:center;
-      gap:1rem; color:var(--muted);
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      position:relative;
     }
-    .photo-placeholder .ph-icon {
-      width:80px; height:80px; border-radius:50%;
-      border:1px dashed rgba(155,93,229,0.35);
+    /*
+      ╔══════════════════════════════════════════════╗
+      ║  HOW TO ADD YOUR PHOTO:                      ║
+      ║  1. Put your image file (e.g. hannah.jpg)    ║
+      ║     in the SAME folder as this HTML file.    ║
+      ║  2. Replace the <div class="photo-upload">   ║
+      ║     block below with:                        ║
+      ║                                              ║
+      ║  <img src="08fe4e00-2027-4a3a-948c-          ║
+      ║  4540a68acaf7.jpg"                           ║
+      ║  style="width:100%;height:100%;              ║
+      ║  object-fit:cover;object-position:center top;║
+      ║  display:block;" alt="Hannah Kim F. Nariz">  ║
+      ╚══════════════════════════════════════════════╝
+    */
+    .photo-upload {
+      width:100%; height:100%;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      gap:1.2rem; padding:2rem; text-align:center;
+      cursor:pointer; position:relative; z-index:2;
+    }
+    .photo-upload-label { display:none; }
+    #photoFileInput { display:none; }
+    .ph-ring {
+      width:100px; height:100px; border-radius:50%;
+      border:1px dashed rgba(199,125,255,0.4);
       display:flex; align-items:center; justify-content:center;
-      font-size:2rem; color:var(--accent);
+      font-size:2.4rem; position:relative;
       animation:pulse 3s ease-in-out infinite;
     }
-    .photo-placeholder p { font-size:0.7rem; letter-spacing:0.18em; text-transform:uppercase; opacity:0.5; text-align:center; max-width:180px; line-height:1.8; }
-    /* WHEN YOU HAVE A PHOTO: replace the div.photo-placeholder with:
-       <img src="08fe4e00-2027-4a3a-948c-4540a68acaf7.jpg" style="width:100%;height:100%;object-fit:cover;object-position:center top;" alt="Hannah Kim F. Nariz"> */
+    .ph-ring::after {
+      content:''; position:absolute; inset:-8px; border-radius:50%;
+      border:1px dashed rgba(72,202,228,0.2);
+      animation:spinOrbit 8s linear infinite;
+    }
+    .ph-label { font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); line-height:2; max-width:180px; }
+    .ph-btn {
+      font-size:0.6rem; letter-spacing:0.18em; text-transform:uppercase;
+      background:rgba(155,93,229,0.15); border:1px solid rgba(155,93,229,0.3);
+      color:var(--accent2); padding:0.4rem 1.2rem; border-radius:30px;
+      cursor:pointer; transition:background 0.3s, border-color 0.3s;
+    }
+    .ph-btn:hover { background:rgba(155,93,229,0.28); border-color:var(--accent2); }
 
-    /* Glitch flicker on photo frame */
-    @keyframes glitch {
-      0%,100%{ clip-path:inset(0 0 100% 0); opacity:0; }
-      2%{ clip-path:inset(20% 0 60% 0); opacity:0.4; transform:translateX(-4px); }
-      4%{ clip-path:inset(50% 0 30% 0); opacity:0.3; transform:translateX(4px); }
-      6%{ clip-path:inset(0 0 100% 0); opacity:0; }
-    }
-    .photo-frame::after {
-      content:''; position:absolute; inset:0;
-      background:linear-gradient(to bottom,rgba(155,93,229,0.06),transparent,rgba(72,202,228,0.04));
-      animation:glitch 8s ease-in-out infinite;
-      pointer-events:none;
-    }
+    /* Glitch overlay on photo frame */
+    @keyframes glitchA { 0%,100%{clip-path:inset(0 0 100% 0);opacity:0} 2%{clip-path:inset(20% 0 60% 0);opacity:0.35;transform:translateX(-4px)} 4%{clip-path:inset(50% 0 30% 0);opacity:0.25;transform:translateX(4px)} 6%{clip-path:inset(0 0 100% 0);opacity:0} }
+    .photo-frame::after { content:''; position:absolute; inset:0; background:linear-gradient(to bottom,rgba(155,93,229,0.06),transparent,rgba(72,202,228,0.04)); animation:glitchA 9s ease-in-out infinite; pointer-events:none; z-index:3; }
+    .photo-frame::before { content:''; position:absolute; inset:0; z-index:4; pointer-events:none; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E"); opacity:0.3; }
 
-    /* Film grain overlay */
-    .photo-frame::before {
-      content:''; position:absolute; inset:0; z-index:2; pointer-events:none;
-      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
-      opacity:0.35;
-    }
-
-    .photo-caption {
-      position:absolute; bottom:-2.2rem; left:0; right:0;
-      text-align:center; font-size:0.62rem; letter-spacing:0.22em;
-      text-transform:uppercase; color:var(--muted);
-    }
+    .photo-caption { position:absolute; bottom:-2.4rem; left:0; right:0; text-align:center; font-size:0.6rem; letter-spacing:0.24em; text-transform:uppercase; color:var(--muted); }
 
     /* ── HERO TEXT ── */
     .hero-text { position:relative; z-index:2; }
-    .hero-eyebrow {
-      font-size:0.65rem; letter-spacing:0.35em; text-transform:uppercase;
-      color:var(--accent2); margin-bottom:1.5rem;
-      display:flex; align-items:center; gap:12px;
-      opacity:0; animation:fadeUp 0.8s var(--ease) forwards 0.3s;
-    }
-    .eyebrow-line { width:28px; height:1px; background:linear-gradient(to right, var(--accent), transparent); }
+    .hero-eyebrow { font-size:0.65rem; letter-spacing:0.35em; text-transform:uppercase; color:var(--accent2); margin-bottom:1.5rem; display:flex; align-items:center; gap:12px; opacity:0; animation:fadeUp 0.8s var(--ease) forwards 1.6s; }
+    .eyebrow-line { width:28px; height:1px; background:linear-gradient(to right,var(--accent),transparent); }
+    .hero h1 { font-family:var(--serif); font-size:clamp(2.8rem,5vw,5.5rem); font-weight:300; line-height:1.05; color:var(--text); margin-bottom:0.2rem; opacity:0; animation:fadeUp 0.9s var(--ease) forwards 1.8s; }
+    .hero h1 em { font-style:italic; font-weight:300; background:linear-gradient(135deg,var(--accent2),var(--accent3)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .hero-name-sub { font-family:var(--serif); font-size:1rem; font-weight:300; font-style:italic; color:var(--muted); margin-bottom:2rem; letter-spacing:0.04em; opacity:0; animation:fadeUp 0.9s var(--ease) forwards 1.95s; }
 
-    .hero h1 {
-      font-family:var(--serif);
-      font-size:clamp(2.8rem,5vw,5.5rem);
-      font-weight:300; line-height:1.05;
-      color:var(--text); margin-bottom:0.2rem;
-      opacity:0; animation:fadeUp 0.9s var(--ease) forwards 0.5s;
-    }
-    .hero h1 em {
-      font-style:italic; font-weight:300;
-      background:linear-gradient(135deg, var(--accent2), var(--accent3));
-      -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-    }
-    .hero-name-sub {
-      font-family:var(--serif); font-size:1rem; font-weight:300; font-style:italic;
-      color:var(--muted); margin-bottom:2rem; letter-spacing:0.04em;
-      opacity:0; animation:fadeUp 0.9s var(--ease) forwards 0.65s;
-    }
+    /* Typewriter for subtitle */
+    .typewriter { display:inline-block; overflow:hidden; white-space:nowrap; border-right:2px solid var(--accent2); animation:typewriter 2.5s steps(28) forwards 2.1s, blinkCaret 0.75s step-end infinite 2.1s; width:0; }
+    @keyframes typewriter { to{width:100%} }
+    @keyframes blinkCaret { 0%,100%{border-color:var(--accent2)} 50%{border-color:transparent} }
 
-    .hero-id-card {
-      background:var(--card); border:1px solid var(--border);
-      border-radius:14px; padding:1.4rem 1.6rem;
-      backdrop-filter:blur(16px);
-      margin-bottom:2rem;
-      opacity:0; animation:fadeUp 0.9s var(--ease) forwards 0.8s;
-      position:relative; overflow:hidden;
-    }
-    .hero-id-card::before {
-      content:''; position:absolute; top:0; left:0; right:0; height:1.5px;
-      background:linear-gradient(to right, transparent, var(--accent), var(--accent3), transparent);
-    }
-    .id-row {
-      display:flex; align-items:flex-start; gap:0.8rem;
-      padding:0.45rem 0; border-bottom:1px solid rgba(160,120,255,0.07);
-    }
+    .hero-id-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.4rem 1.6rem; backdrop-filter:blur(16px); margin-bottom:2rem; opacity:0; animation:fadeUp 0.9s var(--ease) forwards 2.1s; position:relative; overflow:hidden; }
+    .hero-id-card::before { content:''; position:absolute; top:0; left:0; right:0; height:1.5px; background:linear-gradient(to right,transparent,var(--accent),var(--accent3),transparent); }
+    .id-row { display:flex; align-items:flex-start; gap:0.8rem; padding:0.45rem 0; border-bottom:1px solid rgba(160,120,255,0.07); }
     .id-row:last-child { border-bottom:none; }
-    .id-label {
-      font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase;
-      color:var(--muted); min-width:100px; padding-top:2px; flex-shrink:0;
-    }
+    .id-label { font-size:0.6rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); min-width:100px; padding-top:2px; flex-shrink:0; }
     .id-value { font-size:0.82rem; color:var(--text); font-weight:400; line-height:1.5; }
     .id-value strong { color:var(--accent2); font-weight:500; }
-
-    .hero-badge-row {
-      display:flex; gap:0.6rem; flex-wrap:wrap;
-      opacity:0; animation:fadeUp 0.9s var(--ease) forwards 1s;
-    }
-    .hero-badge {
-      display:inline-flex; align-items:center; gap:7px;
-      font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase;
-      border:1px solid var(--border); color:var(--muted);
-      padding:0.4rem 1rem; border-radius:30px;
-      background:rgba(155,93,229,0.05);
-    }
+    .hero-badge-row { display:flex; gap:0.6rem; flex-wrap:wrap; opacity:0; animation:fadeUp 0.9s var(--ease) forwards 2.3s; }
+    .hero-badge { display:inline-flex; align-items:center; gap:7px; font-size:0.65rem; letter-spacing:0.12em; text-transform:uppercase; border:1px solid var(--border); color:var(--muted); padding:0.4rem 1rem; border-radius:30px; background:rgba(155,93,229,0.06); }
     .badge-dot { width:5px; height:5px; border-radius:50%; background:var(--accent2); animation:pulse 2s ease-in-out infinite; }
 
     @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
     @keyframes pulse  { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.3;transform:scale(0.7)} }
-    @keyframes spinOrbit { to{ transform:translate(-50%,-50%) rotate(360deg); } }
+    @keyframes spinOrbit { to{transform:translate(-50%,-50%) rotate(360deg)} }
 
-    /* ── SECTION BASE ── */
-    .section {
-      position:relative; z-index:10;
-      max-width:1100px; margin:0 auto;
-      padding:7rem 3rem;
-    }
-    .section-eyebrow {
-      font-size:0.64rem; letter-spacing:0.28em; text-transform:uppercase;
-      color:var(--accent2); margin-bottom:0.6rem;
-      display:flex; align-items:center; gap:12px;
-    }
-    .section-eyebrow::before { content:''; width:26px; height:1px; background:linear-gradient(to right, var(--accent), transparent); }
-    .section-title {
-      font-family:var(--serif);
-      font-size:clamp(2rem,4vw,3.2rem);
-      font-weight:300; color:var(--text); margin-bottom:3rem;
-    }
+    /* ── SECTIONS ── */
+    .section { position:relative; z-index:10; max-width:1100px; margin:0 auto; padding:7rem 3rem; }
+    .section-eyebrow { font-size:0.64rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--accent2); margin-bottom:0.6rem; display:flex; align-items:center; gap:12px; }
+    .section-eyebrow::before { content:''; width:26px; height:1px; background:linear-gradient(to right,var(--accent),transparent); }
+    .section-title { font-family:var(--serif); font-size:clamp(2rem,4vw,3.2rem); font-weight:300; color:var(--text); margin-bottom:3rem; }
     .section-title em { font-style:italic; color:var(--accent2); }
 
     /* ── DIVIDER ── */
-    .divider {
-      position:relative; z-index:10;
-      display:flex; align-items:center; gap:1.5rem;
-      max-width:1100px; margin:0 auto; padding:0 3rem;
-      opacity:0.3;
-    }
-    .divider-line { flex:1; height:1px; background:linear-gradient(to right, transparent, var(--accent), transparent); }
+    .divider { position:relative; z-index:10; display:flex; align-items:center; gap:1.5rem; max-width:1100px; margin:0 auto; padding:0 3rem; opacity:0.3; }
+    .divider-line { flex:1; height:1px; background:linear-gradient(to right,transparent,var(--accent),transparent); }
     .divider-glyph { font-size:0.55rem; letter-spacing:0.6em; color:var(--accent2); }
 
-    /* ── JOURNEY / TIMELINE ── */
-    .timeline { position:relative; padding-left:2rem; }
-    .timeline::before {
-      content:''; position:absolute; left:0; top:0; bottom:0;
-      width:1px; background:linear-gradient(to bottom, transparent, var(--accent) 20%, var(--accent3) 80%, transparent);
-      opacity:0.4;
-    }
+    /* ── TIMELINE — ENHANCED ── */
+    .timeline-wrap { position:relative; padding-left:2rem; }
+    .timeline-wrap::before { content:''; position:absolute; left:0; top:0; bottom:0; width:1px; background:linear-gradient(to bottom,transparent,var(--accent) 20%,var(--accent3) 80%,transparent); opacity:0.4; }
+
     .timeline-item {
-      position:relative; margin-bottom:3rem; padding-left:2.5rem;
-      opacity:0; transform:translateX(-20px);
-      transition:opacity 0.8s var(--ease), transform 0.8s var(--ease);
+      position:relative; margin-bottom:2.8rem; padding-left:2.5rem;
+      opacity:0; transform:translateX(-24px);
+      transition:opacity 0.85s var(--ease), transform 0.85s var(--ease);
     }
     .timeline-item.visible { opacity:1; transform:translateX(0); }
-    .timeline-dot {
-      position:absolute; left:-2rem; top:0.3rem;
-      width:10px; height:10px; border-radius:50%;
-      border:2px solid var(--accent2);
-      background:var(--bg);
-      box-shadow:0 0 10px rgba(199,125,255,0.5);
-      transform:translateX(-4px);
-    }
-    .timeline-year {
-      font-size:0.6rem; letter-spacing:0.22em; text-transform:uppercase;
-      color:var(--accent3); margin-bottom:0.35rem;
-    }
-    .timeline-title {
-      font-family:var(--serif); font-size:1.4rem; font-weight:400;
-      color:var(--text); margin-bottom:0.5rem;
-    }
-    .timeline-desc {
-      font-size:0.85rem; color:var(--mid); line-height:2; font-weight:300;
-    }
 
-    /* ── SKILLS SECTION ── */
-    .skills-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.2rem; }
-    .skill-card {
+    .timeline-node {
+      position:absolute; left:-2.12rem; top:0.25rem;
+      width:14px; height:14px; border-radius:50%;
+      border:2px solid var(--accent2); background:var(--bg);
+      box-shadow:0 0 14px 4px rgba(199,125,255,0.5);
+      transform:translateX(-3px);
+      transition:box-shadow 0.4s;
+    }
+    .timeline-item:hover .timeline-node { box-shadow:0 0 22px 8px rgba(199,125,255,0.75); }
+
+    .timeline-card {
       background:var(--card); border:1px solid var(--border);
-      border-radius:16px; padding:1.8rem;
+      border-radius:14px; padding:1.4rem 1.6rem;
       backdrop-filter:blur(14px);
       position:relative; overflow:hidden;
-      transition:transform 0.4s var(--ease), border-color 0.4s, box-shadow 0.4s;
+      transition:border-color 0.4s, transform 0.4s var(--ease), box-shadow 0.4s;
     }
-    .skill-card:hover { transform:translateY(-6px); border-color:var(--border2); box-shadow:0 30px 70px rgba(100,60,200,0.2); }
-    .skill-card::before {
-      content:''; position:absolute; top:0; left:0; right:0; height:1.5px;
-      background:linear-gradient(to right, transparent, var(--accent2), transparent); opacity:0.6;
+    .timeline-card:hover { border-color:var(--border2); transform:translateX(6px); box-shadow:0 20px 50px rgba(100,60,200,0.18); }
+    .timeline-card::before { content:''; position:absolute; left:0; top:0; bottom:0; width:2px; background:linear-gradient(to bottom,var(--accent),var(--accent3)); opacity:0.7; }
+
+    .timeline-year { font-size:0.58rem; letter-spacing:0.24em; text-transform:uppercase; color:var(--accent3); margin-bottom:0.3rem; }
+    .timeline-title { font-family:var(--serif); font-size:1.3rem; font-weight:400; color:var(--text); margin-bottom:0.45rem; }
+    .timeline-desc { font-size:0.83rem; color:var(--mid); line-height:2; font-weight:300; }
+
+    .timeline-tag {
+      display:inline-flex; align-items:center; gap:5px;
+      font-size:0.55rem; letter-spacing:0.16em; text-transform:uppercase;
+      background:rgba(155,93,229,0.1); border:1px solid rgba(155,93,229,0.2);
+      color:var(--accent2); padding:0.22rem 0.7rem; border-radius:20px;
+      margin-top:0.7rem;
     }
-    .skill-icon { font-size:1.8rem; margin-bottom:0.9rem; }
-    .skill-title { font-family:var(--serif); font-size:1.2rem; font-weight:400; color:var(--text); margin-bottom:0.6rem; }
-    .skill-desc { font-size:0.82rem; color:var(--mid); line-height:2; font-weight:300; }
-    .skill-bar-wrap { margin-top:1.2rem; }
-    .skill-bar-label { display:flex; justify-content:space-between; font-size:0.6rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-bottom:0.4rem; }
-    .skill-bar-track { height:3px; background:rgba(155,93,229,0.12); border-radius:2px; overflow:hidden; }
-    .skill-bar-fill { height:100%; border-radius:2px; background:linear-gradient(to right, var(--accent), var(--accent2)); width:0; transition:width 1.4s var(--ease); }
 
     /* ── SUBJECT IMPACT ── */
     .impact-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.2rem; }
@@ -368,97 +292,113 @@
       background:var(--card); border:1px solid var(--border);
       border-radius:16px; padding:1.6rem 1.5rem;
       backdrop-filter:blur(14px);
-      transition:transform 0.4s var(--ease), border-color 0.4s, box-shadow 0.4s;
+      transition:transform 0.4s var(--ease),border-color 0.4s,box-shadow 0.4s;
       position:relative; overflow:hidden;
     }
-    .impact-card:hover { transform:translateY(-5px); border-color:var(--border2); box-shadow:0 24px 60px rgba(100,60,200,0.18); }
-    .impact-num {
-      font-family:var(--serif); font-size:3.5rem; font-weight:300;
-      color:var(--accent); opacity:0.2; line-height:1; margin-bottom:0.5rem;
-    }
+    .impact-card:hover { transform:translateY(-6px); border-color:var(--border2); box-shadow:0 28px 65px rgba(100,60,200,0.2); }
+    .impact-card::before { content:''; position:absolute; top:0; left:0; right:0; height:1.5px; background:linear-gradient(to right,transparent,var(--accent2),transparent); opacity:0.5; transition:opacity 0.4s; }
+    .impact-card:hover::before { opacity:1; }
+    .impact-num { font-family:var(--serif); font-size:3.5rem; font-weight:300; color:var(--accent); opacity:0.15; line-height:1; margin-bottom:0.5rem; }
     .impact-icon { font-size:1.5rem; margin-bottom:0.7rem; }
     .impact-title { font-family:var(--serif); font-size:1.1rem; font-weight:400; color:var(--text); margin-bottom:0.5rem; }
     .impact-desc { font-size:0.8rem; color:var(--mid); line-height:1.95; font-weight:300; }
 
-    /* ── QUOTE BLOCK ── */
-    .quote-block {
-      position:relative; z-index:10;
-      max-width:800px; margin:0 auto;
-      padding:5rem 3rem; text-align:center;
-    }
-    .quote-mark {
-      font-family:var(--serif); font-size:8rem; font-weight:300;
-      color:var(--accent); opacity:0.15; line-height:0.5;
-      display:block; margin-bottom:1rem;
-    }
-    .quote-text {
-      font-family:var(--serif); font-size:clamp(1.4rem,3vw,2.2rem);
-      font-weight:300; font-style:italic;
-      color:var(--text); line-height:1.6; margin-bottom:1.5rem;
-    }
+    /* ── SKILLS GRID ── */
+    .skills-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.2rem; }
+    .skill-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:1.8rem; backdrop-filter:blur(14px); position:relative; overflow:hidden; transition:transform 0.4s var(--ease),border-color 0.4s,box-shadow 0.4s; }
+    .skill-card:hover { transform:translateY(-6px); border-color:var(--border2); box-shadow:0 30px 70px rgba(100,60,200,0.2); }
+    .skill-card::before { content:''; position:absolute; top:0; left:0; right:0; height:1.5px; background:linear-gradient(to right,transparent,var(--accent2),transparent); opacity:0.6; }
+    .skill-icon { font-size:1.8rem; margin-bottom:0.9rem; }
+    .skill-title { font-family:var(--serif); font-size:1.2rem; font-weight:400; color:var(--text); margin-bottom:0.6rem; }
+    .skill-desc { font-size:0.82rem; color:var(--mid); line-height:2; font-weight:300; }
+    .skill-bar-wrap { margin-top:1.2rem; }
+    .skill-bar-label { display:flex; justify-content:space-between; font-size:0.6rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-bottom:0.4rem; }
+    .skill-bar-track { height:3px; background:rgba(155,93,229,0.12); border-radius:2px; overflow:hidden; }
+    .skill-bar-fill { height:100%; border-radius:2px; background:linear-gradient(to right,var(--accent),var(--accent2)); width:0; transition:width 1.4s var(--ease); }
+
+    /* ── QUOTE ── */
+    .quote-block { position:relative; z-index:10; max-width:800px; margin:0 auto; padding:5rem 3rem; text-align:center; }
+    .quote-mark { font-family:var(--serif); font-size:8rem; font-weight:300; color:var(--accent); opacity:0.15; line-height:0.5; display:block; margin-bottom:1rem; }
+    .quote-text { font-family:var(--serif); font-size:clamp(1.4rem,3vw,2.2rem); font-weight:300; font-style:italic; color:var(--text); line-height:1.6; margin-bottom:1.5rem; }
     .quote-source { font-size:0.68rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--muted); }
 
     /* ── GOALS ── */
     .goals-list { list-style:none; }
-    .goals-list li {
-      display:flex; align-items:flex-start; gap:1.2rem;
-      padding:1.4rem 0; border-bottom:1px solid rgba(155,93,229,0.07);
-      opacity:0; transform:translateX(-16px);
-      transition:opacity 0.7s var(--ease), transform 0.7s var(--ease);
-    }
+    .goals-list li { display:flex; align-items:flex-start; gap:1.2rem; padding:1.4rem 0; border-bottom:1px solid rgba(155,93,229,0.07); opacity:0; transform:translateX(-16px); transition:opacity 0.7s var(--ease),transform 0.7s var(--ease); }
     .goals-list li.visible { opacity:1; transform:translateX(0); }
     .goals-list li:last-child { border-bottom:none; }
-    .goal-num {
-      font-family:var(--serif); font-size:2rem; font-weight:300;
-      color:var(--accent); opacity:0.35; line-height:1; flex-shrink:0; min-width:2rem;
-    }
+    .goal-num { font-family:var(--serif); font-size:2rem; font-weight:300; color:var(--accent); opacity:0.35; line-height:1; flex-shrink:0; min-width:2rem; }
     .goal-text h4 { font-family:var(--serif); font-size:1.2rem; font-weight:400; color:var(--text); margin-bottom:0.3rem; }
     .goal-text p { font-size:0.83rem; color:var(--mid); line-height:1.95; font-weight:300; }
 
-    /* ── FOOTER ── */
-    footer {
+    /* ── STATS STRIP ── */
+    .stats-strip {
       position:relative; z-index:10;
-      border-top:1px solid var(--border);
-      background:rgba(3,2,10,0.7);
-      text-align:center; padding:3rem 1.5rem;
-      font-size:0.75rem; letter-spacing:0.08em;
-      color:var(--muted); line-height:2.5;
+      max-width:1100px; margin:0 auto; padding:0 3rem 5rem;
+      display:grid; grid-template-columns:repeat(4,1fr);
+      gap:1px; background:var(--border);
+      border:1px solid var(--border); border-radius:16px; overflow:hidden;
     }
+    .stat-cell { background:var(--card); padding:2rem 1.5rem; text-align:center; backdrop-filter:blur(14px); }
+    .stat-num { font-family:var(--serif); font-size:2.8rem; font-weight:300; color:var(--accent2); line-height:1; margin-bottom:0.4rem; }
+    .stat-label { font-size:0.62rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); }
+
+    /* ── FOOTER ── */
+    footer { position:relative; z-index:10; border-top:1px solid var(--border); background:rgba(3,2,10,0.7); text-align:center; padding:3rem 1.5rem; font-size:0.75rem; letter-spacing:0.08em; color:var(--muted); line-height:2.5; }
     footer span { opacity:0.45; }
 
     /* ── REVEAL ── */
-    .reveal { opacity:0; transform:translateY(32px); transition:opacity 0.9s var(--ease), transform 0.9s var(--ease); }
+    .reveal { opacity:0; transform:translateY(32px); transition:opacity 0.9s var(--ease),transform 0.9s var(--ease); }
     .reveal.visible { opacity:1; transform:translateY(0); }
 
+    /* ── FLOATING PARTICLES ── */
+    .particle-field { position:fixed; inset:0; z-index:2; pointer-events:none; overflow:hidden; }
+    .pfloat { position:absolute; border-radius:50%; animation:floatUp linear infinite; opacity:0; }
+    @keyframes floatUp { 0%{opacity:0;transform:translateY(0) scale(1)} 10%{opacity:0.6} 90%{opacity:0.2} 100%{opacity:0;transform:translateY(-100vh) scale(0.5)} }
+
     @media(max-width:900px){
-      .hero { grid-template-columns:1fr; gap:3rem; padding:8rem 2rem 5rem; }
-      .photo-col { order:-1; }
-      .photo-frame-outer { width:260px; height:320px; }
-      .photo-orbit:nth-child(1){ width:320px; height:320px; }
-      .photo-orbit:nth-child(2){ width:400px; height:400px; }
+      .hero{grid-template-columns:1fr;gap:3rem;padding:8rem 2rem 5rem;}
+      .photo-col{order:-1;}
+      .photo-frame-outer{width:260px;height:320px;}
+      .photo-orbit:nth-child(1){width:320px;height:320px;}
+      .photo-orbit:nth-child(2){width:400px;height:400px;}
+      .photo-orbit:nth-child(3){width:480px;height:480px;}
+      .stats-strip{grid-template-columns:repeat(2,1fr);}
     }
     @media(max-width:600px){
-      .hero,.section { padding-left:1.5rem; padding-right:1.5rem; }
-      nav { padding:0 1.2rem; }
-      .divider { padding:0 1.5rem; }
-      .quote-block { padding:4rem 1.5rem; }
+      .hero,.section{padding-left:1.5rem;padding-right:1.5rem;}
+      nav{padding:0 1.2rem;}
+      .divider{padding:0 1.5rem;}
+      .quote-block{padding:4rem 1.5rem;}
+      .stats-strip{padding:0 1.5rem 4rem;grid-template-columns:repeat(2,1fr);}
     }
   </style>
 </head>
 <body>
 
-<!-- Custom cursor -->
+<!-- Cinematic intro -->
+<div id="cinematic-intro">
+  <div class="ci-bar-top"></div>
+  <div class="ci-logo">Hannah Kim F. Nariz</div>
+  <div class="ci-line"></div>
+  <div class="ci-sub">BSIT · NS-2A · TUP · 2026</div>
+  <div class="ci-bar-bottom"></div>
+</div>
+
+<!-- Cursor -->
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
 
-<!-- Background canvas -->
+<!-- Canvas + scan lines -->
 <canvas id="bg-canvas"></canvas>
+<div class="scanlines"></div>
+
+<!-- Floating particles -->
+<div class="particle-field" id="particleField"></div>
 
 <!-- NAV -->
 <nav>
-  <a href="index.html" class="nav-brand">
-    Hannah Kim<span class="brand-dot"></span>Nariz
-  </a>
+  <a href="index.html" class="nav-brand">Hannah Kim<span class="brand-dot"></span>Nariz</a>
   <div class="nav-links">
     <a href="index.html">Home</a>
     <a href="about.html" class="active">About</a>
@@ -468,12 +408,15 @@
 <!-- ══════════ HERO ══════════ -->
 <section class="hero">
 
-  <!-- Photo column -->
+  <!-- PHOTO COLUMN -->
   <div class="photo-col">
     <div class="photo-frame-outer">
+      <div class="photo-glow"></div>
+
       <!-- Orbit rings -->
       <div class="photo-orbit"><div class="orbit-sparkle"></div></div>
       <div class="photo-orbit"><div class="orbit-sparkle2"></div></div>
+      <div class="photo-orbit"><div class="orbit-sparkle3"></div></div>
 
       <!-- Corner brackets -->
       <div class="frame-bracket tl"></div>
@@ -481,33 +424,42 @@
       <div class="frame-bracket bl"></div>
       <div class="frame-bracket br"></div>
 
-      <!-- The photo frame -->
-      <div class="photo-frame">
-        <div class="photo-placeholder">
-          <div class="ph-icon">&#128247;</div>
-          <p>Place your photo here &mdash; replace this div with an img tag</p>
+      <!-- Photo frame -->
+      <div class="photo-frame" id="photoFrame">
+        <div class="photo-img-area" id="photoArea">
+
+          <!-- ══ YOUR PHOTO SLOT ══
+               Option A — Use a file picker (works in browser):
+               Click the area below to pick your photo.
+
+               Option B — Replace this entire div.photo-upload with:
+               <img src="08fe4e00-2027-4a3a-948c-4540a68acaf7.jpg"
+                    style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;"
+                    alt="Hannah Kim F. Nariz">
+          -->
+          <div class="photo-upload" id="photoUpload" onclick="document.getElementById('photoFileInput').click()" title="Click to add your photo">
+            <div class="ph-ring">📷</div>
+            <div class="ph-label">Click to place your photo here</div>
+            <div class="ph-btn">Choose Image</div>
+          </div>
+          <input type="file" id="photoFileInput" accept="image/*"/>
+
         </div>
-        <!--
-          TO ADD YOUR PHOTO:
-          Delete the <div class="photo-placeholder">...</div> above
-          and replace with:
-          <img src="hannah.jpg"
-               style="width:100%;height:100%;object-fit:cover;object-position:center top;"
-               alt="Hannah Kim F. Nariz">
-        -->
       </div>
       <div class="photo-caption">Hannah Kim F. Nariz &nbsp;&middot;&nbsp; 2026</div>
     </div>
   </div>
 
-  <!-- Text column -->
+  <!-- HERO TEXT -->
   <div class="hero-text">
     <div class="hero-eyebrow">
       <span class="eyebrow-line"></span>
-      Academic Portfolio &nbsp;&middot;&nbsp; 2026
+      Academic Portfolio &nbsp;&middot;&nbsp; 2025–2026
     </div>
     <h1>Hannah Kim<br/><em>Floresca Nariz</em></h1>
-    <p class="hero-name-sub">Student &mdash; Creator &mdash; </p>
+    <p class="hero-name-sub">
+      <span class="typewriter">Student &nbsp;—&nbsp; Creator &nbsp;—&nbsp; Technologist</span>
+    </p>
 
     <div class="hero-id-card">
       <div class="id-row">
@@ -537,18 +489,36 @@
     </div>
 
     <div class="hero-badge-row">
-      <div class="hero-badge"><span class="badge-dot"></span>TUP Taguig</div>
+      <div class="hero-badge"><span class="badge-dot"></span>TUP</div>
       <div class="hero-badge"><span class="badge-dot"></span>BSIT &middot; 2nd Year</div>
-      <div class="hero-badge"><span class="badge-dot"></span>3rd Term 2025&ndash;2026</div>
+      <div class="hero-badge"><span class="badge-dot"></span>3rd Term &nbsp;2025&ndash;2026</div>
     </div>
   </div>
 </section>
 
-<div class="divider reveal">
-  <div class="divider-line"></div>
-  <div class="divider-glyph">&#10022; &nbsp; &#10022; &nbsp; &#10022;</div>
-  <div class="divider-line"></div>
+<div class="divider reveal"><div class="divider-line"></div><div class="divider-glyph">&#10022; &nbsp; &#10022; &nbsp; &#10022;</div><div class="divider-line"></div></div>
+
+<!-- ══════════ STATS STRIP ══════════ -->
+<div class="stats-strip reveal">
+  <div class="stat-cell">
+    <div class="stat-num" data-count="2">0</div>
+    <div class="stat-label">Years at TUP</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num" data-count="3">0</div>
+    <div class="stat-label">Terms Completed</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num" data-count="6">0</div>
+    <div class="stat-label">Skills Gained</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num" data-count="1">0</div>
+    <div class="stat-label">Subject: Multimedia &amp; Authoring</div>
+  </div>
 </div>
+
+<div class="divider reveal" style="margin-top:2rem;"><div class="divider-line"></div><div class="divider-glyph">&#10022; &nbsp; &#10022; &nbsp; &#10022;</div><div class="divider-line"></div></div>
 
 <!-- ══════════ JOURNEY ══════════ -->
 <div class="section reveal">
@@ -558,116 +528,132 @@
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;">
     <div>
       <p style="font-size:0.9rem;line-height:2.1;color:var(--mid);font-weight:300;margin-bottom:1.5rem;">
-        My path into Information Technology began with a simple but powerful curiosity: how does technology bring ideas to life? That question led me to the Technological University of the Philippines, one of the country's premier science and technology universities, where I enrolled in the Bachelor of Science in Information Technology program.
+        My path into Information Technology began with a single, powerful question: how does technology transform imagination into reality? That question led me to the Technological University of the Philippines — one of the country's premier science and technology universities — where I enrolled in the Bachelor of Science in Information Technology program.
       </p>
       <p style="font-size:0.9rem;line-height:2.1;color:var(--mid);font-weight:300;margin-bottom:1.5rem;">
-        TUP challenged me not just to learn technology, but to master it — to understand systems from the ground up, to problem-solve under pressure, and to build things that matter. The culture of discipline and excellence shaped how I approach every project I take on.
+        TUP challenged me not just to learn technology, but to master it from the ground up. The discipline and rigor instilled by TUP's culture shaped how I approach every project: methodically, creatively, and with full ownership of the work.
       </p>
       <p style="font-size:0.9rem;line-height:2.1;color:var(--mid);font-weight:300;">
-        Now in my second year, third term, I find myself at an exciting intersection — technical knowledge is deepening, creative projects are becoming more ambitious, and the bridge between art and engineering is becoming clearer with every subject I study.
+        Now in my second year, third term, I find myself at an exciting crossroads — where technical knowledge deepens, creative projects grow more ambitious, and the bridge between engineering and art becomes ever clearer. Every subject I take adds another dimension to who I am becoming as a future IT professional.
       </p>
     </div>
 
-    <div class="timeline">
+    <!-- TIMELINE -->
+    <div class="timeline-wrap">
+
       <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-year">Year 1 &nbsp;&middot;&nbsp; 2024</div>
-        <div class="timeline-title">Entering TUP</div>
-        <div class="timeline-desc">Began the BSIT program at the Technological University of the Philippines. Immersed in the fundamentals &mdash; computer logic, programming, and the discipline that TUP is known for across the country.</div>
+        <div class="timeline-node"></div>
+        <div class="timeline-card">
+          <div class="timeline-year">1st Year &nbsp;·&nbsp; 1st Term &nbsp;·&nbsp; 2024</div>
+          <div class="timeline-title">Entering TUP</div>
+          <div class="timeline-desc">Began the BSIT program at the Technological University of the Philippines. Immersed in the fundamentals — computer logic, programming languages, and the TUP culture of academic excellence and discipline.</div>
+          <div class="timeline-tag">&#9679; &nbsp; A.Y. 2024–2025</div>
+        </div>
       </div>
+
       <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-year">1st Year &mdash; 2nd Term &nbsp;&middot;&nbsp; 2024</div>
-        <div class="timeline-title">Building the Foundation</div>
-        <div class="timeline-desc">Progressed through core IT subjects, developing foundational skills in programming, data structures, and computer systems. Discovered a growing interest in digital media and visual design alongside the technical curriculum.</div>
+        <div class="timeline-node"></div>
+        <div class="timeline-card">
+          <div class="timeline-year">1st Year &nbsp;·&nbsp; 2nd Term &nbsp;·&nbsp; 2024</div>
+          <div class="timeline-title">Building the Foundation</div>
+          <div class="timeline-desc">Progressed through core IT subjects — data structures, computer systems, and fundamental algorithms. A growing curiosity toward digital media and visual design emerged alongside the technical curriculum.</div>
+          <div class="timeline-tag">&#9679; &nbsp; A.Y. 2024–2025</div>
+        </div>
       </div>
+
       <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-year">2nd Year &middot; 2025</div>
-        <div class="timeline-title">Section BSIT-NS-2A</div>
-        <div class="timeline-desc">Entered second year with a clearer sense of direction. Joined section NS-2A and began more specialized subjects including Multimedia &amp; Authoring — a subject that would push creative and technical boundaries simultaneously.</div>
+        <div class="timeline-node"></div>
+        <div class="timeline-card">
+          <div class="timeline-year">1st Year &nbsp;·&nbsp; 3rd Term &nbsp;·&nbsp; 2025</div>
+          <div class="timeline-title">Completing First Year</div>
+          <div class="timeline-desc">Successfully completed the first academic year. Developed a clear sense of the kind of IT professional I wanted to become — one who blends technical depth with creative vision.</div>
+          <div class="timeline-tag">&#9679; &nbsp; A.Y. 2024–2025</div>
+        </div>
       </div>
+
       <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-year">2nd Year &nbsp;&middot;&nbsp; 3rd Term &nbsp;&middot;&nbsp; 2026</div>
-        <div class="timeline-title">Multimedia &amp; Authoring</div>
-        <div class="timeline-desc">Currently navigating the third and final term of second year. Completing two major multimedia projects &mdash; rotoscoping animation and a full 3D solar system render &mdash; that represent the most ambitious creative work of the academic journey so far.</div>
+        <div class="timeline-node"></div>
+        <div class="timeline-card">
+          <div class="timeline-year">2nd Year &nbsp;·&nbsp; 1st–2nd Term &nbsp;·&nbsp; 2025</div>
+          <div class="timeline-title">Section BSIT-NS-2A</div>
+          <div class="timeline-desc">Entered second year with sharper focus. Joined section NS-2A and began specialized subjects. The coursework grew more technical and more creative simultaneously — and so did I.</div>
+          <div class="timeline-tag">&#9679; &nbsp; A.Y. 2025–2026</div>
+        </div>
       </div>
+
+      <div class="timeline-item">
+        <div class="timeline-node"></div>
+        <div class="timeline-card">
+          <div class="timeline-year">2nd Year &nbsp;·&nbsp; 3rd Term &nbsp;·&nbsp; 2026 &nbsp;·&nbsp; <span style="color:var(--accent2)">Present</span></div>
+          <div class="timeline-title">Multimedia &amp; Authoring</div>
+          <div class="timeline-desc">Currently in the third and final term of second year — completing major multimedia projects including rotoscoping animation and a 3D solar system render. The most ambitious creative chapter of the journey so far.</div>
+          <div class="timeline-tag" style="border-color:rgba(199,125,255,0.4);background:rgba(155,93,229,0.18);color:var(--accent2);">&#9679;&nbsp; Currently Here</div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
 
-<div class="divider reveal">
-  <div class="divider-line"></div>
-  <div class="divider-glyph">&#10022; &nbsp; &#10022; &nbsp; &#10022;</div>
-  <div class="divider-line"></div>
-</div>
+<div class="divider reveal"><div class="divider-line"></div><div class="divider-glyph">&#10022; &nbsp; &#10022; &nbsp; &#10022;</div><div class="divider-line"></div></div>
 
 <!-- ══════════ QUOTE ══════════ -->
 <div class="quote-block reveal">
   <span class="quote-mark">&ldquo;</span>
-  <p class="quote-text">Technology is most powerful when it serves creativity &mdash; and creativity is most lasting when it is built on mastery.</p>
-  <div class="quote-source">Hannah Kim F. Nariz &nbsp;&middot;&nbsp; BSIT-NS-2A &nbsp;&middot;&nbsp; TUP</div>
+  <p class="quote-text">Technology is most powerful when it serves creativity — and creativity is most lasting when it is built on mastery.</p>
+  <div class="quote-source">Hannah Kim F. Nariz &nbsp;&middot;&nbsp; BSIT-NS-2A &nbsp;&middot;&nbsp; TUP &nbsp;&middot;&nbsp; 2026</div>
 </div>
 
-<div class="divider reveal">
-  <div class="divider-line"></div>
-  <div class="divider-glyph">&#10022; &nbsp; &#10022; &nbsp; &#10022;</div>
-  <div class="divider-line"></div>
-</div>
+<div class="divider reveal"><div class="divider-line"></div><div class="divider-glyph">&#10022; &nbsp; &#10022; &nbsp; &#10022;</div><div class="divider-line"></div></div>
 
 <!-- ══════════ SUBJECT IMPACT ══════════ -->
 <div class="section reveal">
   <div class="section-eyebrow">Multimedia &amp; Authoring</div>
   <h2 class="section-title">How This Subject <em>Shaped Me</em></h2>
   <p style="font-size:0.9rem;line-height:2.1;color:var(--mid);font-weight:300;max-width:680px;margin-bottom:3rem;">
-    Multimedia &amp; Authoring is not a subject you can coast through. It demands both halves of the brain simultaneously &mdash; the analytical precision of a programmer and the visual sensitivity of an artist. Here is how it has changed the way I think, create, and present work.
+    Multimedia &amp; Authoring demands both halves of the brain simultaneously — the analytical precision of a programmer and the visual sensitivity of an artist. Here is how it changed the way I think, create, and present work.
   </p>
   <div class="impact-grid">
     <div class="impact-card reveal">
       <div class="impact-num">01</div>
-      <div class="impact-icon">&#127912;</div>
+      <div class="impact-icon">🎨</div>
       <div class="impact-title">Visual Thinking</div>
-      <div class="impact-desc">Before this subject, I thought primarily in terms of code and logic. Rotoscoping taught me to see differently &mdash; to notice how a body moves through space, how weight shifts, how light falls across a face. That visual awareness now informs everything I build.</div>
+      <div class="impact-desc">Before this subject, I thought primarily in code and logic. Rotoscoping taught me to see differently — to notice how a body moves through space, how weight shifts, how light falls. That visual awareness now informs everything I build.</div>
     </div>
     <div class="impact-card reveal">
       <div class="impact-num">02</div>
-      <div class="impact-icon">&#127756;</div>
+      <div class="impact-icon">🌍</div>
       <div class="impact-title">3D Spatial Reasoning</div>
-      <div class="impact-desc">Modeling the solar system in 3D forced me to understand scale, perspective, and the physics of light in ways no textbook could. I now have an intuitive grasp of three-dimensional space that translates directly into better UI design, data visualization, and systems thinking.</div>
+      <div class="impact-desc">Modeling the solar system in 3D forced me to grasp scale, perspective, and light physics in ways no textbook could. I now have an intuitive command of three-dimensional space that carries into UI design, data visualization, and systems thinking.</div>
     </div>
     <div class="impact-card reveal">
       <div class="impact-num">03</div>
-      <div class="impact-icon">&#9201;</div>
+      <div class="impact-icon">⏱</div>
       <div class="impact-title">Patience &amp; Precision</div>
-      <div class="impact-desc">Rotoscoping hundreds of frames by hand is a lesson in patience unlike anything else. Each frame demands full attention. That discipline &mdash; slowing down, being meticulous, not rushing toward the finish &mdash; has made me a more careful and deliberate developer and designer.</div>
+      <div class="impact-desc">Rotoscoping hundreds of frames by hand is a lesson in patience unlike anything else. Each frame demands full attention. That discipline — slowing down, being meticulous, refusing to rush — made me a more careful and deliberate developer and designer.</div>
     </div>
     <div class="impact-card reveal">
       <div class="impact-num">04</div>
-      <div class="impact-icon">&#128295;</div>
+      <div class="impact-icon">🔧</div>
       <div class="impact-title">Technical Problem Solving</div>
-      <div class="impact-desc">3D rendering is full of unexpected challenges: geometry that doesn't behave, textures that tile incorrectly, lighting that flattens a scene. Working through those problems honed my debugging instincts and made me more comfortable with ambiguity &mdash; a crucial skill for any developer.</div>
+      <div class="impact-desc">3D rendering is full of surprises: geometry that misbehaves, textures that tile wrong, lighting that flattens a scene. Working through those challenges honed my debugging instincts and made me far more comfortable with ambiguity.</div>
     </div>
     <div class="impact-card reveal">
       <div class="impact-num">05</div>
-      <div class="impact-icon">&#128196;</div>
+      <div class="impact-icon">📄</div>
       <div class="impact-title">Portfolio Thinking</div>
-      <div class="impact-desc">This subject pushed me to think about how work is presented, not just how it's made. Building this portfolio site from scratch &mdash; writing every line of HTML, CSS, and JavaScript &mdash; taught me that a project is never truly finished until it can be communicated clearly to someone who wasn't there when it was made.</div>
+      <div class="impact-desc">This subject pushed me to think about how work is presented, not just made. Building this portfolio site from scratch — writing every line of HTML, CSS, and JavaScript — proved that a project isn't finished until it can be communicated clearly.</div>
     </div>
     <div class="impact-card reveal">
       <div class="impact-num">06</div>
-      <div class="impact-icon">&#127775;</div>
+      <div class="impact-icon">✨</div>
       <div class="impact-title">Creative Confidence</div>
-      <div class="impact-desc">Perhaps most importantly, Multimedia &amp; Authoring gave me permission to call myself creative. The intersection of technical skill and artistic vision is exactly where I want to live as a future IT professional &mdash; and this subject proved that that intersection is real and reachable.</div>
+      <div class="impact-desc">Perhaps most importantly, Multimedia &amp; Authoring gave me permission to call myself creative. The intersection of technical skill and artistic vision is exactly where I want to live as a future IT professional — and this subject proved it's real and reachable.</div>
     </div>
   </div>
 </div>
 
-<div class="divider reveal">
-  <div class="divider-line"></div>
-  <div class="divider-glyph">&#10022; &nbsp; &#10022; &nbsp; &#10022;</div>
-  <div class="divider-line"></div>
-</div>
+<div class="divider reveal"><div class="divider-line"></div><div class="divider-glyph">&#10022; &nbsp; &#10022; &nbsp; &#10022;</div><div class="divider-line"></div></div>
 
 <!-- ══════════ SKILLS ══════════ -->
 <div class="section reveal">
@@ -675,111 +661,59 @@
   <h2 class="section-title">What I've <em>Learned</em></h2>
   <div class="skills-grid">
     <div class="skill-card reveal">
-      <div class="skill-icon">&#127909;</div>
+      <div class="skill-icon">🎬</div>
       <div class="skill-title">3D Modeling &amp; Rendering</div>
       <div class="skill-desc">From UV sphere creation to texture mapping with NASA assets, shader setup, lighting rigs, and final Cycles render output. Built an entire solar system from scratch in Blender.</div>
-      <div class="skill-bar-wrap">
-        <div class="skill-bar-label"><span>Proficiency</span><span>78%</span></div>
-        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="78"></div></div>
-      </div>
+      <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Proficiency</span><span>78%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="78"></div></div></div>
     </div>
     <div class="skill-card reveal">
-      <div class="skill-icon">&#127920;</div>
+      <div class="skill-icon">🎮</div>
       <div class="skill-title">Rotoscoping &amp; Animation</div>
-      <div class="skill-desc">Frame-by-frame tracing of live footage using a graphics tablet, maintaining consistent style and line weight across hundreds of frames to produce fluid, naturalistic animation.</div>
-      <div class="skill-bar-wrap">
-        <div class="skill-bar-label"><span>Proficiency</span><span>72%</span></div>
-        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="72"></div></div>
-      </div>
+      <div class="skill-desc">Frame-by-frame tracing of live footage with a graphics tablet, maintaining consistent style and line weight across hundreds of frames to produce fluid, naturalistic motion.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Proficiency</span><span>72%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="72"></div></div></div>
     </div>
     <div class="skill-card reveal">
-      <div class="skill-icon">&#128187;</div>
+      <div class="skill-icon">💻</div>
       <div class="skill-title">Web Development</div>
-      <div class="skill-desc">Built this entire portfolio site using vanilla HTML, CSS, and JavaScript &mdash; canvas animations, scroll reveals, dynamic calculators, day/night themes, and responsive layout. No frameworks.</div>
-      <div class="skill-bar-wrap">
-        <div class="skill-bar-label"><span>Proficiency</span><span>85%</span></div>
-        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div>
-      </div>
+      <div class="skill-desc">Built this entire portfolio using vanilla HTML, CSS, and JavaScript — canvas animations, scroll reveals, dynamic calculators, and responsive layout. No frameworks. All from scratch.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Proficiency</span><span>85%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div></div>
     </div>
     <div class="skill-card reveal">
-      <div class="skill-icon">&#127775;</div>
+      <div class="skill-icon">🌟</div>
       <div class="skill-title">Visual Design &amp; Composition</div>
-      <div class="skill-desc">Developed an eye for color theory, typographic hierarchy, spatial composition, and aesthetic consistency through the process of producing and presenting multimedia work.</div>
-      <div class="skill-bar-wrap">
-        <div class="skill-bar-label"><span>Proficiency</span><span>70%</span></div>
-        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="70"></div></div>
-      </div>
+      <div class="skill-desc">Developed an eye for color theory, typographic hierarchy, spatial composition, and aesthetic consistency through producing and presenting multimedia work.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Proficiency</span><span>70%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="70"></div></div></div>
     </div>
     <div class="skill-card reveal">
-      <div class="skill-icon">&#128250;</div>
+      <div class="skill-icon">🎞</div>
       <div class="skill-title">Video Editing &amp; Compositing</div>
-      <div class="skill-desc">Assembled rendered frame sequences into final video exports, applied color grading, and composited animation layers using Adobe Premiere Pro and Blender&rsquo;s built-in video editor.</div>
-      <div class="skill-bar-wrap">
-        <div class="skill-bar-label"><span>Proficiency</span><span>68%</span></div>
-        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="68"></div></div>
-      </div>
+      <div class="skill-desc">Assembled rendered frame sequences into final video exports, applied color grading, and composited animation layers using Adobe Premiere Pro and Blender's built-in video editor.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Proficiency</span><span>68%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="68"></div></div></div>
     </div>
     <div class="skill-card reveal">
-      <div class="skill-icon">&#128300;</div>
+      <div class="skill-icon">🔬</div>
       <div class="skill-title">Research &amp; Documentation</div>
-      <div class="skill-desc">Every project began with research &mdash; planetary data, animation history, rendering techniques. Communicating that research clearly through documentation and portfolio presentation is a skill in itself.</div>
-      <div class="skill-bar-wrap">
-        <div class="skill-bar-label"><span>Proficiency</span><span>80%</span></div>
-        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div>
-      </div>
+      <div class="skill-desc">Every project began with research — planetary data, animation history, rendering techniques. Communicating findings clearly through documentation and portfolio presentation is a skill in itself.</div>
+      <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Proficiency</span><span>80%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div></div>
     </div>
   </div>
 </div>
 
-<div class="divider reveal">
-  <div class="divider-line"></div>
-  <div class="divider-glyph">&#10022; &nbsp; &#10022; &nbsp; &#10022;</div>
-  <div class="divider-line"></div>
-</div>
+<div class="divider reveal"><div class="divider-line"></div><div class="divider-glyph">&#10022; &nbsp; &#10022; &nbsp; &#10022;</div><div class="divider-line"></div></div>
 
 <!-- ══════════ GOALS ══════════ -->
 <div class="section reveal">
   <div class="section-eyebrow">Looking Forward</div>
   <h2 class="section-title">Goals &amp; <em>Aspirations</em></h2>
   <p style="font-size:0.9rem;line-height:2.1;color:var(--mid);font-weight:300;max-width:660px;margin-bottom:3rem;">
-    The work done in Multimedia &amp; Authoring is not just coursework &mdash; it is a foundation. Here is where I intend to take these skills next.
+    The work done in Multimedia &amp; Authoring is not just coursework — it is a foundation. Here is where I intend to take these skills next.
   </p>
   <ul class="goals-list">
-    <li>
-      <span class="goal-num">I</span>
-      <div class="goal-text">
-        <h4>Graduate with Honors from TUP</h4>
-        <p>My primary academic goal is to complete the BSIT program at the Technological University of the Philippines with the highest academic standing possible &mdash; carrying the discipline and work ethic that TUP instills in every student.</p>
-      </div>
-    </li>
-    <li>
-      <span class="goal-num">II</span>
-      <div class="goal-text">
-        <h4>Pursue UI/UX or Creative Technology</h4>
-        <p>The intersection of design and engineering that Multimedia &amp; Authoring revealed to me feels like home. I intend to pursue a career that lives in that space &mdash; whether as a UI/UX designer, a creative technologist, or a front-end developer with a strong visual sensibility.</p>
-      </div>
-    </li>
-    <li>
-      <span class="goal-num">III</span>
-      <div class="goal-text">
-        <h4>Deepen 3D and Motion Skills</h4>
-        <p>The solar system rendering project opened a door. I want to continue developing in Blender &mdash; exploring character modeling, motion graphics, architectural visualization, and eventually real-time rendering in game engines like Unity or Unreal.</p>
-      </div>
-    </li>
-    <li>
-      <span class="goal-num">IV</span>
-      <div class="goal-text">
-        <h4>Build a Professional Portfolio</h4>
-        <p>This academic portfolio is just the beginning. By graduation, I intend to have a body of work that demonstrates both technical competence and creative range &mdash; projects that solve real problems and tell compelling visual stories at the same time.</p>
-      </div>
-    </li>
-    <li>
-      <span class="goal-num">V</span>
-      <div class="goal-text">
-        <h4>Give Back to TUP</h4>
-        <p>The Technological University of the Philippines gave me opportunity. One day I want to return that &mdash; as a mentor, an industry partner, or simply a proud alumna whose work reflects well on the institution and the people who made it possible.</p>
-      </div>
-    </li>
+    <li><span class="goal-num">I</span><div class="goal-text"><h4>Graduate with Honors from TUP</h4><p>My primary academic goal is to complete the BSIT program at the Technological University of the Philippines with the highest academic standing possible — carrying TUP's discipline and work ethic for life.</p></div></li>
+    <li><span class="goal-num">II</span><div class="goal-text"><h4>Pursue UI/UX or Creative Technology</h4><p>The intersection of design and engineering that Multimedia &amp; Authoring revealed feels like home. I intend to pursue a career that lives in that space — whether as a UI/UX designer, a creative technologist, or a front-end developer with a strong visual sensibility.</p></div></li>
+    <li><span class="goal-num">III</span><div class="goal-text"><h4>Deepen 3D and Motion Skills</h4><p>The solar system project opened a door. I want to continue developing in Blender — exploring character modeling, motion graphics, architectural visualization, and real-time rendering in engines like Unity or Unreal.</p></div></li>
+    <li><span class="goal-num">IV</span><div class="goal-text"><h4>Build a Professional Portfolio</h4><p>This academic portfolio is just the beginning. By graduation, I intend to have a body of work demonstrating both technical competence and creative range — projects that solve real problems and tell compelling visual stories simultaneously.</p></div></li>
+    <li><span class="goal-num">V</span><div class="goal-text"><h4>Give Back to TUP</h4><p>TUP gave me opportunity. One day I want to return that — as a mentor, an industry partner, or simply a proud alumna whose work reflects well on the institution and the people who made it possible.</p></div></li>
   </ul>
 </div>
 
@@ -789,58 +723,58 @@
 </footer>
 
 <script>
-/* ── CURSOR ── */
+/* ══ CINEMATIC INTRO ══ */
+(function(){
+  var intro = document.getElementById('cinematic-intro');
+  setTimeout(function(){
+    intro.classList.add('bars-open');
+  }, 1400);
+  setTimeout(function(){
+    intro.style.transition = 'opacity 0.6s ease';
+    intro.style.opacity = '0';
+    setTimeout(function(){ intro.style.display = 'none'; }, 700);
+  }, 2600);
+})();
+
+/* ══ PHOTO FILE INPUT ══ */
+document.getElementById('photoFileInput').addEventListener('change', function(e){
+  var file = e.target.files[0];
+  if(!file) return;
+  var reader = new FileReader();
+  reader.onload = function(ev){
+    var area = document.getElementById('photoArea');
+    area.innerHTML = '<img src="'+ev.target.result+'" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;" alt="Hannah Kim F. Nariz"/>';
+  };
+  reader.readAsDataURL(file);
+});
+
+/* ══ CURSOR ══ */
 (function(){
   var cur = document.getElementById('cursor');
   var ring = document.getElementById('cursor-ring');
   var mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove',function(e){
-    mx=e.clientX; my=e.clientY;
-    cur.style.left=mx+'px'; cur.style.top=my+'px';
-  });
-  function animRing(){
-    rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12;
-    ring.style.left=rx+'px'; ring.style.top=ry+'px';
-    requestAnimationFrame(animRing);
-  }
+  document.addEventListener('mousemove',function(e){ mx=e.clientX; my=e.clientY; cur.style.left=mx+'px'; cur.style.top=my+'px'; });
+  function animRing(){ rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(animRing); }
   animRing();
-  document.querySelectorAll('a,button,.skill-card,.impact-card,.process-step,.timeline-item').forEach(function(el){
+  document.querySelectorAll('a,button,.skill-card,.impact-card,.timeline-card,.goals-list li,.stat-cell').forEach(function(el){
     el.addEventListener('mouseenter',function(){ cur.style.width='20px';cur.style.height='20px';ring.style.width='60px';ring.style.height='60px'; });
     el.addEventListener('mouseleave',function(){ cur.style.width='10px';cur.style.height='10px';ring.style.width='36px';ring.style.height='36px'; });
   });
 })();
 
-/* ── BACKGROUND CANVAS ── */
+/* ══ BACKGROUND CANVAS ══ */
 (function(){
   var canvas=document.getElementById('bg-canvas');
   var ctx=canvas.getContext('2d');
   var W,H,stars=[],nebulae=[],scrollY=0;
   function resize(){ W=canvas.width=window.innerWidth; H=canvas.height=window.innerHeight; }
-  function randomBetween(a,b){ return a+Math.random()*(b-a); }
+  function rand(a,b){ return a+Math.random()*(b-a); }
   function init(){
     stars=[];
-    for(var i=0;i<280;i++){
-      stars.push({
-        x:Math.random()*W, y:Math.random()*H,
-        r:randomBetween(0.3,1.4),
-        alpha:randomBetween(0.2,0.9),
-        speed:randomBetween(0.03,0.12),
-        ts:randomBetween(0.3,1.4),
-        to:Math.random()*Math.PI*2,
-        color:Math.random()<0.15?'#d4b0ff':Math.random()<0.12?'#a0d8ff':'#ffffff'
-      });
-    }
+    for(var i=0;i<320;i++) stars.push({ x:Math.random()*W, y:Math.random()*H, r:rand(0.3,1.6), alpha:rand(0.15,0.9), speed:rand(0.03,0.14), ts:rand(0.3,1.5), to:Math.random()*Math.PI*2, color:Math.random()<0.15?'#d4b0ff':Math.random()<0.12?'#a0d8ff':'#ffffff' });
     nebulae=[];
-    var nc=[[120,58,237],[168,80,247],[60,20,140],[192,120,252],[40,180,220]];
-    for(var i=0;i<6;i++){
-      var c=nc[i%nc.length];
-      nebulae.push({
-        x:Math.random()*W, y:Math.random()*H,
-        rx:randomBetween(150,400), ry:randomBetween(100,250),
-        alpha:randomBetween(0.04,0.1),
-        r:c, speed:randomBetween(0.02,0.06)
-      });
-    }
+    var nc=[[120,58,237],[168,80,247],[60,20,140],[192,120,252],[40,180,220],[200,80,160]];
+    for(var i=0;i<7;i++){ var c=nc[i%nc.length]; nebulae.push({ x:Math.random()*W, y:Math.random()*H, rx:rand(150,420), ry:rand(100,260), alpha:rand(0.04,0.11), r:c, speed:rand(0.02,0.07) }); }
   }
   var t=0;
   function draw(){
@@ -850,7 +784,6 @@
     var bg=ctx.createLinearGradient(0,0,W,H);
     bg.addColorStop(0,'#03020a'); bg.addColorStop(0.4,'#07041a'); bg.addColorStop(1,'#050315');
     ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
-
     nebulae.forEach(function(n){
       var cy=((n.y-parallax*n.speed*5)%(H+400)+H+400)%(H+400)-200;
       var g=ctx.createRadialGradient(n.x,cy,0,n.x,cy,n.rx);
@@ -862,14 +795,13 @@
       ctx.beginPath(); ctx.arc(0,0,n.rx,0,Math.PI*2);
       ctx.fillStyle=g; ctx.fill(); ctx.restore();
     });
-
     var glowMap={'#ffffff':[255,255,255],'#d4b0ff':[212,176,255],'#a0d8ff':[160,216,255]};
     stars.forEach(function(s){
       var tw=0.55+0.45*Math.sin(t*s.ts+s.to);
       var sy=((s.y-parallax*s.speed)%(H+20)+H+20)%(H+20);
       if(s.r>1){
         var rgb=glowMap[s.color]||[255,255,255];
-        var a=s.alpha*tw*0.28;
+        var a=s.alpha*tw*0.3;
         var gw=ctx.createRadialGradient(s.x,sy,0,s.x,sy,s.r*5);
         gw.addColorStop(0,'rgba('+rgb[0]+','+rgb[1]+','+rgb[2]+','+a+')');
         gw.addColorStop(1,'rgba(0,0,0,0)');
@@ -886,32 +818,50 @@
   resize(); init(); draw();
 })();
 
-/* ── SCROLL REVEAL ── */
+/* ══ FLOATING PARTICLES ══ */
+(function(){
+  var field=document.getElementById('particleField');
+  var colors=['rgba(199,125,255,','rgba(72,202,228,','rgba(155,93,229,'];
+  for(var i=0;i<24;i++){
+    var p=document.createElement('div');
+    p.className='pfloat';
+    var size=(Math.random()*3+1)+'px';
+    var c=colors[Math.floor(Math.random()*colors.length)];
+    p.style.cssText='width:'+size+';height:'+size+';left:'+(Math.random()*100)+'vw;bottom:'+(-Math.random()*20)+'vh;background:'+c+'0.5);animation-duration:'+(8+Math.random()*18)+'s;animation-delay:'+(Math.random()*12)+'s;box-shadow:0 0 4px '+c+'0.4)';
+    field.appendChild(p);
+  }
+})();
+
+/* ══ SCROLL REVEAL ══ */
 (function(){
   var io=new IntersectionObserver(function(entries){
     entries.forEach(function(e){
       if(e.isIntersecting){
         e.target.classList.add('visible');
-        // Animate skill bars
-        var bars=e.target.querySelectorAll('.skill-bar-fill');
-        bars.forEach(function(b){
+        e.target.querySelectorAll('.skill-bar-fill').forEach(function(b){
           setTimeout(function(){ b.style.width=b.getAttribute('data-width')+'%'; },200);
+        });
+        /* Count-up for stats */
+        e.target.querySelectorAll('[data-count]').forEach(function(el){
+          var target=parseInt(el.getAttribute('data-count'));
+          var current=0;
+          var step=Math.ceil(target/30);
+          var timer=setInterval(function(){
+            current=Math.min(current+step,target);
+            el.textContent=current;
+            if(current>=target) clearInterval(timer);
+          },40);
         });
         io.unobserve(e.target);
       }
     });
-  },{threshold:0.12});
+  },{threshold:0.1});
   document.querySelectorAll('.reveal,.timeline-item,.goals-list li').forEach(function(el){ io.observe(el); });
-  // Stagger timeline items
-  document.querySelectorAll('.timeline-item').forEach(function(el,i){
-    el.style.transitionDelay=(i*0.15)+'s';
-  });
-  document.querySelectorAll('.goals-list li').forEach(function(el,i){
-    el.style.transitionDelay=(i*0.1)+'s';
-  });
+  document.querySelectorAll('.timeline-item').forEach(function(el,i){ el.style.transitionDelay=(i*0.13)+'s'; });
+  document.querySelectorAll('.goals-list li').forEach(function(el,i){ el.style.transitionDelay=(i*0.1)+'s'; });
 })();
 
-/* ── PARALLAX HERO ── */
+/* ══ PARALLAX HERO ══ */
 (function(){
   var heroText=document.querySelector('.hero-text');
   var photoCol=document.querySelector('.photo-col');
