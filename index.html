@@ -249,12 +249,58 @@
     .card-sparkle{position:absolute;background:rgba(200,215,255,0.9);border-radius:50%;animation:twinkleS 3s ease-in-out infinite;}
     @keyframes twinkleS{0%,100%{opacity:0.5;transform:scale(1)}50%{opacity:1;transform:scale(1.6)}}
 
+    /* DIVIDER */
+    .star-divider{position:relative;z-index:10;text-align:center;padding:0.5rem;color:var(--accent2);font-size:0.55rem;letter-spacing:0.6em;opacity:0.35;transition:color var(--transition-theme);}
+
+    /* ABOUT */
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+    .about-avatar-wrap{display:flex;justify-content:center;align-items:center;}
+    .about-avatar{width:220px;height:220px;border-radius:50%;background:linear-gradient(135deg,rgba(155,93,229,0.25),rgba(72,202,228,0.15));border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--font-serif);font-size:5rem;font-weight:300;color:var(--accent2);box-shadow:0 0 60px rgba(155,93,229,0.18);position:relative;transition:border-color var(--transition-theme),box-shadow var(--transition-theme);}
+    body.day .about-avatar{box-shadow:0 0 60px rgba(255,160,30,0.18);}
+    .about-avatar::after{content:'';position:absolute;inset:-8px;border-radius:50%;border:1px dashed rgba(155,93,229,0.22);animation:spinOrbit 28s linear infinite;}
+    .about-info h3{font-family:var(--font-serif);font-size:2.2rem;font-weight:400;color:var(--text);margin-bottom:0.3rem;transition:color var(--transition-theme);}
+    .about-role{font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent2);margin-bottom:1.8rem;display:block;transition:color var(--transition-theme);}
+    .about-info p{font-size:0.88rem;line-height:2.1;color:var(--muted);font-weight:300;margin-bottom:1rem;transition:color var(--transition-theme);}
+    .about-tags{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.6rem;}
+    .about-tag{font-size:0.64rem;letter-spacing:0.14em;text-transform:uppercase;padding:0.35rem 0.9rem;border-radius:30px;border:1px solid var(--border);color:var(--muted);background:rgba(155,93,229,0.06);transition:all var(--transition-theme);}
+    body.day .about-tag{background:rgba(255,160,30,0.06);}
+
+    .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.2rem;}
+    .stat-box{background:var(--card-bg);border:1px solid var(--border);border-radius:16px;padding:1.4rem 1rem;text-align:center;backdrop-filter:blur(12px);transition:background var(--transition-theme),border-color var(--transition-theme),transform 0.3s;}
+    .stat-box:hover{transform:translateY(-4px);}
+    .stat-num{font-family:var(--font-serif);font-size:2.6rem;font-weight:300;color:var(--accent2);line-height:1;transition:color var(--transition-theme);}
+    .stat-label{font-size:0.63rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-top:0.4rem;transition:color var(--transition-theme);}
+
+    /* PROJECTS */
+    .projects-section{position:relative;z-index:10;padding:7rem 3rem;max-width:1140px;margin:0 auto;}
+    .card-content p{font-size:0.84rem;color:var(--muted);line-height:1.9;font-weight:300;margin-bottom:0.8rem;transition:color var(--transition-theme);}
+    .card-meta{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1.2rem;}
+    .card-pill{font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.28rem 0.75rem;border-radius:20px;border:1px solid var(--border);color:var(--muted);transition:border-color var(--transition-theme),color var(--transition-theme);}
+
+    /* PROCESS */
+    .process-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.4rem;margin-top:0.5rem;}
+    .process-step{background:var(--card-bg);border:1px solid var(--border);border-radius:18px;padding:2rem 1.8rem;backdrop-filter:blur(12px);position:relative;overflow:hidden;transition:background var(--transition-theme),border-color var(--transition-theme),transform 0.3s,box-shadow 0.3s;}
+    .process-step:hover{transform:translateY(-5px);box-shadow:var(--card-hover-shadow);border-color:var(--card-hover-border);}
+    .process-step::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,transparent,var(--accent),transparent);opacity:0.5;}
+    .step-num{font-family:var(--font-serif);font-size:3.8rem;font-weight:300;color:var(--accent);opacity:0.15;line-height:1;margin-bottom:0.6rem;transition:color var(--transition-theme);}
+    .step-icon{font-size:1.5rem;margin-bottom:0.7rem;}
+    .step-title{font-family:var(--font-serif);font-size:1.2rem;font-weight:400;color:var(--text);margin-bottom:0.55rem;transition:color var(--transition-theme);}
+    .step-desc{font-size:0.82rem;color:var(--muted);line-height:1.95;font-weight:300;transition:color var(--transition-theme);}
+
+    .tools-row{display:flex;flex-wrap:wrap;gap:0.7rem;margin-top:2.5rem;}
+    .tool-chip{display:flex;align-items:center;gap:8px;font-size:0.7rem;letter-spacing:0.1em;padding:0.48rem 1rem;border-radius:30px;border:1px solid var(--border);background:var(--card-bg);color:var(--muted);backdrop-filter:blur(8px);transition:border-color 0.3s,color 0.3s,transform 0.2s,background var(--transition-theme);}
+    .tool-chip:hover{border-color:var(--accent2);color:var(--text);transform:translateY(-2px);}
+    .tool-dot{width:6px;height:6px;border-radius:50%;background:var(--accent2);flex-shrink:0;transition:background var(--transition-theme);}
+
+    @media(max-width:900px){.about-grid{grid-template-columns:1fr;gap:2.5rem;}.about-avatar-wrap{order:-1;}}
     @media(max-width:700px){
       nav{padding:0 1.2rem;}
       .hero{padding:7rem 1.5rem 4rem;}
       .orbital-system{display:none;}
-      .section{padding:5rem 1.5rem;}
+      .section,.projects-section{padding:5rem 1.5rem;}
       .toggle-label{display:none;}
+      .stats-row{grid-template-columns:1fr 1fr;}
+      .about-avatar{width:160px;height:160px;font-size:3.5rem;}
     }
   </style>
 </head>
@@ -324,10 +370,56 @@
   <p style="margin-top:3.5rem;font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);opacity:0;animation:fadeUp 0.9s ease forwards 1.3s;transition:color var(--transition-theme);">&#9789; &nbsp; Toggle the switch above to enter a project &nbsp; &#9728;</p>
 </section>
 
-<div class="section" style="display:none">
+<!-- ══ ABOUT ══ -->
+<div class="section reveal">
+  <div class="section-eyebrow">Who I Am</div>
+  <h2 class="section-title">About Me</h2>
+  <div class="about-grid">
+    <div class="about-avatar-wrap">
+      <div class="about-avatar">H</div>
+    </div>
+    <div class="about-info">
+      <h3>Hannah Kim F. Nariz</h3>
+      <span class="about-role">BSIT &mdash; NS &mdash; 2A &nbsp;&middot;&nbsp; 2026</span>
+      <p>I am a second-year Bachelor of Science in Information Technology student with a passion for digital media, visual storytelling, and creative technology. This portfolio showcases my work in Multimedia &amp; Authoring, a subject that challenged me to explore two very different but equally fascinating disciplines.</p>
+      <p>Through rotoscoping, I discovered the meditative rhythm of frame-by-frame animation &mdash; the patience it takes to trace movement and breathe life into footage. Through 3D rendering, I found joy in building entire worlds from geometry, light, and texture, culminating in a fully realized solar system complete with all eight planets.</p>
+      <p>I believe technology is most powerful when it serves creativity, and these projects reflect that belief in every frame and every rendered pixel.</p>
+      <div class="about-tags">
+        <span class="about-tag">Digital Media</span>
+        <span class="about-tag">3D Rendering</span>
+        <span class="about-tag">Animation</span>
+        <span class="about-tag">Rotoscoping</span>
+        <span class="about-tag">Visual Storytelling</span>
+        <span class="about-tag">Blender</span>
+        <span class="about-tag">Adobe Suite</span>
+      </div>
+    </div>
+  </div>
+  <div class="stats-row">
+    <div class="stat-box reveal">
+      <div class="stat-num">2</div>
+      <div class="stat-label">Major Projects</div>
+    </div>
+    <div class="stat-box reveal">
+      <div class="stat-num">9</div>
+      <div class="stat-label">Planets Rendered</div>
+    </div>
+    <div class="stat-box reveal">
+      <div class="stat-num">2A</div>
+      <div class="stat-label">Section &amp; Block</div>
+    </div>
+  </div>
+</div>
+
+<div class="star-divider">&#10022; &nbsp; &#10022; &nbsp; &#10022;</div>
+
+<!-- ══ PROJECTS ══ -->
+<div class="projects-section">
   <div class="section-eyebrow">Selected Works</div>
   <h2 class="section-title">Projects</h2>
   <div class="projects-grid">
+
+    <!-- Rotoscoping -->
     <a href="rotoscoping.html" class="project-card card-roto reveal">
       <div class="card-visual">
         <div class="card-visual-bg"></div>
@@ -341,10 +433,18 @@
       <div class="card-content">
         <div class="card-tag">Animation</div>
         <h3>Rotoscoping</h3>
-        <p>Rotoscoping is an animation technique where artists trace over live-action footage frame by frame to produce realistic motion.</p>
+        <div class="card-meta">
+          <span class="card-pill">Frame-by-Frame</span>
+          <span class="card-pill">Adobe Animate</span>
+          <span class="card-pill">Tracing</span>
+        </div>
+        <p>Rotoscoping is a classical animation technique where artists trace over live-action footage frame by frame to produce fluid, realistic motion. Originally patented by Max Fleischer in 1917, it has been used in everything from early Disney films to modern visual effects.</p>
+        <p>In this project, I applied rotoscoping to a selected video clip, carefully tracing each frame to create a stylized animated version that preserves the natural fluidity of the original movement while adding a handcrafted, illustrative quality.</p>
         <div class="card-cta">Enter the light <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       </div>
     </a>
+
+    <!-- 3D Rendering -->
     <a href="rendering.html" class="project-card card-render reveal" style="transition-delay:0.15s">
       <div class="card-visual">
         <div class="card-visual-bg"></div>
@@ -364,11 +464,79 @@
       </div>
       <div class="card-content">
         <div class="card-tag">3D Rendering</div>
-        <h3>3D Rendering — Solar System</h3>
-        <p>3D rendering transforms mathematical models into photorealistic imagery using light simulation, textures, and geometry.</p>
+        <h3>3D Rendering &mdash; Solar System</h3>
+        <div class="card-meta">
+          <span class="card-pill">Blender</span>
+          <span class="card-pill">Texturing</span>
+          <span class="card-pill">Lighting</span>
+          <span class="card-pill">Animation</span>
+        </div>
+        <p>3D rendering is the process of converting three-dimensional digital models into two-dimensional images using simulated light, materials, and camera perspectives. This project builds the entire solar system from scratch &mdash; the Sun plus all eight planets, each with accurate relative sizing, NASA-sourced textures, and orbital animation.</p>
+        <p>The project also features an interactive planetary age calculator: enter your Earth age and instantly discover how old you would be on every body in the solar system.</p>
         <div class="card-cta">Explore the cosmos <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       </div>
     </a>
+
+  </div>
+</div>
+
+<div class="star-divider">&#10022; &nbsp; &#10022; &nbsp; &#10022;</div>
+
+<!-- ══ PROCESS ══ -->
+<div class="section reveal">
+  <div class="section-eyebrow">How It Was Made</div>
+  <h2 class="section-title">The Creative Process</h2>
+  <div class="process-grid">
+    <div class="process-step reveal">
+      <div class="step-num">01</div>
+      <div class="step-icon">&#127919;</div>
+      <div class="step-title">Research &amp; Planning</div>
+      <div class="step-desc">Each project began with deep research &mdash; studying the history of rotoscoping from its origins in early animation studios, and understanding the physics of planetary orbits and solar system scale before touching any software. Reference materials, mood boards, and timelines were established before production began.</div>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">02</div>
+      <div class="step-icon">&#127760;</div>
+      <div class="step-title">3D Modeling &amp; Scene Building</div>
+      <div class="step-desc">For the solar system project, each planet was modeled as a UV sphere and scaled proportionally. Planet meshes were UV-unwrapped to accept high-resolution NASA texture maps. Orbital paths were set using curve constraints, and the Sun was given an emission shader to radiate light across the entire scene.</div>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">03</div>
+      <div class="step-icon">&#127912;</div>
+      <div class="step-title">Rotoscoping Frame by Frame</div>
+      <div class="step-desc">The rotoscoping process involved importing video footage as a reference layer, then meticulously drawing over each frame using a graphics tablet. Key poses were identified first, then in-between frames were filled in to ensure smooth, natural motion. Consistency in line weight and style was maintained across every frame.</div>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">04</div>
+      <div class="step-icon">&#128161;</div>
+      <div class="step-title">Lighting &amp; Texturing</div>
+      <div class="step-desc">Lighting was one of the most critical stages for the 3D project. A point light at the Sun's center simulates solar radiation, with falloff tuned to create the dramatic darkness of deep space. Each planet surface uses a combination of diffuse, specular, and bump maps to achieve photorealistic depth and texture.</div>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">05</div>
+      <div class="step-icon">&#127909;</div>
+      <div class="step-title">Rendering &amp; Export</div>
+      <div class="step-desc">Final renders were produced using Blender's Cycles rendering engine, which simulates physically accurate light bouncing. Each animation sequence was rendered frame by frame at HD resolution. Render times were optimized using GPU acceleration and tile-based sampling. Frames were then compiled into video sequences using the video editor.</div>
+    </div>
+    <div class="process-step reveal">
+      <div class="step-num">06</div>
+      <div class="step-icon">&#127968;</div>
+      <div class="step-title">Web Portfolio &amp; Presentation</div>
+      <div class="step-desc">The final step was presenting the work through this interactive portfolio site, built from scratch using HTML, CSS, and vanilla JavaScript. The site features a dynamic star-field background, a day/night celestial toggle that transitions between projects, planetary age calculator, and responsive design &mdash; all without any frameworks or libraries.</div>
+    </div>
+  </div>
+
+  <div class="section-eyebrow" style="margin-top:3.5rem;">Tools &amp; Technologies</div>
+  <div class="tools-row">
+    <div class="tool-chip"><span class="tool-dot"></span>Blender</div>
+    <div class="tool-chip"><span class="tool-dot"></span>Cycles Render Engine</div>
+    <div class="tool-chip"><span class="tool-dot"></span>Adobe Animate</div>
+    <div class="tool-chip"><span class="tool-dot"></span>Adobe Premiere Pro</div>
+    <div class="tool-chip"><span class="tool-dot"></span>NASA Texture Maps</div>
+    <div class="tool-chip"><span class="tool-dot"></span>HTML &amp; CSS</div>
+    <div class="tool-chip"><span class="tool-dot"></span>Vanilla JavaScript</div>
+    <div class="tool-chip"><span class="tool-dot"></span>GPU Rendering</div>
+    <div class="tool-chip"><span class="tool-dot"></span>UV Mapping</div>
+    <div class="tool-chip"><span class="tool-dot"></span>Graphics Tablet</div>
   </div>
 </div>
 
