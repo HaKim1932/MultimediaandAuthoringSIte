@@ -14,6 +14,7 @@
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     body { font-family:'Outfit',sans-serif; background:var(--bg); color:var(--white); }
+
     nav {
       background:rgba(13,10,20,0.92); backdrop-filter:blur(12px);
       border-bottom:1px solid var(--border); padding:0 2.5rem;
@@ -41,39 +42,28 @@
     .block-sub::before { content:''; width:20px; height:1px; background:var(--accent); }
     .body-text { font-size:0.9rem; line-height:1.9; color:var(--mid); margin-bottom:2rem; max-width:720px; font-weight:300; }
 
-    /* VIDEO */
-    .video-wrap { border:1px solid var(--border); background:#000; border-radius:14px; aspect-ratio:16/9; margin-bottom:0.8rem; overflow:hidden; box-shadow:0 0 60px rgba(124,58,237,0.12); }
-    .video-wrap iframe { width:100%; height:100%; border:none; display:block; }
-    .video-placeholder { width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; background:var(--surface); color:var(--mid); font-size:0.85rem; }
-    .play-ring { width:64px; height:64px; border:1.5px solid var(--muted); border-radius:50%; display:flex; align-items:center; justify-content:center; transition:border-color 0.2s; }
+    /* VIDEO EMBED — fixed */
+    .video-wrap {
+      position:relative;
+      border:1px solid var(--border);
+      background:#000;
+      border-radius:14px;
+      aspect-ratio:16/9;
+      margin-bottom:0.8rem;
+      overflow:hidden;
+      box-shadow:0 0 60px rgba(124,58,237,0.12);
+    }
+    .video-wrap iframe {
+      position:absolute;
+      top:0; left:0;
+      width:100%;
+      height:100%;
+      border:none;
+      display:block;
+    }
     .video-label { font-size:0.76rem; color:var(--muted); margin-bottom:2.5rem; letter-spacing:0.05em; }
 
-    /* MODULE GRID */
-    .module-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:1rem; }
-    .module-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden; transition:border-color 0.25s,transform 0.25s,box-shadow 0.25s; }
-    .module-card:hover { border-color:var(--accent2); transform:translateY(-3px); box-shadow:0 12px 40px rgba(124,58,237,0.15); }
-    .module-thumb { aspect-ratio:16/9; background:var(--card); display:flex; align-items:center; justify-content:center; position:relative; border-bottom:1px solid var(--border); }
-    .thumb-glow { position:absolute; inset:0; background:radial-gradient(ellipse at center,rgba(168,85,247,0.08),transparent 70%); }
-    .module-play { width:42px; height:42px; border:1.5px solid var(--muted); border-radius:50%; display:flex; align-items:center; justify-content:center; position:relative; z-index:1; transition:border-color 0.2s; }
-    .module-card:hover .module-play { border-color:var(--accent3); }
-    .week-badge { position:absolute; top:10px; left:10px; font-size:0.65rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent3); background:rgba(13,10,20,0.7); border:1px solid var(--border); padding:3px 9px; border-radius:20px; z-index:1; }
-    .module-body { padding:1.2rem 1.3rem 1.4rem; }
-    .module-body h4 { font-family:'Libre Baskerville',serif; font-size:1.05rem; color:var(--white); margin-bottom:0.45rem; }
-    .module-body p { font-size:0.82rem; color:var(--mid); line-height:1.72; font-weight:300; }
-    .module-locked { display:flex; align-items:center; gap:5px; font-size:0.68rem; color:var(--muted); margin-top:0.8rem; letter-spacing:0.06em; text-transform:uppercase; }
-
-    /* WEEKLY PROGRESS CARDS */
-    .weeks-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.2rem; }
-    .week-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden; transition:border-color 0.25s,transform 0.25s,box-shadow 0.25s; }
-    .week-card:hover { border-color:var(--accent2); transform:translateY(-3px); box-shadow:0 12px 40px rgba(124,58,237,0.15); }
-    .week-video { aspect-ratio:16/9; background:#000; border-bottom:1px solid var(--border); overflow:hidden; position:relative; }
-    .week-video iframe { width:100%; height:100%; border:none; display:block; }
-    .week-video .video-placeholder-sm { width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; background:var(--card); color:var(--mid); font-size:0.8rem; }
-    .week-body { padding:1rem 1.2rem 1.2rem; display:flex; flex-direction:column; gap:0.35rem; }
-    .week-body .week-badge { position:static; font-size:0.65rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent3); background:rgba(168,85,247,0.1); border:1px solid rgba(168,85,247,0.25); padding:3px 9px; border-radius:20px; width:fit-content; }
-    .week-body h4 { font-family:'Libre Baskerville',serif; font-size:0.95rem; color:var(--white); }
-
-    /* STEP CARDS — image thumbnails */
+    /* STEP CARDS */
     .step-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:1rem; }
     .step-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden; transition:border-color 0.25s,transform 0.25s,box-shadow 0.25s; }
     .step-card:hover { border-color:var(--accent2); transform:translateY(-3px); box-shadow:0 12px 40px rgba(124,58,237,0.15); }
@@ -86,12 +76,40 @@
     .step-body h4 { font-family:'Libre Baskerville',serif; font-size:1rem; color:var(--white); margin-bottom:0.4rem; }
     .step-body p { font-size:0.82rem; color:var(--mid); line-height:1.72; font-weight:300; }
 
+    /* WEEKLY PROGRESS CARDS */
+    .weeks-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.2rem; }
+    .week-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden; transition:border-color 0.25s,transform 0.25s,box-shadow 0.25s; }
+    .week-card:hover { border-color:var(--accent2); transform:translateY(-3px); box-shadow:0 12px 40px rgba(124,58,237,0.15); }
+    .week-video {
+      position:relative;
+      aspect-ratio:16/9;
+      background:#000;
+      border-bottom:1px solid var(--border);
+      overflow:hidden;
+    }
+    .week-video iframe {
+      position:absolute;
+      top:0; left:0;
+      width:100%;
+      height:100%;
+      border:none;
+      display:block;
+    }
+    .week-body { padding:1rem 1.2rem 1.2rem; display:flex; flex-direction:column; gap:0.35rem; }
+    .week-body .week-badge { position:static; font-size:0.65rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent3); background:rgba(168,85,247,0.1); border:1px solid rgba(168,85,247,0.25); padding:3px 9px; border-radius:20px; width:fit-content; }
+    .week-body h4 { font-family:'Libre Baskerville',serif; font-size:0.95rem; color:var(--white); }
+
     footer { border-top:1px solid var(--border); background:var(--surface); text-align:center; padding:2.5rem 1.5rem; font-size:0.8rem; letter-spacing:0.04em; color:var(--muted); line-height:2.2; margin-top:5rem; }
     footer span { color:var(--mid); }
-    @media(max-width:600px){ .hero,.content{ padding-left:1.2rem; padding-right:1.2rem; } nav{ padding:0 1.2rem; } }
+
+    @media(max-width:600px){
+      .hero,.content{ padding-left:1.2rem; padding-right:1.2rem; }
+      nav{ padding:0 1.2rem; }
+    }
   </style>
 </head>
 <body>
+
   <nav>
     <a href="index.html" class="nav-brand">Hannah Kim<span class="nav-dot">·</span>Nariz</a>
     <div class="nav-links">
@@ -109,24 +127,22 @@
 
   <div class="content">
 
+    <!-- PARTIAL OUTPUT -->
     <h2 class="block-title">Partial Output</h2>
-    <div class="block-sub"> Work</div>
+    <div class="block-sub">Work</div>
     <p class="body-text">The rotoscoping animation — the culmination of 12 clips of frame-by-frame tracing, coloring, and editing in Photoshop.</p>
     <div class="video-wrap">
-      <div class="video-placeholder">
-        <div class="play-ring"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 3L13 8L5 13V3Z" fill="#8b7ab0"/></svg></div>
-        <span>Rotoscoping — Partial Output</span>
-      </div>
-     <iframe src="https://www.youtube.com/embed/AEr7Bk8Z60Q" allowfullscreen></iframe> 
+      <iframe src="https://www.youtube.com/embed/AEr7Bk8Z60Q" allowfullscreen title="Rotoscoping Partial Output"></iframe>
     </div>
-    <p class="video-label">Final animated output &nbsp;·&nbsp; Add your YouTube embed URL inside the video-wrap div above.</p>
+    <p class="video-label">Final animated output</p>
 
+    <!-- STEP-BY-STEP -->
     <h2 class="block-title">Step-by-Step Tutorial</h2>
     <div class="block-sub">Process</div>
     <p class="body-text">A guided walkthrough of the rotoscoping workflow — from your video reference all the way through to the final exported render.</p>
 
     <div class="step-grid">
-      <!-- Step 1 — Video Reference -->
+
       <div class="step-card">
         <div class="step-thumb">
           <video src="images/source.mp4" muted loop playsinline
@@ -141,7 +157,6 @@
         </div>
       </div>
 
-      <!-- Step 2 — Import to AE -->
       <div class="step-card">
         <div class="step-thumb">
           <img src="images/step 1 - import to ae.jpg" alt="Import to After Effects" loading="lazy" />
@@ -154,7 +169,6 @@
         </div>
       </div>
 
-      <!-- Step 3 — Freeze -->
       <div class="step-card">
         <div class="step-thumb">
           <img src="images/step 2 freeze.jpg" alt="Freeze frame" loading="lazy" />
@@ -167,7 +181,6 @@
         </div>
       </div>
 
-      <!-- Step 4 — Separate Layers -->
       <div class="step-card">
         <div class="step-thumb">
           <img src="images/step 3 - separate layers.jpg" alt="Separate layers" loading="lazy" />
@@ -180,7 +193,6 @@
         </div>
       </div>
 
-      <!-- Step 5 — Trace Each Layer -->
       <div class="step-card">
         <div class="step-thumb">
           <img src="images/step 4 - trace each layer.jpg" alt="Trace each layer" loading="lazy" />
@@ -193,7 +205,6 @@
         </div>
       </div>
 
-      <!-- Step 6 — Export the Render -->
       <div class="step-card">
         <div class="step-thumb">
           <img src="images/step 5 - export the render.jpg" alt="Export the render" loading="lazy" />
@@ -208,20 +219,16 @@
 
     </div>
 
+    <!-- WEEKLY PROGRESS -->
     <h2 class="block-title">Weekly Progress</h2>
     <div class="block-sub">5-Second Clips</div>
     <p class="body-text">Each module represents one 5-second clip. Rendered from After Effects and edited frame by frame for 12 weeks.</p>
-    <div class="weeks-grid" id="weeks-grid">
- 
 
-        <!-- WEEK 1 — YouTube embed -->
+    <div class="weeks-grid">
+
       <div class="week-card">
         <div class="week-video">
-          <iframe
-            src="https://www.youtube.com/embed/tLQrlXWi1dM"
-            allowfullscreen
-            title="Week 1 Progress">
-          </iframe>
+          <iframe src="https://www.youtube.com/embed/tLQrlXWi1dM" allowfullscreen title="Week 1"></iframe>
         </div>
         <div class="week-body">
           <span class="week-badge">Week 1</span>
@@ -229,14 +236,9 @@
         </div>
       </div>
 
-      <!-- WEEK 2 — YouTube embed -->
       <div class="week-card">
         <div class="week-video">
-          <iframe
-            src="https://www.youtube.com/embed/qgv9d9oyrJM"
-            allowfullscreen
-            title="Week 2 Progress">
-          </iframe>
+          <iframe src="https://www.youtube.com/embed/qgv9d9oyrJM" allowfullscreen title="Week 2"></iframe>
         </div>
         <div class="week-body">
           <span class="week-badge">Week 2</span>
@@ -246,11 +248,7 @@
 
       <div class="week-card">
         <div class="week-video">
-          <iframe
-            src="https://www.youtube.com/embed/28vaLHJOr9Q"
-            allowfullscreen
-            title="Week 3 Progress">
-          </iframe>
+          <iframe src="https://www.youtube.com/embed/28vaLHJOr9Q" allowfullscreen title="Week 3"></iframe>
         </div>
         <div class="week-body">
           <span class="week-badge">Week 3</span>
@@ -258,13 +256,9 @@
         </div>
       </div>
 
-            <div class="week-card">
+      <div class="week-card">
         <div class="week-video">
-          <iframe
-            src="https://www.youtube.com/embed/x0TJ4DXsdhA"
-            allowfullscreen
-            title="Week 4 Progress">
-          </iframe>
+          <iframe src="https://www.youtube.com/embed/x0TJ4DXsdhA" allowfullscreen title="Week 4"></iframe>
         </div>
         <div class="week-body">
           <span class="week-badge">Week 4</span>
@@ -272,13 +266,9 @@
         </div>
       </div>
 
-       <div class="week-card">
+      <div class="week-card">
         <div class="week-video">
-          <iframe
-            src="https://www.youtube.com/embed/0J4Eq7SFZ6s"
-            allowfullscreen
-            title="Week 5 Progress">
-          </iframe>
+          <iframe src="https://www.youtube.com/embed/0J4Eq7SFZ6s" allowfullscreen title="Week 5"></iframe>
         </div>
         <div class="week-body">
           <span class="week-badge">Week 5</span>
@@ -286,13 +276,9 @@
         </div>
       </div>
 
-       <div class="week-card">
+      <div class="week-card">
         <div class="week-video">
-          <iframe
-            src="https://www.youtube.com/embed/wJAFoXZzo4A"
-            allowfullscreen
-            title="Week 6 Progress">
-          </iframe>
+          <iframe src="https://www.youtube.com/embed/wJAFoXZzo4A" allowfullscreen title="Week 6"></iframe>
         </div>
         <div class="week-body">
           <span class="week-badge">Week 6</span>
@@ -302,11 +288,7 @@
 
       <div class="week-card">
         <div class="week-video">
-          <iframe
-            src="https://www.youtube.com/embed/pJmE1da83ms"
-            allowfullscreen
-            title="Week 7 Progress">
-          </iframe>
+          <iframe src="https://www.youtube.com/embed/pJmE1da83ms" allowfullscreen title="Week 7"></iframe>
         </div>
         <div class="week-body">
           <span class="week-badge">Week 7</span>
@@ -314,13 +296,9 @@
         </div>
       </div>
 
-       <div class="week-card">
+      <div class="week-card">
         <div class="week-video">
-          <iframe
-            src="https://www.youtube.com/embed/OnEUmjQGggg"
-            allowfullscreen
-            title="Week 8 Progress">
-          </iframe>
+          <iframe src="https://www.youtube.com/embed/OnEUmjQGggg" allowfullscreen title="Week 8"></iframe>
         </div>
         <div class="week-body">
           <span class="week-badge">Week 8</span>
@@ -328,13 +306,9 @@
         </div>
       </div>
 
-        <div class="week-card">
+      <div class="week-card">
         <div class="week-video">
-          <iframe
-            src="https://www.youtube.com/embed/ChEeWu-FkfQ"
-            allowfullscreen
-            title="Week 9 Progress">
-          </iframe>
+          <iframe src="https://www.youtube.com/embed/ChEeWu-FkfQ" allowfullscreen title="Week 9"></iframe>
         </div>
         <div class="week-body">
           <span class="week-badge">Week 9</span>
@@ -342,13 +316,9 @@
         </div>
       </div>
 
-              <div class="week-card">
+      <div class="week-card">
         <div class="week-video">
-          <iframe
-            src="https://www.youtube.com/embed/AUpQWefd7IA"
-            allowfullscreen
-            title="Week 10 Progress">
-          </iframe>
+          <iframe src="https://www.youtube.com/embed/AUpQWefd7IA" allowfullscreen title="Week 10"></iframe>
         </div>
         <div class="week-body">
           <span class="week-badge">Week 10</span>
@@ -356,13 +326,9 @@
         </div>
       </div>
 
-         <div class="week-card">
+      <div class="week-card">
         <div class="week-video">
-          <iframe
-            src="https://www.youtube.com/embed/2Cuv2C5mj5U"
-            allowfullscreen
-            title="Week 11 Progress">
-          </iframe>
+          <iframe src="https://www.youtube.com/embed/2Cuv2C5mj5U" allowfullscreen title="Week 11"></iframe>
         </div>
         <div class="week-body">
           <span class="week-badge">Week 11</span>
@@ -370,13 +336,9 @@
         </div>
       </div>
 
-         <div class="week-card">
+      <div class="week-card">
         <div class="week-video">
-          <iframe
-            src="https://www.youtube.com/embed/L8HzkVtbo5A"
-            allowfullscreen
-            title="Week 12 Progress">
-          </iframe>
+          <iframe src="https://www.youtube.com/embed/L8HzkVtbo5A" allowfullscreen title="Week 12"></iframe>
         </div>
         <div class="week-body">
           <span class="week-badge">Week 12</span>
@@ -384,29 +346,14 @@
         </div>
       </div>
 
-        </div><!-- end weeks-grid, weeks 4-12 rendered by JS below -->
-   </div>
+    </div><!-- end weeks-grid -->
+
+  </div><!-- end content -->
+
   <footer>
     © 2026 Hannah Kim F. Nariz &nbsp;|&nbsp; BSIT-NS-2A<br/>
     <span>All rights reserved. &nbsp;|&nbsp; For educational purposes only.</span>
   </footer>
 
-  <script>
-  
-    const grid = document.getElementById('weeks-grid');
-    grid.insertAdjacentHTML('beforeend', clips.map(c => `
-      <div class="week-card">
-        <div class="week-video">
-          <div class="video-placeholder-sm">
-            <svg width="36" height="36" viewBox="0 0 36 36" fill="none"><circle cx="18" cy="18" r="17" stroke="#3d2d6a" stroke-width="1.5"/><path d="M14 12L24 18L14 24V12Z" fill="#8b7ab0"/></svg>
-            <span>Week ${c.n} — Add YouTube embed</span>
-          </div>
-        </div>
-        <div class="week-body">
-          <span class="week-badge">Week ${c.n}</span>
-          <h4>${c.title}</h4>
-        </div>
-      </div>`).join(''));
-  </script>
 </body>
 </html>
