@@ -354,7 +354,7 @@
 <div class="hero">
   <div class="hero-glow"></div>
   <div class="hero-glow2"></div>
-  <div class="breadcrumb"><a href="index.html">Home</a> › 3D Rendering</div>
+  <div class="breadcrumb"><a href="index.html">Home</a> &rsaquo; 3D Rendering</div>
   <h1>3D Rendering<br/>Solar System</h1>
   <p>3D rendering is the process of converting three-dimensional digital models into two-dimensional images using simulated light, materials, and camera perspectives. This project brings the solar system to life through accurate modeling, planetary textures, and orbital mechanics.</p>
 </div>
@@ -377,7 +377,7 @@
     </div>
     <!-- REPLACE WITH: <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" allowfullscreen></iframe> -->
   </div>
-  <p class="video-label">Solar System 3D Render — Final Output · Add your YouTube embed URL inside the video-wrap div above.</p>
+  <p class="video-label">Solar System 3D Render — Final Output &nbsp;·&nbsp; Add your YouTube embed URL inside the video-wrap div above.</p>
 
   <!-- INDIVIDUAL PLANETS -->
   <h2 class="block-title">Individual Planets</h2>
@@ -506,6 +506,7 @@
 
   function initStars() {
     stars = [];
+    // Small distant stars
     for(let i=0;i<320;i++){
       stars.push({
         x: Math.random()*W,
@@ -518,6 +519,7 @@
         color: Math.random()<0.15 ? '#d4b0ff' : Math.random()<0.15 ? '#a0d0ff' : '#ffffff'
       });
     }
+    // Bigger brighter stars
     for(let i=0;i<40;i++){
       stars.push({
         x: Math.random()*W,
@@ -530,6 +532,7 @@
         color: Math.random()<0.4 ? '#e8c8ff' : '#ffffff'
       });
     }
+    // Nebula blobs
     nebulae = [];
     const nebulaColors = [
       [124,58,237], [168,85,247], [76,29,149],
@@ -555,6 +558,7 @@
     t += 0.012;
     const parallax = scrollY * 0.18;
 
+    // Deep space background
     ctx.clearRect(0,0,W,H);
     const bg = ctx.createLinearGradient(0,0,W,H);
     bg.addColorStop(0,   '#04020d');
@@ -564,6 +568,7 @@
     ctx.fillStyle = bg;
     ctx.fillRect(0,0,W,H);
 
+    // Nebula clouds (slow parallax on scroll)
     nebulae.forEach(n => {
       const cx = n.x;
       const cy = ((n.y - parallax * n.speed * 4) % (H + 400) + H + 400) % (H + 400) - 200;
@@ -582,6 +587,7 @@
       ctx.restore();
     });
 
+    // Milky way streak
     const mw = ctx.createLinearGradient(W*0.1, 0, W*0.9, H);
     mw.addColorStop(0,  'rgba(100,60,200,0)');
     mw.addColorStop(0.3,'rgba(100,60,200,0.045)');
@@ -594,11 +600,13 @@
     ctx.fillRect(0,0,W,H);
     ctx.restore();
 
+    // Stars with twinkle + parallax
     stars.forEach(s => {
       const twinkle = 0.6 + 0.4*Math.sin(t*s.twinkleSpeed + s.twinkleOffset);
       const sy = ((s.y - parallax*s.speed) % (H+20) + H+20) % (H+20);
 
       if(s.r > 1.2) {
+        // Glow for bright stars — use a safe color map instead of regex parsing
         const glowColorMap = {
           '#ffffff': `rgba(255,255,255,${s.alpha*twinkle*0.3})`,
           '#d4b0ff': `rgba(212,176,255,${s.alpha*twinkle*0.35})`,
@@ -719,6 +727,7 @@ document.getElementById('age-input').addEventListener('keydown', e => {
   if(e.key === 'Enter') calculateAges();
 });
 
+// Initial render (empty state)
 renderCards(null);
 </script>
 
