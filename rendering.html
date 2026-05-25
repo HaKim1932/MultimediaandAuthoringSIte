@@ -266,58 +266,82 @@ footer .footer-brand{font-family:var(--font-serif);font-size:1rem;color:var(--li
 .calc-btn-fancy:hover{opacity:0.9;box-shadow:0 0 30px rgba(168,85,247,0.5);transform:translateY(-1px);}
 .calc-hint-fancy{font-size:0.72rem;color:var(--muted);}
 
-/* HUMAN FIGURE + COMPARISON */
+/* HUMAN FIGURE + VIDEO + COMPARISON */
 .calc-visual{
-  display:grid;grid-template-columns:1fr 1fr;
+  display:grid;grid-template-columns:220px 1fr 300px;
   border-bottom:1px solid var(--border);
   background:rgba(10,6,22,0.9);
-  min-height:340px;
+  min-height:380px;
 }
 .calc-human-side{
   border-right:1px solid var(--border);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:2rem;gap:0.8rem;
+  padding:1.6rem 1rem;gap:0.6rem;
   position:relative;overflow:hidden;
 }
-.calc-human-side::before{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(168,85,247,0.15) 0%,transparent 70%);pointer-events:none;}
+.calc-human-side::before{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(168,85,247,0.18) 0%,transparent 70%);pointer-events:none;}
 .human-canvas-wrap{position:relative;}
 #humanCanvas{display:block;}
 .human-age-display{text-align:center;}
-.had-label{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
-.had-age{font-family:var(--font-serif);font-size:2.8rem;color:var(--accent3);font-weight:300;line-height:1;}
-.had-desc{font-size:0.72rem;color:var(--mid);margin-top:4px;}
+.had-label{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.had-age{font-family:var(--font-serif);font-size:2.4rem;color:var(--accent3);font-weight:300;line-height:1;}
+.had-desc{font-size:0.68rem;color:var(--mid);margin-top:4px;}
+
+/* PLANET VIDEO CENTER */
+.calc-video-side{
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  background:rgba(6,4,15,0.6);
+}
+.calc-video-header{
+  padding:1rem 1.4rem 0.8rem;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:10px;
+}
+.calc-video-header-emoji{font-size:1.4rem;}
+.calc-video-header-name{font-family:var(--font-serif);font-size:1.1rem;color:var(--white);font-weight:400;}
+.calc-video-header-type{font-size:0.6rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-left:auto;}
+.calc-video-wrap{flex:1;position:relative;min-height:0;}
+.calc-video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;display:block;}
+.calc-video-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:radial-gradient(ellipse at 50% 50%,rgba(40,15,80,0.5) 0%,rgba(6,4,15,0.98) 80%);color:var(--muted);font-size:0.78rem;padding:2rem;text-align:center;}
+.calc-video-placeholder .big-emoji{font-size:3rem;margin-bottom:0.4rem;opacity:0.4;}
+.calc-video-info{padding:0.8rem 1.4rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:rgba(124,58,237,0.06);}
+.calc-video-planet-age{font-family:var(--font-serif);font-size:1.5rem;color:var(--accent3);}
+.calc-video-life-stage{font-size:0.65rem;color:var(--mid);text-transform:uppercase;letter-spacing:0.1em;text-align:right;}
 
 /* COMPARISON SIDE */
-.calc-compare-side{display:flex;flex-direction:column;padding:1.4rem;}
-.compare-title{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent3);margin-bottom:1rem;display:flex;align-items:center;gap:8px;}
-.compare-title::before{content:'';width:18px;height:1px;background:var(--accent3);}
-.compare-rows{display:flex;flex-direction:column;gap:0.55rem;flex:1;overflow-y:auto;max-height:280px;padding-right:4px;}
+.calc-compare-side{display:flex;flex-direction:column;padding:1.2rem;}
+.compare-title{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent3);margin-bottom:0.8rem;display:flex;align-items:center;gap:8px;}
+.compare-title::before{content:'';width:16px;height:1px;background:var(--accent3);}
+.compare-rows{display:flex;flex-direction:column;gap:0.45rem;flex:1;overflow-y:auto;max-height:320px;padding-right:4px;}
 .compare-rows::-webkit-scrollbar{width:3px;}
 .compare-rows::-webkit-scrollbar-track{background:transparent;}
 .compare-rows::-webkit-scrollbar-thumb{background:var(--muted);border-radius:3px;}
 .cmp-row{
-  display:grid;grid-template-columns:26px 1fr 80px;
-  align-items:center;gap:10px;
-  padding:0.65rem 0.9rem;
-  background:rgba(255,255,255,0.025);
-  border:1px solid rgba(255,255,255,0.05);
+  display:grid;grid-template-columns:22px 1fr 68px;
+  align-items:center;gap:8px;
+  padding:0.55rem 0.8rem;
+  background:rgba(255,255,255,0.02);
+  border:1px solid rgba(255,255,255,0.04);
   border-radius:10px;
-  transition:border-color 0.2s,background 0.2s;
+  cursor:pointer;
+  transition:border-color 0.2s,background 0.2s,transform 0.15s;
   position:relative;overflow:hidden;
+  width:100%;text-align:left;font-family:var(--font-sans);
 }
-.cmp-row::after{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px;}
-.cmp-row:hover{border-color:rgba(168,85,247,0.25);background:rgba(124,58,237,0.06);}
-.cmp-emoji{font-size:1.1rem;text-align:center;}
-.cmp-info{}
-.cmp-planet-name{font-size:0.75rem;color:var(--white);font-weight:400;margin-bottom:1px;}
-.cmp-life-stage{font-size:0.6rem;color:var(--muted);letter-spacing:0.05em;}
-.cmp-age-badge{
-  text-align:right;
-}
-.cmp-age-num{font-family:var(--font-serif);font-size:1.2rem;color:var(--accent3);display:block;line-height:1;}
-.cmp-age-unit{font-size:0.58rem;color:var(--muted);letter-spacing:0.1em;}
-.cmp-bar-wrap{height:3px;background:rgba(255,255,255,0.06);border-radius:3px;margin-top:3px;}
-.cmp-bar{height:3px;border-radius:3px;transition:width 0.8s cubic-bezier(0.4,0,0.2,1);}
+.cmp-row::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px;background:transparent;transition:background 0.2s;}
+.cmp-row:hover{border-color:rgba(168,85,247,0.3);background:rgba(124,58,237,0.08);transform:translateX(2px);}
+.cmp-row:hover::before{background:var(--accent2);}
+.cmp-row.active-planet{border-color:rgba(168,85,247,0.5);background:rgba(124,58,237,0.15);}
+.cmp-row.active-planet::before{background:linear-gradient(to bottom,var(--accent2),var(--accent));}
+.cmp-emoji{font-size:1rem;text-align:center;}
+.cmp-planet-name{font-size:0.72rem;color:var(--white);font-weight:400;margin-bottom:1px;}
+.cmp-life-stage{font-size:0.57rem;color:var(--muted);letter-spacing:0.04em;}
+.cmp-bar-wrap{height:2px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:3px;}
+.cmp-bar{height:2px;border-radius:2px;transition:width 0.8s cubic-bezier(0.4,0,0.2,1);}
+.cmp-age-badge{text-align:right;}
+.cmp-age-num{font-family:var(--font-serif);font-size:1.05rem;color:var(--accent3);display:block;line-height:1;}
+.cmp-age-unit{font-size:0.55rem;color:var(--muted);letter-spacing:0.08em;}
 
 /* DETAILED CALC CARDS */
 .calc-cards-section{padding:1.4rem 2rem;background:rgba(13,9,32,0.6);}
