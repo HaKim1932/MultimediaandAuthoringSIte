@@ -266,82 +266,61 @@ footer .footer-brand{font-family:var(--font-serif);font-size:1rem;color:var(--li
 .calc-btn-fancy:hover{opacity:0.9;box-shadow:0 0 30px rgba(168,85,247,0.5);transform:translateY(-1px);}
 .calc-hint-fancy{font-size:0.72rem;color:var(--muted);}
 
-/* HUMAN FIGURE + VIDEO + COMPARISON */
+/* HUMAN FIGURE + VIDEO + PLANET HUMAN */
 .calc-visual{
-  display:grid;grid-template-columns:220px 1fr 300px;
+  display:grid;grid-template-columns:200px 1fr 200px;
   border-bottom:1px solid var(--border);
-  background:rgba(10,6,22,0.9);
-  min-height:380px;
+  background:rgba(10,6,22,0.95);
+  min-height:420px;
 }
 .calc-human-side{
   border-right:1px solid var(--border);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:1.6rem 1rem;gap:0.6rem;
+  padding:1.4rem 1rem;gap:0.8rem;
   position:relative;overflow:hidden;
+  background:linear-gradient(180deg,rgba(124,58,237,0.07) 0%,transparent 100%);
 }
-.calc-human-side::before{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(168,85,247,0.18) 0%,transparent 70%);pointer-events:none;}
-.human-canvas-wrap{position:relative;}
-#humanCanvas{display:block;}
-.human-age-display{text-align:center;}
-.had-label{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
-.had-age{font-family:var(--font-serif);font-size:2.4rem;color:var(--accent3);font-weight:300;line-height:1;}
-.had-desc{font-size:0.68rem;color:var(--mid);margin-top:4px;}
+.calc-human-right{border-right:none;border-left:1px solid var(--border);}
+.calc-human-side::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(168,85,247,0.14) 0%,transparent 70%);pointer-events:none;}
+.calc-human-label-top{display:flex;align-items:center;gap:7px;margin-bottom:0.3rem;}
+.calc-human-planet-name{font-size:0.78rem;color:var(--light);font-weight:400;letter-spacing:0.05em;}
+.human-canvas-wrap{position:relative;z-index:1;}
+#humanCanvas,#humanCanvas2{display:block;}
+.human-age-display{text-align:center;z-index:1;}
+.had-label{font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.had-age{font-family:var(--font-serif);font-size:2.2rem;color:var(--accent3);font-weight:300;line-height:1;}
+.had-desc{font-size:0.65rem;color:var(--mid);margin-top:4px;}
 
-/* PLANET VIDEO CENTER */
-.calc-video-side{
-  border-right:1px solid var(--border);
+/* CENTER VIDEO */
+.calc-video-center{
   display:flex;flex-direction:column;
-  background:rgba(6,4,15,0.6);
+  background:rgba(6,4,15,0.8);
+  min-height:0;
 }
-.calc-video-header{
-  padding:1rem 1.4rem 0.8rem;
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:center;gap:10px;
+.calc-video-title-bar{
+  padding:0.9rem 1.2rem;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:10px;flex-shrink:0;
+  background:rgba(124,58,237,0.06);
 }
-.calc-video-header-emoji{font-size:1.4rem;}
-.calc-video-header-name{font-family:var(--font-serif);font-size:1.1rem;color:var(--white);font-weight:400;}
-.calc-video-header-type{font-size:0.6rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;margin-left:auto;}
-.calc-video-wrap{flex:1;position:relative;min-height:0;}
-.calc-video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;display:block;}
-.calc-video-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:radial-gradient(ellipse at 50% 50%,rgba(40,15,80,0.5) 0%,rgba(6,4,15,0.98) 80%);color:var(--muted);font-size:0.78rem;padding:2rem;text-align:center;}
-.calc-video-placeholder .big-emoji{font-size:3rem;margin-bottom:0.4rem;opacity:0.4;}
-.calc-video-info{padding:0.8rem 1.4rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:rgba(124,58,237,0.06);}
-.calc-video-planet-age{font-family:var(--font-serif);font-size:1.5rem;color:var(--accent3);}
-.calc-video-life-stage{font-size:0.65rem;color:var(--mid);text-transform:uppercase;letter-spacing:0.1em;text-align:right;}
-
-/* COMPARISON SIDE */
-.calc-compare-side{display:flex;flex-direction:column;padding:1.2rem;}
-.compare-title{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent3);margin-bottom:0.8rem;display:flex;align-items:center;gap:8px;}
-.compare-title::before{content:'';width:16px;height:1px;background:var(--accent3);}
-.compare-rows{display:flex;flex-direction:column;gap:0.45rem;flex:1;overflow-y:auto;max-height:320px;padding-right:4px;}
-.compare-rows::-webkit-scrollbar{width:3px;}
-.compare-rows::-webkit-scrollbar-track{background:transparent;}
-.compare-rows::-webkit-scrollbar-thumb{background:var(--muted);border-radius:3px;}
-.cmp-row{
-  display:grid;grid-template-columns:22px 1fr 68px;
-  align-items:center;gap:8px;
-  padding:0.55rem 0.8rem;
-  background:rgba(255,255,255,0.02);
-  border:1px solid rgba(255,255,255,0.04);
-  border-radius:10px;
-  cursor:pointer;
-  transition:border-color 0.2s,background 0.2s,transform 0.15s;
-  position:relative;overflow:hidden;
-  width:100%;text-align:left;font-family:var(--font-sans);
+.calc-video-frame-wrap{
+  flex:1;position:relative;min-height:240px;
+  background:#000;
 }
-.cmp-row::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:3px 0 0 3px;background:transparent;transition:background 0.2s;}
-.cmp-row:hover{border-color:rgba(168,85,247,0.3);background:rgba(124,58,237,0.08);transform:translateX(2px);}
-.cmp-row:hover::before{background:var(--accent2);}
-.cmp-row.active-planet{border-color:rgba(168,85,247,0.5);background:rgba(124,58,237,0.15);}
-.cmp-row.active-planet::before{background:linear-gradient(to bottom,var(--accent2),var(--accent));}
-.cmp-emoji{font-size:1rem;text-align:center;}
-.cmp-planet-name{font-size:0.72rem;color:var(--white);font-weight:400;margin-bottom:1px;}
-.cmp-life-stage{font-size:0.57rem;color:var(--muted);letter-spacing:0.04em;}
-.cmp-bar-wrap{height:2px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:3px;}
-.cmp-bar{height:2px;border-radius:2px;transition:width 0.8s cubic-bezier(0.4,0,0.2,1);}
-.cmp-age-badge{text-align:right;}
-.cmp-age-num{font-family:var(--font-serif);font-size:1.05rem;color:var(--accent3);display:block;line-height:1;}
-.cmp-age-unit{font-size:0.55rem;color:var(--muted);letter-spacing:0.08em;}
+.calc-video-frame-wrap iframe{
+  position:absolute;top:0;left:0;width:100%;height:100%;border:none;display:block;
+}
+.calc-video-empty{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  background:radial-gradient(ellipse at 50% 50%,rgba(40,15,80,0.4) 0%,rgba(4,2,13,0.98) 80%);
+  text-align:center;padding:2rem;
+}
+.calc-video-age-bar{
+  padding:0.9rem 1.4rem;border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+  background:linear-gradient(135deg,rgba(124,58,237,0.12),rgba(168,85,247,0.05));
+  flex-shrink:0;
+}
 
 /* DETAILED CALC CARDS */
 .calc-cards-section{padding:1.4rem 2rem;background:rgba(13,9,32,0.6);}
@@ -350,12 +329,27 @@ footer .footer-brand{font-family:var(--font-serif);font-size:1rem;color:var(--li
 /* reuse planet-card styles above */
 
 /* RESPONSIVE */
+/* CALC PICKER BUTTONS */
+.calc-pick-btn{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:0.32rem 0.75rem;
+  background:rgba(255,255,255,0.03);
+  border:1px solid var(--border);
+  border-radius:20px;color:var(--mid);
+  font-family:var(--font-sans);font-size:0.68rem;letter-spacing:0.06em;
+  cursor:pointer;white-space:nowrap;transition:all 0.2s;
+}
+.calc-pick-btn:hover{border-color:var(--accent2);color:var(--white);background:rgba(124,58,237,0.15);}
+.calc-pick-btn.cpb-active{background:linear-gradient(135deg,var(--accent2),var(--accent));border-color:transparent;color:#fff;box-shadow:0 0 14px rgba(168,85,247,0.4);}
+.cpb-age{background:rgba(0,0,0,0.25);border-radius:10px;padding:0.1rem 0.4rem;font-size:0.62rem;margin-left:2px;}
+
 @media(max-width:900px){
   .body-info-panel{grid-template-columns:1fr;}
   .bip-left,.bip-center,.bip-right{border-right:none;border-bottom:1px solid var(--border);}
   .bip-right{border-bottom:none;}
   .calc-visual{grid-template-columns:1fr;}
-  .calc-human-side{border-right:none;border-bottom:1px solid var(--border);}
+  .calc-human-side,.calc-human-right{border-right:none;border-left:none;border-bottom:1px solid var(--border);}
+  .calc-video-center{min-height:280px;}
 }
 @media(max-width:640px){
   .hero,.content{padding-left:1.2rem;padding-right:1.2rem;}
@@ -537,22 +531,70 @@ footer .footer-brand{font-family:var(--font-serif);font-size:1rem;color:var(--li
         <p class="calc-hint-fancy">* Enter your Earth age to visualize your life stage and compute your age on all 11 celestial bodies including the Moon and Pluto.</p>
       </div>
 
-      <!-- HUMAN FIGURE + COMPARISON -->
+      <!-- PLANET PICKER BUTTONS -->
+      <div id="calc-planet-picker" style="display:none;padding:1rem 2rem 0.8rem;background:rgba(13,9,32,0.85);border-bottom:1px solid var(--border);">
+        <div style="font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent3);margin-bottom:0.6rem;">Compare yourself on — click to switch:</div>
+        <div id="calc-picker-btns" style="display:flex;flex-wrap:wrap;gap:0.4rem;"></div>
+      </div>
+
+      <!-- MAIN VISUAL: EARTH HUMAN | VIDEO | PLANET HUMAN -->
       <div class="calc-visual">
+        <!-- LEFT: YOU ON EARTH -->
         <div class="calc-human-side">
+          <div class="calc-human-label-top">
+            <span style="font-size:1.3rem;">🌍</span>
+            <span class="calc-human-planet-name">Earth</span>
+          </div>
           <div class="human-canvas-wrap">
-            <canvas id="humanCanvas" width="160" height="220"></canvas>
+            <canvas id="humanCanvas" width="140" height="200"></canvas>
           </div>
           <div class="human-age-display">
-            <div class="had-label">Earth Age</div>
+            <div class="had-label">Your Age on Earth</div>
             <div class="had-age" id="had-age">—</div>
-            <div class="had-desc" id="had-desc">Enter your age above</div>
+            <div class="had-desc" id="had-desc">Enter age above</div>
           </div>
         </div>
-        <div class="calc-compare-side">
-          <div class="compare-title">Age Across the Solar System</div>
-          <div class="compare-rows" id="compare-rows">
-            <div style="color:var(--muted);font-size:0.8rem;text-align:center;padding:2rem 0;">Enter your age to see comparisons</div>
+
+        <!-- CENTER: AUTOPLAY VIDEO -->
+        <div class="calc-video-center">
+          <div class="calc-video-title-bar">
+            <span id="calc-video-emoji" style="font-size:1.4rem;">🪐</span>
+            <div>
+              <div id="calc-video-name" style="font-family:var(--font-serif);font-size:1.1rem;color:var(--white);font-weight:400;">Select a Planet</div>
+              <div id="calc-video-type" style="font-size:0.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;">click a button above</div>
+            </div>
+          </div>
+          <div class="calc-video-frame-wrap" id="calc-video-frame-wrap">
+            <div class="calc-video-empty">
+              <div style="font-size:3rem;opacity:0.18;margin-bottom:0.6rem;">🎬</div>
+              <div style="font-size:0.78rem;color:var(--muted);line-height:1.6;">Click any planet button<br/>above to load its 3D render</div>
+            </div>
+          </div>
+          <div class="calc-video-age-bar" id="calc-video-age-bar" style="display:none;">
+            <div>
+              <div style="font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:2px;">Age on this planet</div>
+              <div id="calc-video-planet-age" style="font-family:var(--font-serif);font-size:1.8rem;color:var(--accent3);line-height:1;">—</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:2px;">Life Stage</div>
+              <div id="calc-video-life-stage" style="font-size:0.85rem;color:var(--light);">—</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: YOU ON SELECTED PLANET -->
+        <div class="calc-human-side calc-human-right">
+          <div class="calc-human-label-top">
+            <span id="planet-emoji-label" style="font-size:1.3rem;">🪐</span>
+            <span class="calc-human-planet-name" id="planet-name-label">—</span>
+          </div>
+          <div class="human-canvas-wrap">
+            <canvas id="humanCanvas2" width="140" height="200"></canvas>
+          </div>
+          <div class="human-age-display">
+            <div class="had-label" id="planet-had-label">Age on Planet</div>
+            <div class="had-age" id="planet-had-age" style="font-size:2rem;color:var(--accent);">—</div>
+            <div class="had-desc" id="planet-had-desc">Pick a planet above</div>
           </div>
         </div>
       </div>
@@ -972,147 +1014,15 @@ function getLifeStage(age){
 }
 
 function drawHumanFigure(age){
-  hctx.clearRect(0,0,160,220);
+  hctx.clearRect(0,0,140,200);
   if(age===null||isNaN(age)){
-    // silhouette only
-    drawSilhouette(160/2,110,0.7,60,'rgba(60,40,100,0.4)',false);
+    drawSilhouetteOnCtx(hctx,70,105,0.7,0,'rgba(60,40,100,0.35)',false,0,0);
     return;
   }
   const ls=getLifeStage(age);
-  const scale=age<1?0.45:age<5?0.55:age<12?0.7:age<18?0.85:age<70?1.0:0.95;
+  const scale=age<1?0.42:age<5?0.52:age<12?0.66:age<18?0.82:age<70?0.96:0.9;
   const wrinkle=Math.max(0,Math.min(1,(age-50)/50));
-  drawSilhouette(160/2,age<12?120:110,scale,age,ls.color,true,wrinkle,age);
-}
-
-function drawSilhouette(cx2,baseY,scale,age,color,filled,wrinkle=0,realAge=0){
-  hctx.save();
-  hctx.translate(cx2,baseY);hctx.scale(scale,scale);
-  const headR=22,bodyH=55,legH=55,armH=45,shoulderW=28;
-  // glow behind
-  if(filled){
-    const glowG=hctx.createRadialGradient(0,0,0,0,0,80);
-    glowG.addColorStop(0,color+'44');glowG.addColorStop(1,'transparent');
-    hctx.beginPath();hctx.arc(0,30,80,0,Math.PI*2);hctx.fillStyle=glowG;hctx.fill();
-  }
-  // LEGS
-  const legColor=filled?darkenHex(color,20):'rgba(80,60,120,0.5)';
-  // left leg
-  hctx.beginPath();
-  hctx.moveTo(-14,bodyH);
-  hctx.quadraticCurveTo(-16,bodyH+legH*0.5,-14,bodyH+legH);
-  hctx.quadraticCurveTo(-12,bodyH+legH+8,-5,bodyH+legH+8);
-  hctx.quadraticCurveTo(-8,bodyH+legH,-10,bodyH+legH);
-  hctx.quadraticCurveTo(-12,bodyH+legH*0.5,-10,bodyH);
-  hctx.closePath();
-  hctx.fillStyle=legColor;hctx.fill();
-  // right leg
-  hctx.beginPath();
-  hctx.moveTo(10,bodyH);
-  hctx.quadraticCurveTo(12,bodyH+legH*0.5,10,bodyH+legH);
-  hctx.quadraticCurveTo(8,bodyH+legH+8,18,bodyH+legH+8);
-  hctx.quadraticCurveTo(20,bodyH+legH,16,bodyH+legH);
-  hctx.quadraticCurveTo(14,bodyH+legH*0.5,12,bodyH);
-  hctx.closePath();
-  hctx.fillStyle=legColor;hctx.fill();
-  // BODY
-  const bodyGrad=hctx.createLinearGradient(-shoulderW,0,shoulderW,bodyH);
-  if(filled){bodyGrad.addColorStop(0,color);bodyGrad.addColorStop(1,darkenHex(color,30));}
-  else{bodyGrad.addColorStop(0,'rgba(80,60,120,0.4)');bodyGrad.addColorStop(1,'rgba(50,30,80,0.3)');}
-  hctx.beginPath();
-  hctx.moveTo(-shoulderW,0);
-  hctx.bezierCurveTo(-shoulderW,-5,-shoulderW+5,-2,-shoulderW+8,bodyH);
-  hctx.lineTo(shoulderW-8,bodyH);
-  hctx.bezierCurveTo(shoulderW-5,-2,shoulderW,-5,shoulderW,0);
-  hctx.closePath();
-  hctx.fillStyle=bodyGrad;hctx.fill();
-  // ARMS
-  const armAngle = realAge>60? 0.25 : 0.08; // slightly raised for elderly
-  // left arm
-  hctx.beginPath();
-  hctx.moveTo(-shoulderW+2,4);
-  hctx.quadraticCurveTo(-shoulderW-16+armAngle*20,armH*0.4,-shoulderW-12+armAngle*15,armH);
-  hctx.quadraticCurveTo(-shoulderW-8+armAngle*10,armH+6,-shoulderW-2,armH+6);
-  hctx.quadraticCurveTo(-shoulderW+2,armH,-shoulderW+4,armH);
-  hctx.quadraticCurveTo(-shoulderW-4,armH*0.4,-shoulderW+4,4);
-  hctx.closePath();hctx.fillStyle=legColor;hctx.fill();
-  // right arm
-  hctx.beginPath();
-  hctx.moveTo(shoulderW-2,4);
-  hctx.quadraticCurveTo(shoulderW+16-armAngle*20,armH*0.4,shoulderW+12-armAngle*15,armH);
-  hctx.quadraticCurveTo(shoulderW+8-armAngle*10,armH+6,shoulderW+2,armH+6);
-  hctx.quadraticCurveTo(shoulderW-2,armH,shoulderW-4,armH);
-  hctx.quadraticCurveTo(shoulderW+4,armH*0.4,shoulderW-4,4);
-  hctx.closePath();hctx.fillStyle=legColor;hctx.fill();
-  // NECK
-  hctx.beginPath();
-  hctx.moveTo(-7,-2);hctx.lineTo(7,-2);hctx.lineTo(6,-headR+4);hctx.lineTo(-6,-headR+4);hctx.closePath();
-  hctx.fillStyle=filled?lightenHex(color,10):'rgba(80,60,120,0.4)';hctx.fill();
-  // HEAD
-  const headGrad=hctx.createRadialGradient(-headR*0.3,-headR*1.2,2,-headR*0.1,-headR*1,headR);
-  if(filled){headGrad.addColorStop(0,lightenHex(color,40));headGrad.addColorStop(0.7,color);headGrad.addColorStop(1,darkenHex(color,20));}
-  else{headGrad.addColorStop(0,'rgba(100,80,140,0.5)');headGrad.addColorStop(1,'rgba(60,40,100,0.3)');}
-  // head shape slightly changes with age
-  const headSquash=realAge>60?0.92:1.0;
-  hctx.save();hctx.scale(1,headSquash);
-  hctx.beginPath();hctx.arc(0,-headR*1.05,headR,0,Math.PI*2);
-  hctx.fillStyle=headGrad;hctx.fill();
-  hctx.restore();
-  // wrinkles for elderly
-  if(filled&&wrinkle>0.4){
-    hctx.globalAlpha=Math.min(1,(wrinkle-0.4)*2)*0.45;
-    hctx.strokeStyle='rgba(80,60,80,0.8)';hctx.lineWidth=0.7;
-    // forehead lines
-    for(let w=0;w<3;w++){
-      hctx.beginPath();
-      hctx.moveTo(-10+w*2,-headR*1.05-6+w*3);
-      hctx.quadraticCurveTo(0,-headR*1.05-7+w*3,10-w*2,-headR*1.05-6+w*3);
-      hctx.stroke();
-    }
-    hctx.globalAlpha=1;
-  }
-  // eyes
-  if(filled){
-    const eyeY=-headR*1.05-2;const eyeSize=realAge>70?2.5:3;
-    hctx.fillStyle='rgba(30,20,50,0.9)';
-    hctx.beginPath();hctx.arc(-7,eyeY,eyeSize,0,Math.PI*2);hctx.fill();
-    hctx.beginPath();hctx.arc(7,eyeY,eyeSize,0,Math.PI*2);hctx.fill();
-    // eye whites
-    hctx.fillStyle='rgba(255,255,255,0.8)';
-    hctx.beginPath();hctx.arc(-7,eyeY,eyeSize*0.6,0,Math.PI*2);hctx.fill();
-    hctx.beginPath();hctx.arc(7,eyeY,eyeSize*0.6,0,Math.PI*2);hctx.fill();
-    // smile / neutral / frown based on age
-    const smileY=-headR*1.05+9;
-    hctx.strokeStyle='rgba(30,20,50,0.6)';hctx.lineWidth=1.2;
-    hctx.beginPath();
-    if(realAge<30){hctx.arc(0,smileY-3,5,0.3,Math.PI-0.3);}
-    else if(realAge<70){hctx.moveTo(-5,smileY);hctx.lineTo(5,smileY);}
-    else{hctx.arc(0,smileY+3,5,-Math.PI+0.3,-0.3);}
-    hctx.stroke();
-    // hair
-    if(realAge<70){
-      hctx.fillStyle=realAge<50?darkenHex(color,40):'#888888';
-      hctx.beginPath();hctx.arc(0,-headR*1.05,headR,Math.PI,0);
-      hctx.closePath();hctx.fill();
-    } else {
-      // grey/white sparse hair
-      hctx.fillStyle='#c0c8d0';
-      hctx.beginPath();hctx.arc(0,-headR*1.05,headR,Math.PI+0.4,-0.4);
-      hctx.closePath();hctx.fill();
-    }
-  }
-  // particle aura for very young or very old
-  if(filled&&(realAge<5||realAge>80)){
-    hctx.globalAlpha=0.3;
-    for(let i=0;i<6;i++){
-      const ang=i/6*Math.PI*2+lastT*0.001;
-      const dr=50+10*Math.sin(lastT*0.002+i);
-      const px2=Math.cos(ang)*dr,py2=Math.sin(ang)*dr+20;
-      hctx.beginPath();hctx.arc(px2,py2,2,0,Math.PI*2);
-      hctx.fillStyle=color;hctx.fill();
-    }
-    hctx.globalAlpha=1;
-  }
-  hctx.restore();
+  drawSilhouetteOnCtx(hctx,70,age<12?115:105,scale,age,ls.color,true,wrinkle,age);
 }
 
 function lightenHex(h,a){
@@ -1124,51 +1034,81 @@ function darkenHex(h,a){
   catch(e){return h;}
 }
 
-// Animate human canvas
-function animateHuman(){
-  if(currentHumanAge!==null) drawHumanFigure(currentHumanAge);
-  else drawHumanFigure(null);
-  requestAnimationFrame(animateHuman);
-}
-animateHuman();
+// animateHuman is defined later in the calculator section
 
 /* ════════════════════ CALCULATOR ════════════════════ */
 const calcBodies=BODIES;
+let currentEarthAge=null;
+let activePlanetId=null;
 
-function getComparatorColor(planetId){
-  const p=BODIES.find(b=>b.id===planetId);
-  return p?p.color:'#9080b8';
-}
+/* Second human canvas */
+const hcanvas2=document.getElementById('humanCanvas2');
+const hctx2=hcanvas2.getContext('2d');
 
 function calculateAges(){
   const val=parseFloat(document.getElementById('age-input').value);
   if(isNaN(val)||val<0){alert('Please enter a valid age.');return;}
   if(val>150){alert('Please enter a realistic age (0–150).');return;}
+  currentEarthAge=val;
   currentHumanAge=val;
   const ls=getLifeStage(val);
   document.getElementById('had-age').textContent=val.toFixed(1);
-  document.getElementById('had-desc').textContent=ls.stage+' — '+ls.desc;
-  renderCompareRows(val);
+  document.getElementById('had-desc').textContent=ls.stage;
+  // show planet picker
+  buildPickerButtons(val);
+  document.getElementById('calc-planet-picker').style.display='block';
   renderCards(val);
+  // auto-select Earth as default comparison
+  switchCalcPlanet('earth',val);
 }
 
-function renderCompareRows(earthAge){
+function buildPickerButtons(earthAge){
+  const wrap=document.getElementById('calc-picker-btns');
+  wrap.innerHTML='';
   const earthDays=earthAge*365.25;
-  const maxAge=earthDays/BODIES.find(b=>b.id==='mercury').calcOrbitalDays; // mercury has highest age
-  const rows=document.getElementById('compare-rows');
-  rows.innerHTML=calcBodies.map(p=>{
-    const planetAge=earthDays/p.calcOrbitalDays;
-    const ls=getLifeStage(planetAge);
-    const barPct=Math.min(100,(planetAge/maxAge)*100);
-    const col=p.color.startsWith('#')?p.color:'#9080b8';
-    return`<div class="cmp-row" style="--bar-color:${col}">
-      <span class="cmp-emoji">${p.emoji}</span>
-      <div class="cmp-info"><div class="cmp-planet-name">${p.name}</div><div class="cmp-life-stage">${ls.stage}</div>
-        <div class="cmp-bar-wrap"><div class="cmp-bar" style="width:${barPct}%;background:linear-gradient(to right,${col},${col}88);"></div></div>
-      </div>
-      <div class="cmp-age-badge"><span class="cmp-age-num">${planetAge.toFixed(1)}</span><span class="cmp-age-unit">yrs</span></div>
-    </div>`;
-  }).join('');
+  calcBodies.forEach(p=>{
+    const btn=document.createElement('button');
+    btn.dataset.id=p.id;
+    btn.className='calc-pick-btn'+(activePlanetId===p.id?' cpb-active':'');
+    const pa=(earthDays/p.calcOrbitalDays).toFixed(1);
+    btn.innerHTML=`<span style="font-size:0.9rem;">${p.emoji}</span><span>${p.name}</span><span class="cpb-age">${pa}</span>`;
+    btn.addEventListener('click',()=>switchCalcPlanet(p.id,earthAge));
+    wrap.appendChild(btn);
+  });
+}
+
+function switchCalcPlanet(planetId,earthAge){
+  if(earthAge===null||isNaN(earthAge))return;
+  activePlanetId=planetId;
+  const p=BODIES.find(b=>b.id===planetId);
+  if(!p)return;
+  const earthDays=earthAge*365.25;
+  const planetAge=earthDays/p.calcOrbitalDays;
+  const ls=getLifeStage(planetAge);
+  // update right human
+  currentPlanetAge=planetAge;
+  currentPlanetColor=p.color;
+  document.getElementById('planet-emoji-label').textContent=p.emoji;
+  document.getElementById('planet-name-label').textContent=p.name;
+  document.getElementById('planet-had-label').textContent='Age on '+p.name;
+  document.getElementById('planet-had-age').textContent=planetAge.toFixed(1);
+  document.getElementById('planet-had-desc').textContent=ls.stage;
+  // update video center
+  document.getElementById('calc-video-emoji').textContent=p.emoji;
+  document.getElementById('calc-video-name').textContent=p.name;
+  document.getElementById('calc-video-type').textContent=p.type;
+  const vwrap=document.getElementById('calc-video-frame-wrap');
+  if(p.videoId){
+    vwrap.innerHTML=`<iframe src="https://www.youtube.com/embed/${p.videoId}?autoplay=1&mute=1&loop=1&playlist=${p.videoId}&controls=0&modestbranding=1&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+  } else {
+    vwrap.innerHTML=`<div class="calc-video-empty"><div style="font-size:3rem;opacity:0.18;margin-bottom:0.5rem;">${p.emoji}</div><div style="font-size:0.78rem;color:var(--muted);line-height:1.7;">${p.name} — No render embedded yet</div></div>`;
+  }
+  const ageBar=document.getElementById('calc-video-age-bar');
+  ageBar.style.display='flex';
+  document.getElementById('calc-video-planet-age').textContent=planetAge.toFixed(2)+' yrs';
+  document.getElementById('calc-video-life-stage').textContent=ls.stage;
+  // refresh picker active states
+  document.querySelectorAll('.calc-pick-btn').forEach(b=>b.classList.toggle('cpb-active',b.dataset.id===planetId));
 }
 
 function renderCards(earthAge){
@@ -1180,24 +1120,18 @@ function renderCards(earthAge){
     const periodFmt=periodYears>=1?periodYears.toFixed(2)+' Earth yrs':p.calcOrbitalDays.toFixed(2)+' Earth days';
     const revsPerYear=365.25/p.calcOrbitalDays;
     const revsFmt=revsPerYear>=1?revsPerYear.toFixed(2)+' / Earth yr':(1/revsPerYear).toFixed(2)+' Earth yrs / orbit';
-    let ageDisplay,totalRevs;
     if(hasAge){
       const pa=earthDays/p.calcOrbitalDays;
       const ls=getLifeStage(pa);
-      ageDisplay=`<span class="planet-age-val">${pa.toFixed(2)}</span>`;
-      totalRevs=pa.toFixed(2)+' orbits';
-      return`<div class="planet-card">
-        <div class="planet-header">
-          <div class="planet-emoji">${p.emoji}</div>
-          <div><div class="planet-name">${p.name}</div><div class="planet-type">${p.type}</div></div>
-        </div>
+      return`<div class="planet-card" style="cursor:pointer;" onclick="switchCalcPlanet('${p.id}',${earthAge})">
+        <div class="planet-header"><div class="planet-emoji">${p.emoji}</div><div><div class="planet-name">${p.name}</div><div class="planet-type">${p.type}</div></div></div>
         <div class="planet-stats">
           <div><div class="planet-stat-label">Orbital Period</div><div class="planet-stat-val">${periodFmt}</div></div>
           <div><div class="planet-stat-label">Revolutions / yr</div><div class="planet-stat-val">${revsFmt}</div></div>
           <div><div class="planet-stat-label">Distance from Sun</div><div class="planet-stat-val">${p.distance}</div></div>
           <div><div class="planet-stat-label">Life Stage</div><div class="planet-stat-val" style="color:${p.color}">${ls.stage}</div></div>
         </div>
-        <div class="planet-age-row"><span class="planet-age-label">Your age on ${p.name}</span>${ageDisplay}</div>
+        <div class="planet-age-row"><span class="planet-age-label">Your age on ${p.name}</span><span class="planet-age-val">${pa.toFixed(2)}</span></div>
       </div>`;
     } else {
       return`<div class="planet-card">
@@ -1216,7 +1150,86 @@ function renderCards(earthAge){
 
 document.getElementById('age-input').addEventListener('keydown',e=>{if(e.key==='Enter')calculateAges();});
 renderCards(null);
-drawHumanFigure(null);
+
+/* ── DUAL HUMAN ANIMATION ── */
+let currentPlanetAge=null;
+let currentPlanetColor='#d4a0ff';
+
+function animateHuman(){
+  // left canvas: Earth human
+  if(currentHumanAge!==null) drawHumanFigure(currentHumanAge);
+  else drawHumanFigure(null);
+  // right canvas: planet human
+  if(currentPlanetAge!==null) drawHumanFigure2(currentPlanetAge,currentPlanetColor);
+  else drawHumanFigureEmpty2();
+  requestAnimationFrame(animateHuman);
+}
+
+function drawHumanFigure2(age,col){
+  hctx2.clearRect(0,0,140,200);
+  const ls=getLifeStage(age);
+  const color=col||ls.color;
+  const scale=age<1?0.42:age<5?0.52:age<12?0.66:age<18?0.82:age<70?0.96:0.9;
+  const wrinkle=Math.max(0,Math.min(1,(age-50)/50));
+  // reuse same drawing but on hctx2
+  drawSilhouetteOnCtx(hctx2,70,age<12?115:105,scale,age,color,true,wrinkle,age);
+}
+function drawHumanFigureEmpty2(){
+  hctx2.clearRect(0,0,140,200);
+  drawSilhouetteOnCtx(hctx2,70,105,0.7,0,'rgba(60,40,100,0.35)',false,0,0);
+}
+
+function drawSilhouetteOnCtx(c,cx2,baseY,scale,age,color,filled,wrinkle,realAge){
+  c.save();c.translate(cx2,baseY);c.scale(scale,scale);
+  const headR=22,bodyH=55,legH=55,armH=45,shoulderW=28;
+  if(filled){
+    const glowG=c.createRadialGradient(0,0,0,0,0,80);
+    glowG.addColorStop(0,color+'44');glowG.addColorStop(1,'transparent');
+    c.beginPath();c.arc(0,30,80,0,Math.PI*2);c.fillStyle=glowG;c.fill();
+  }
+  const legColor=filled?darkenHex(color,20):'rgba(80,60,120,0.5)';
+  // legs
+  c.beginPath();c.moveTo(-14,bodyH);c.quadraticCurveTo(-16,bodyH+legH*0.5,-14,bodyH+legH);c.quadraticCurveTo(-12,bodyH+legH+8,-5,bodyH+legH+8);c.quadraticCurveTo(-8,bodyH+legH,-10,bodyH+legH);c.quadraticCurveTo(-12,bodyH+legH*0.5,-10,bodyH);c.closePath();c.fillStyle=legColor;c.fill();
+  c.beginPath();c.moveTo(10,bodyH);c.quadraticCurveTo(12,bodyH+legH*0.5,10,bodyH+legH);c.quadraticCurveTo(8,bodyH+legH+8,18,bodyH+legH+8);c.quadraticCurveTo(20,bodyH+legH,16,bodyH+legH);c.quadraticCurveTo(14,bodyH+legH*0.5,12,bodyH);c.closePath();c.fillStyle=legColor;c.fill();
+  // body
+  const bg2=c.createLinearGradient(-shoulderW,0,shoulderW,bodyH);
+  if(filled){bg2.addColorStop(0,color);bg2.addColorStop(1,darkenHex(color,30));}
+  else{bg2.addColorStop(0,'rgba(80,60,120,0.4)');bg2.addColorStop(1,'rgba(50,30,80,0.3)');}
+  c.beginPath();c.moveTo(-shoulderW,0);c.bezierCurveTo(-shoulderW,-5,-shoulderW+5,-2,-shoulderW+8,bodyH);c.lineTo(shoulderW-8,bodyH);c.bezierCurveTo(shoulderW-5,-2,shoulderW,-5,shoulderW,0);c.closePath();c.fillStyle=bg2;c.fill();
+  // arms
+  const armAngle=realAge>60?0.25:0.08;
+  c.beginPath();c.moveTo(-shoulderW+2,4);c.quadraticCurveTo(-shoulderW-16+armAngle*20,armH*0.4,-shoulderW-12+armAngle*15,armH);c.quadraticCurveTo(-shoulderW-8+armAngle*10,armH+6,-shoulderW-2,armH+6);c.quadraticCurveTo(-shoulderW+2,armH,-shoulderW+4,armH);c.quadraticCurveTo(-shoulderW-4,armH*0.4,-shoulderW+4,4);c.closePath();c.fillStyle=legColor;c.fill();
+  c.beginPath();c.moveTo(shoulderW-2,4);c.quadraticCurveTo(shoulderW+16-armAngle*20,armH*0.4,shoulderW+12-armAngle*15,armH);c.quadraticCurveTo(shoulderW+8-armAngle*10,armH+6,shoulderW+2,armH+6);c.quadraticCurveTo(shoulderW-2,armH,shoulderW-4,armH);c.quadraticCurveTo(shoulderW+4,armH*0.4,shoulderW-4,4);c.closePath();c.fillStyle=legColor;c.fill();
+  // neck
+  c.beginPath();c.moveTo(-7,-2);c.lineTo(7,-2);c.lineTo(6,-headR+4);c.lineTo(-6,-headR+4);c.closePath();c.fillStyle=filled?lightenHex(color,10):'rgba(80,60,120,0.4)';c.fill();
+  // head
+  const hg=c.createRadialGradient(-headR*0.3,-headR*1.2,2,-headR*0.1,-headR*1,headR);
+  if(filled){hg.addColorStop(0,lightenHex(color,40));hg.addColorStop(0.7,color);hg.addColorStop(1,darkenHex(color,20));}
+  else{hg.addColorStop(0,'rgba(100,80,140,0.5)');hg.addColorStop(1,'rgba(60,40,100,0.3)');}
+  const hs=realAge>60?0.92:1.0;
+  c.save();c.scale(1,hs);c.beginPath();c.arc(0,-headR*1.05,headR,0,Math.PI*2);c.fillStyle=hg;c.fill();c.restore();
+  // wrinkles
+  if(filled&&wrinkle>0.4){c.globalAlpha=Math.min(1,(wrinkle-0.4)*2)*0.45;c.strokeStyle='rgba(80,60,80,0.8)';c.lineWidth=0.7;for(let w=0;w<3;w++){c.beginPath();c.moveTo(-10+w*2,-headR*1.05-6+w*3);c.quadraticCurveTo(0,-headR*1.05-7+w*3,10-w*2,-headR*1.05-6+w*3);c.stroke();}c.globalAlpha=1;}
+  // eyes
+  if(filled){
+    const eyeY=-headR*1.05-2,eyeSize=realAge>70?2.5:3;
+    c.fillStyle='rgba(30,20,50,0.9)';c.beginPath();c.arc(-7,eyeY,eyeSize,0,Math.PI*2);c.fill();c.beginPath();c.arc(7,eyeY,eyeSize,0,Math.PI*2);c.fill();
+    c.fillStyle='rgba(255,255,255,0.8)';c.beginPath();c.arc(-7,eyeY,eyeSize*0.6,0,Math.PI*2);c.fill();c.beginPath();c.arc(7,eyeY,eyeSize*0.6,0,Math.PI*2);c.fill();
+    const smileY=-headR*1.05+9;c.strokeStyle='rgba(30,20,50,0.6)';c.lineWidth=1.2;c.beginPath();
+    if(realAge<30){c.arc(0,smileY-3,5,0.3,Math.PI-0.3);}else if(realAge<70){c.moveTo(-5,smileY);c.lineTo(5,smileY);}else{c.arc(0,smileY+3,5,-Math.PI+0.3,-0.3);}c.stroke();
+    // hair
+    if(realAge<70){c.fillStyle=realAge<50?darkenHex(color,40):'#888888';c.beginPath();c.arc(0,-headR*1.05,headR,Math.PI,0);c.closePath();c.fill();}
+    else{c.fillStyle='#c0c8d0';c.beginPath();c.arc(0,-headR*1.05,headR,Math.PI+0.4,-0.4);c.closePath();c.fill();}
+  }
+  if(filled&&(realAge<5||realAge>80)){
+    c.globalAlpha=0.28;
+    for(let i=0;i<6;i++){const ang=i/6*Math.PI*2+lastT*0.001;const dr=50+10*Math.sin(lastT*0.002+i);c.beginPath();c.arc(Math.cos(ang)*dr,Math.sin(ang)*dr+20,2,0,Math.PI*2);c.fillStyle=color;c.fill();}
+    c.globalAlpha=1;
+  }
+  c.restore();
+}
+
+animateHuman();
 </script>
 </body>
 </html>
