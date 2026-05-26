@@ -972,10 +972,10 @@ function selectBody(id,scrollTo){
     <div class="bip-stat-pill"><span class="bip-spl">${d.icon} ${d.n}</span><span class="bip-spv">${d.v}</span></div>
   `).join('');
 
-  // video
+  // video — autoplay muted loop
   const va=document.getElementById('bip-video-area');
   va.innerHTML=p.videoId
-    ?`<iframe src="https://www.youtube.com/embed/${p.videoId}" title="${p.name}" allowfullscreen loading="lazy"></iframe>`
+    ?`<iframe src="https://www.youtube.com/embed/${p.videoId}?autoplay=1&mute=1&loop=1&playlist=${p.videoId}&controls=1&modestbranding=1&rel=0" title="${p.name}" allow="autoplay; encrypted-media" allowfullscreen></iframe>`
     :`<div class="bip-video-placeholder"><div class="play-ring" style="width:46px;height:46px;border-color:#3d2d6a;"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M5 3L13 8L5 13V3Z" fill="#3d2d6a"/></svg></div><span style="font-size:0.78rem;color:var(--muted);">No render embedded yet</span></div>`;
 
   // details right
