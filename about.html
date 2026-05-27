@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About — Hannah Kim F. Nariz</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?..." rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg:       #03020a;
@@ -113,7 +113,6 @@
     .photo-col { position:relative; display:flex; justify-content:center; align-items:center; z-index:2; }
     .photo-frame-outer { position:relative; width:340px; height:420px; }
 
-    /* Cinematic vignette glow behind photo */
     .photo-glow {
       position:absolute; inset:-40px;
       background:radial-gradient(ellipse at center, rgba(155,93,229,0.18) 0%, transparent 70%);
@@ -146,16 +145,34 @@
     }
     @keyframes heroPhotoIn { from{opacity:0;transform:scale(0.93) translateY(20px)} to{opacity:1;transform:scale(1) translateY(0)} }
 
-    /* ── PHOTO AREA — YOUR IMAGE GOES HERE ── */
     .photo-img-area {
       width:100%; height:100%;
       display:flex; flex-direction:column; align-items:center; justify-content:center;
       position:relative;
     }
 
-    /* photo embedded directly */
+    /* Avatar fallback — shown when no photo is provided */
+    .avatar-fallback {
+      width:100%; height:100%;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      gap:1rem;
+      background:linear-gradient(160deg,rgba(60,20,120,0.6),rgba(10,5,30,0.9));
+    }
+    .avatar-initials {
+      font-family:var(--serif);
+      font-size:6rem;
+      font-weight:300;
+      color:var(--accent2);
+      line-height:1;
+      text-shadow:0 0 40px rgba(199,125,255,0.5);
+    }
+    .avatar-label {
+      font-size:0.58rem;
+      letter-spacing:0.3em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
 
-    /* Glitch overlay on photo frame */
     @keyframes glitchA { 0%,100%{clip-path:inset(0 0 100% 0);opacity:0} 2%{clip-path:inset(20% 0 60% 0);opacity:0.35;transform:translateX(-4px)} 4%{clip-path:inset(50% 0 30% 0);opacity:0.25;transform:translateX(4px)} 6%{clip-path:inset(0 0 100% 0);opacity:0} }
     .photo-frame::after { content:''; position:absolute; inset:0; background:linear-gradient(to bottom,rgba(155,93,229,0.06),transparent,rgba(72,202,228,0.04)); animation:glitchA 9s ease-in-out infinite; pointer-events:none; z-index:3; }
     .photo-frame::before { content:''; position:absolute; inset:0; z-index:4; pointer-events:none; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E"); opacity:0.3; }
@@ -170,7 +187,6 @@
     .hero h1 em { font-style:italic; font-weight:300; background:linear-gradient(135deg,var(--accent2),var(--accent3)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
     .hero-name-sub { font-family:var(--serif); font-size:1rem; font-weight:300; font-style:italic; color:var(--muted); margin-bottom:2rem; letter-spacing:0.04em; opacity:0; animation:fadeUp 0.9s var(--ease) forwards 1.95s; }
 
-    /* Typewriter for subtitle */
     .typewriter { display:inline-block; overflow:hidden; white-space:nowrap; border-right:2px solid var(--accent2); animation:typewriter 2.5s steps(28) forwards 2.1s, blinkCaret 0.75s step-end infinite 2.1s; width:0; }
     @keyframes typewriter { to{width:100%} }
     @keyframes blinkCaret { 0%,100%{border-color:var(--accent2)} 50%{border-color:transparent} }
@@ -202,7 +218,7 @@
     .divider-line { flex:1; height:1px; background:linear-gradient(to right,transparent,var(--accent),transparent); }
     .divider-glyph { font-size:0.55rem; letter-spacing:0.6em; color:var(--accent2); }
 
-    /* ── TIMELINE — ENHANCED ── */
+    /* ── TIMELINE ── */
     .timeline-wrap { position:relative; padding-left:2rem; }
     .timeline-wrap::before { content:''; position:absolute; left:0; top:0; bottom:0; width:1px; background:linear-gradient(to bottom,transparent,var(--accent) 20%,var(--accent3) 80%,transparent); opacity:0.4; }
 
@@ -287,15 +303,7 @@
     .goals-list li.visible { opacity:1; transform:translateX(0); }
     .goals-list li:last-child { border-bottom:none; }
     .goal-num { font-family:var(--serif); font-size:2rem; font-weight:300; color:var(--accent); opacity:0.35; line-height:1; flex-shrink:0; min-width:2rem; }
-    .goal-text h4 { font-family:var(--serif); font-size:1.2rem; font-weight:400; color:var(--text); margin-bottom:0.3rem; }
-    /* Add this alongside or replace your existing goal-text h4 rule */
-.goal-text h3 {
-  font-family: var(--serif);
-  font-size: 1.2rem;
-  font-weight: 400;
-  color: var(--text);
-  margin-bottom: 0.3rem;
-}
+    .goal-text h3, .goal-text h4 { font-family:var(--serif); font-size:1.2rem; font-weight:400; color:var(--text); margin-bottom:0.3rem; }
     .goal-text p { font-size:0.83rem; color:var(--mid); line-height:1.95; font-weight:300; }
 
     /* ── STATS STRIP ── */
@@ -348,7 +356,7 @@
   <div class="ci-bar-top"></div>
   <div class="ci-logo">Hannah Kim F. Nariz</div>
   <div class="ci-line"></div>
-  <div class="ci-sub">BSIT · NS-2A · TUP · 2026</div>
+  <div class="ci-sub">BSIT &middot; NS-2A &middot; TUP &middot; 2026</div>
   <div class="ci-bar-bottom"></div>
 </div>
 
@@ -394,7 +402,13 @@
       <!-- Photo frame -->
       <div class="photo-frame" id="photoFrame">
         <div class="photo-img-area" id="photoArea">
-<img src="data:image/jpeg;base64,..." style="..." alt="Hannah Kim F. Nariz">
+          <!-- Replace the div below with an <img> tag once you have a photo:
+               <img src="your-photo.jpg" style="width:100%;height:100%;object-fit:cover;display:block;" alt="Hannah Kim F. Nariz">
+          -->
+          <div class="avatar-fallback">
+            <span class="avatar-initials">HK</span>
+            <span class="avatar-label">Hannah Kim F. Nariz</span>
+          </div>
         </div>
       </div>
       <div class="photo-caption">Hannah Kim F. Nariz &nbsp;&middot;&nbsp; 2026</div>
@@ -405,11 +419,11 @@
   <div class="hero-text">
     <div class="hero-eyebrow">
       <span class="eyebrow-line"></span>
-      Academic Portfolio &nbsp;&middot;&nbsp; 2025–2026
+      Academic Portfolio &nbsp;&middot;&nbsp; 2025&ndash;2026
     </div>
     <h1>Hannah Kim<br><em>Floresca Nariz</em></h1>
     <p class="hero-name-sub">
-      <span class="typewriter">Student &nbsp;—&nbsp; Creator</span>
+      <span class="typewriter">Student &nbsp;&mdash;&nbsp; Creator</span>
     </p>
 
     <div class="hero-id-card">
@@ -479,13 +493,13 @@
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;">
     <div>
       <p style="font-size:0.9rem;line-height:2.1;color:var(--mid);font-weight:300;margin-bottom:1.5rem;">
-        My path into Information Technology began with a single, powerful question: how does technology transform imagination into reality? That question led me to the Technological University of the Philippines — one of the country's premier science and technology universities — where I enrolled in the Bachelor of Science in Information Technology program.
+        My path into Information Technology began with a single, powerful question: how does technology transform imagination into reality? That question led me to the Technological University of the Philippines &mdash; one of the country's premier science and technology universities &mdash; where I enrolled in the Bachelor of Science in Information Technology program.
       </p>
       <p style="font-size:0.9rem;line-height:2.1;color:var(--mid);font-weight:300;margin-bottom:1.5rem;">
         TUP challenged me not just to learn technology, but to master it from the ground up. The discipline and rigor instilled by TUP's culture shaped how I approach every project: methodically, creatively, and with full ownership of the work.
       </p>
       <p style="font-size:0.9rem;line-height:2.1;color:var(--mid);font-weight:300;">
-        Now in my second year, third term, I find myself at an exciting crossroads — where technical knowledge deepens, creative projects grow more ambitious, and the bridge between engineering and art becomes ever clearer. Every subject I take adds another dimension to who I am becoming as a future IT professional.
+        Now in my second year, third term, I find myself at an exciting crossroads &mdash; where technical knowledge deepens, creative projects grow more ambitious, and the bridge between engineering and art becomes ever clearer. Every subject I take adds another dimension to who I am becoming as a future IT professional.
       </p>
     </div>
 
@@ -495,29 +509,29 @@
       <div class="timeline-item">
         <div class="timeline-node"></div>
         <div class="timeline-card">
-          <div class="timeline-year">1st Year &nbsp;·&nbsp; 2024–2025</div>
+          <div class="timeline-year">1st Year &nbsp;&middot;&nbsp; 2024&ndash;2025</div>
           <div class="timeline-title">First Year at TUP</div>
-          <div class="timeline-desc">Began the BSIT program at the Technological University of the Philippines. Immersed in the fundamentals — computer logic, programming languages, data structures, and the TUP culture of academic discipline and excellence. Completed all three terms and built a strong technical foundation to carry into second year.</div>
-          <div class="timeline-tag">&#9679; &nbsp; A.Y. 2024–2025</div>
+          <div class="timeline-desc">Began the BSIT program at the Technological University of the Philippines. Immersed in the fundamentals &mdash; computer logic, programming languages, data structures, and the TUP culture of academic discipline and excellence. Completed all three terms and built a strong technical foundation to carry into second year.</div>
+          <div class="timeline-tag">&#9679; &nbsp; A.Y. 2024&ndash;2025</div>
         </div>
       </div>
 
       <div class="timeline-item">
         <div class="timeline-node"></div>
         <div class="timeline-card">
-          <div class="timeline-year">2nd Year &nbsp;·&nbsp; 2025–2026</div>
-          <div class="timeline-title">Second Year — Section BSIT-NS-2A</div>
-          <div class="timeline-desc">Entered second year with sharper focus and joined section NS-2A. Coursework grew more specialized and demanding — balancing technical depth with growing creative ambition. Each subject added a new layer to who I am becoming as a future IT professional.</div>
-          <div class="timeline-tag">&#9679; &nbsp; A.Y. 2025–2026</div>
+          <div class="timeline-year">2nd Year &nbsp;&middot;&nbsp; 2025&ndash;2026</div>
+          <div class="timeline-title">Second Year &mdash; Section BSIT-NS-2A</div>
+          <div class="timeline-desc">Entered second year with sharper focus and joined section NS-2A. Coursework grew more specialized and demanding &mdash; balancing technical depth with growing creative ambition. Each subject added a new layer to who I am becoming as a future IT professional.</div>
+          <div class="timeline-tag">&#9679; &nbsp; A.Y. 2025&ndash;2026</div>
         </div>
       </div>
 
       <div class="timeline-item">
         <div class="timeline-node"></div>
         <div class="timeline-card">
-          <div class="timeline-year">2nd Year &nbsp;·&nbsp; 3rd Term &nbsp;·&nbsp; 2026 &nbsp;·&nbsp; <span style="color:var(--accent2)">Present</span></div>
+          <div class="timeline-year">2nd Year &nbsp;&middot;&nbsp; 3rd Term &nbsp;&middot;&nbsp; 2026 &nbsp;&middot;&nbsp; <span style="color:var(--accent2)">Present</span></div>
           <div class="timeline-title">Multimedia &amp; Authoring</div>
-          <div class="timeline-desc">Currently in the third and final term of second year — completing major multimedia projects including rotoscoping animation and a full 3D solar system render. The most ambitious and creatively fulfilling chapter of the academic journey so far.</div>
+          <div class="timeline-desc">Currently in the third and final term of second year &mdash; completing major multimedia projects including rotoscoping animation and a full 3D solar system render. The most ambitious and creatively fulfilling chapter of the academic journey so far.</div>
           <div class="timeline-tag" style="border-color:rgba(199,125,255,0.4);background:rgba(155,93,229,0.18);color:var(--accent2);">&#9679;&nbsp; Currently Here</div>
         </div>
       </div>
@@ -531,7 +545,7 @@
 <!-- ══════════ QUOTE ══════════ -->
 <div class="quote-block reveal">
   <span class="quote-mark">&ldquo;</span>
-  <p class="quote-text">Technology is most powerful when it serves creativity — and creativity is most lasting when it is built on mastery.</p>
+  <p class="quote-text">Technology is most powerful when it serves creativity &mdash; and creativity is most lasting when it is built on mastery.</p>
   <div class="quote-source">Hannah Kim F. Nariz &nbsp;&middot;&nbsp; BSIT-NS-2A &nbsp;&middot;&nbsp; TUP &nbsp;&middot;&nbsp; 2026</div>
 </div>
 
@@ -542,14 +556,14 @@
   <div class="section-eyebrow">Multimedia &amp; Authoring</div>
   <h2 class="section-title">How This Subject <em>Shaped Me</em></h2>
   <p style="font-size:0.9rem;line-height:2.1;color:var(--mid);font-weight:300;max-width:680px;margin-bottom:3rem;">
-    Multimedia &amp; Authoring demands both halves of the brain simultaneously — the analytical precision of a programmer and the visual sensitivity of an artist. Here is how it changed the way I think, create, and present work.
+    Multimedia &amp; Authoring demands both halves of the brain simultaneously &mdash; the analytical precision of a programmer and the visual sensitivity of an artist. Here is how it changed the way I think, create, and present work.
   </p>
   <div class="impact-grid">
     <div class="impact-card reveal">
       <div class="impact-num">01</div>
       <div class="impact-icon">🎨</div>
       <div class="impact-title">Visual Thinking</div>
-      <div class="impact-desc">Before this subject, I thought primarily in code and logic. Rotoscoping taught me to see differently — to notice how a body moves through space, how weight shifts, how light falls. That visual awareness now informs everything I build.</div>
+      <div class="impact-desc">Before this subject, I thought primarily in code and logic. Rotoscoping taught me to see differently &mdash; to notice how a body moves through space, how weight shifts, how light falls. That visual awareness now informs everything I build.</div>
     </div>
     <div class="impact-card reveal">
       <div class="impact-num">02</div>
@@ -559,9 +573,9 @@
     </div>
     <div class="impact-card reveal">
       <div class="impact-num">03</div>
-      <div class="impact-icon">⏱</div>
+      <div class="impact-icon">&#9201;</div>
       <div class="impact-title">Patience &amp; Precision</div>
-      <div class="impact-desc">Rotoscoping hundreds of frames by hand is a lesson in patience unlike anything else. Each frame demands full attention. That discipline — slowing down, being meticulous, refusing to rush — made me a more careful and deliberate developer and designer.</div>
+      <div class="impact-desc">Rotoscoping hundreds of frames by hand is a lesson in patience unlike anything else. Each frame demands full attention. That discipline &mdash; slowing down, being meticulous, refusing to rush &mdash; made me a more careful and deliberate developer and designer.</div>
     </div>
     <div class="impact-card reveal">
       <div class="impact-num">04</div>
@@ -573,13 +587,13 @@
       <div class="impact-num">05</div>
       <div class="impact-icon">📄</div>
       <div class="impact-title">Portfolio Thinking</div>
-      <div class="impact-desc">This subject pushed me to think about how work is presented, not just made. Building this portfolio site from scratch — writing every line of HTML, CSS, and JavaScript — proved that a project isn't finished until it can be communicated clearly.</div>
+      <div class="impact-desc">This subject pushed me to think about how work is presented, not just made. Building this portfolio site from scratch &mdash; writing every line of HTML, CSS, and JavaScript &mdash; proved that a project isn't finished until it can be communicated clearly.</div>
     </div>
     <div class="impact-card reveal">
       <div class="impact-num">06</div>
       <div class="impact-icon">✨</div>
       <div class="impact-title">Creative Confidence</div>
-      <div class="impact-desc">Perhaps most importantly, Multimedia &amp; Authoring gave me permission to call myself creative. The intersection of technical skill and artistic vision is exactly where I want to live as a future IT professional — and this subject proved it's real and reachable.</div>
+      <div class="impact-desc">Perhaps most importantly, Multimedia &amp; Authoring gave me permission to call myself creative. The intersection of technical skill and artistic vision is exactly where I want to live as a future IT professional &mdash; and this subject proved it's real and reachable.</div>
     </div>
   </div>
 </div>
@@ -606,7 +620,7 @@
     <div class="skill-card reveal">
       <div class="skill-icon">💻</div>
       <div class="skill-title">Web Development</div>
-      <div class="skill-desc">Built this entire portfolio using vanilla HTML, CSS, and JavaScript — canvas animations, scroll reveals, dynamic calculators, and responsive layout. No frameworks. All from scratch.</div>
+      <div class="skill-desc">Built this entire portfolio using vanilla HTML, CSS, and JavaScript &mdash; canvas animations, scroll reveals, dynamic calculators, and responsive layout. No frameworks. All from scratch.</div>
       <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Proficiency</span><span>50%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="50"></div></div></div>
     </div>
     <div class="skill-card reveal">
@@ -624,7 +638,7 @@
     <div class="skill-card reveal">
       <div class="skill-icon">🔬</div>
       <div class="skill-title">Research &amp; Documentation</div>
-      <div class="skill-desc">Every project began with research — planetary data, animation history, rendering techniques. Communicating findings clearly through documentation and portfolio presentation is a skill in itself.</div>
+      <div class="skill-desc">Every project began with research &mdash; planetary data, animation history, rendering techniques. Communicating findings clearly through documentation and portfolio presentation is a skill in itself.</div>
       <div class="skill-bar-wrap"><div class="skill-bar-label"><span>Proficiency</span><span>48%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="48"></div></div></div>
     </div>
   </div>
@@ -637,19 +651,15 @@
   <div class="section-eyebrow">Looking Forward</div>
   <h2 class="section-title">Goals &amp; <em>Aspirations</em></h2>
   <p style="font-size:0.9rem;line-height:2.1;color:var(--mid);font-weight:300;max-width:660px;margin-bottom:3rem;">
-    The work done in Multimedia &amp; Authoring is not just coursework — it is a foundation. Here is where I intend to take these skills next.
+    The work done in Multimedia &amp; Authoring is not just coursework &mdash; it is a foundation. Here is where I intend to take these skills next.
   </p>
-  
-  
   <ul class="goals-list">
-    <li><span class="goal-num">I</span><div class="goal-text"><h3>Complete Studying at TUP</h3><p>My primary goal is to complete the BSIT program at the Technological University of the Philippines — finishing every term with dedication, carrying TUP's discipline and work ethic all the way through to graduation day.</p></div></li>
-    <li><span class="goal-num">II</span><div class="goal-text"><h3>Pursue UI/UX or Creative Technology</h3><p>The intersection of design and engineering that Multimedia &amp; Authoring revealed feels like home. I intend to pursue a career that lives in that space — whether as a UI/UX designer, a creative technologist, or a front-end developer with a strong visual sensibility.</p></div></li>
-    <li><span class="goal-num">III</span><div class="goal-text"><h4>Deepen 3D and Motion Skills</h4><p>The solar system project opened a door. I want to continue developing in Blender — exploring character modeling, motion graphics, architectural visualization, and real-time rendering in engines like Unity or Unreal.</p></div></li>
-    <li><span class="goal-num">IV</span><div class="goal-text"><h4>Build a Professional Portfolio</h4><p>This academic portfolio is just the beginning. By graduation, I intend to have a body of work demonstrating both technical competence and creative range — projects that solve real problems and tell compelling visual stories simultaneously.</p></div></li>
-    <li><span class="goal-num">V</span><div class="goal-text"><h4>Give Back to TUP</h4><p>TUP gave me opportunity. One day I want to return that — as a mentor, an industry partner, or simply a proud alumna whose work reflects well on the institution and the people who made it possible.</p></div></li>
- 
+    <li><span class="goal-num">I</span><div class="goal-text"><h3>Complete Studying at TUP</h3><p>My primary goal is to complete the BSIT program at the Technological University of the Philippines &mdash; finishing every term with dedication, carrying TUP's discipline and work ethic all the way through to graduation day.</p></div></li>
+    <li><span class="goal-num">II</span><div class="goal-text"><h3>Pursue UI/UX or Creative Technology</h3><p>The intersection of design and engineering that Multimedia &amp; Authoring revealed feels like home. I intend to pursue a career that lives in that space &mdash; whether as a UI/UX designer, a creative technologist, or a front-end developer with a strong visual sensibility.</p></div></li>
+    <li><span class="goal-num">III</span><div class="goal-text"><h3>Deepen 3D and Motion Skills</h3><p>The solar system project opened a door. I want to continue developing in Blender &mdash; exploring character modeling, motion graphics, architectural visualization, and real-time rendering in engines like Unity or Unreal.</p></div></li>
+    <li><span class="goal-num">IV</span><div class="goal-text"><h3>Build a Professional Portfolio</h3><p>This academic portfolio is just the beginning. By graduation, I intend to have a body of work demonstrating both technical competence and creative range &mdash; projects that solve real problems and tell compelling visual stories simultaneously.</p></div></li>
+    <li><span class="goal-num">V</span><div class="goal-text"><h3>Give Back to TUP</h3><p>TUP gave me opportunity. One day I want to return that &mdash; as a mentor, an industry partner, or simply a proud alumna whose work reflects well on the institution and the people who made it possible.</p></div></li>
   </ul>
-  
 </div>
 
 <footer>
@@ -670,8 +680,6 @@
     setTimeout(function(){ intro.style.display = 'none'; }, 700);
   }, 2600);
 })();
-
-/* photo is embedded directly as base64 */
 
 /* ══ CURSOR ══ */
 (function(){
@@ -766,7 +774,6 @@
         e.target.querySelectorAll('.skill-bar-fill').forEach(function(b){
           setTimeout(function(){ b.style.width=b.getAttribute('data-width')+'%'; },200);
         });
-        /* Count-up for stats */
         e.target.querySelectorAll('[data-count]').forEach(function(el){
           var target=parseInt(el.getAttribute('data-count'));
           var current=0;
