@@ -326,9 +326,7 @@ footer .footer-brand{font-family:var(--font-serif);font-size:1rem;color:var(--li
 .calc-cards-section{padding:1.4rem 2rem;background:rgba(13,9,32,0.6);}
 .calc-cards-label{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--mid);margin-bottom:1rem;}
 .calc-cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:0.9rem;}
-/* reuse planet-card styles above */
 
-/* RESPONSIVE */
 /* CALC PICKER BUTTONS */
 .calc-pick-btn{
   display:inline-flex;align-items:center;gap:5px;
@@ -422,7 +420,7 @@ footer .footer-brand{font-family:var(--font-serif);font-size:1rem;color:var(--li
     <div class="block-sub">Interactive Orbital Simulation</div>
     <p class="body-text">Navigate the live orbital simulation — click any body or use the selector and arrows to explore physical properties, rendered animations, and fun facts for all 11 celestial bodies.</p>
 
-    <!-- SELECTOR BUTTONS (TOP) -->
+    <!-- SELECTOR BUTTONS (Top) -->
     <div class="planet-selector" id="planetSelector"></div>
 
     <!-- SOLAR CANVAS -->
@@ -752,7 +750,7 @@ const BODIES = [
   {id:'pluto',name:'Pluto',emoji:'🩶',letter:'Pl',type:'Dwarf Planet',
    desc:"Pluto was the ninth planet until 2006 when it was reclassified as a dwarf planet. Located in the Kuiper Belt, it has a heart-shaped nitrogen glacier called Tombaugh Regio. It has 5 moons; its largest moon Charon is so big relative to Pluto that they orbit a shared center of gravity — some call it a double dwarf planet system.",
    funfact:"Pluto's largest moon Charon is so big that Pluto and Charon orbit each other around a point in space between them.",
-   videoId:null,diameter:'2,376 km',orbital:'248 Earth yrs',moons:'5',
+   videoId:'pOOIXNNPryU',diameter:'2,376 km',orbital:'248 Earth yrs',moons:'5',
    details:[{icon:'📏',n:'Distance from Sun',v:'5.9 billion km'},{icon:'🌡️',n:'Temperature',v:'-229 °C (avg)'},{icon:'⏱️',n:'Rotation',v:'6.4 Earth days'},{icon:'🌀',n:'Gravity',v:'0.62 m/s²'}],
    orbitalRadius:385,orbitalPeriod:248,size:4,color:'#A09088',glow:'rgba(160,144,136,0.5)',isDwarf:true,
    calcOrbitalDays:90520,distance:'39.48 AU (5.9B km)'},
@@ -800,12 +798,10 @@ function animateSolar(ts){
   }
   sctx.clearRect(0,0,W2,H2);
   const scale=getScale();
-  // bg
   const bg=sctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(W2,H2));
   bg.addColorStop(0,'rgba(24,8,48,0.65)');bg.addColorStop(1,'rgba(0,0,0,0)');
   sctx.fillStyle=bg;sctx.fillRect(0,0,W2,H2);
 
-  // orbits
   BODIES.forEach((p,i)=>{
     if(p.isSun||p.isMoon)return;
     const r=p.orbitalRadius*scale;
@@ -816,7 +812,6 @@ function animateSolar(ts){
     sctx.setLineDash(isSel?[]:[4,8]);sctx.stroke();sctx.setLineDash([]);
   });
 
-  // trails
   BODIES.forEach((p,i)=>{
     if(p.isSun||p.isMoon)return;
     const r=p.orbitalRadius*scale;
@@ -829,13 +824,11 @@ function animateSolar(ts){
       const frac=j/trails[i].length;
       const al=frac*0.4*(selectedId===p.id?2:1);
       sctx.beginPath();sctx.arc(pt.x,pt.y,p.size*0.28*frac*scale*0.5,0,Math.PI*2);
-      const col=p.color.startsWith('#')?p.color+'00':p.color;
       sctx.fillStyle=p.color+(Math.floor(al*255).toString(16).padStart(2,'0'));
       sctx.fill();
     });
   });
 
-  // Saturn rings
   BODIES.forEach((p,i)=>{
     if(!p.hasRings)return;
     const r=p.orbitalRadius*scale;
@@ -847,7 +840,6 @@ function animateSolar(ts){
     sctx.restore();
   });
 
-  // Sun
   const sunR=28*scale*0.5;
   const sg=sctx.createRadialGradient(cx,cy,0,cx,cy,sunR);
   sg.addColorStop(0,'#FFFCE0');sg.addColorStop(0.3,'#FFD84D');sg.addColorStop(0.7,'#FF9900');sg.addColorStop(1,'#CC4400');
@@ -855,19 +847,16 @@ function animateSolar(ts){
   const sglow=sctx.createRadialGradient(cx,cy,0,cx,cy,sunR*3);
   sglow.addColorStop(0,'rgba(255,200,60,0.3)');sglow.addColorStop(1,'rgba(0,0,0,0)');
   sctx.beginPath();sctx.arc(cx,cy,sunR*3,0,Math.PI*2);sctx.fillStyle=sglow;sctx.fill();
-  // corona pulse
   const cor=(sunR+4*Math.sin(lastT*0.002));
   sctx.beginPath();sctx.arc(cx,cy,cor,0,Math.PI*2);sctx.strokeStyle='rgba(255,220,80,0.18)';sctx.lineWidth=3;sctx.stroke();
   if(selectedId==='sun'){
     sctx.beginPath();sctx.arc(cx,cy,sunR+6,0,Math.PI*2);sctx.strokeStyle='rgba(212,160,255,0.7)';sctx.lineWidth=1.5;sctx.stroke();
   }
 
-  // planets + Moon
   BODIES.forEach((p,i)=>{
     if(p.isSun)return;
     let px,py;
     if(p.isMoon){
-      // orbit around Earth
       const ei=BODIES.findIndex(b=>b.id==='earth');
       const er=BODIES[ei].orbitalRadius*scale;
       const epx=cx+Math.cos(angles[ei])*er,epy=cy+Math.sin(angles[ei])*er;
@@ -885,15 +874,12 @@ function animateSolar(ts){
       const pulse=ps+8+3*Math.sin(lastT*0.004);
       sctx.beginPath();sctx.arc(px,py,pulse,0,Math.PI*2);sctx.strokeStyle='rgba(212,160,255,0.2)';sctx.lineWidth=1;sctx.stroke();
     }
-    // glow
     const glr=sctx.createRadialGradient(px,py,0,px,py,ps*3);
     glr.addColorStop(0,p.color.startsWith('#')?p.color+'88':p.color);glr.addColorStop(1,'rgba(0,0,0,0)');
     sctx.beginPath();sctx.arc(px,py,ps*3,0,Math.PI*2);sctx.fillStyle=glr;sctx.fill();
-    // body
     const gr=sctx.createRadialGradient(px-ps*0.3,py-ps*0.3,ps*0.1,px,py,ps);
     gr.addColorStop(0,lighten(p.color,50));gr.addColorStop(0.5,p.color);gr.addColorStop(1,darken(p.color,60));
     sctx.beginPath();sctx.arc(px,py,ps,0,Math.PI*2);sctx.fillStyle=gr;sctx.fill();
-    // label
     if(isSel||isHov||scale>0.52){
       sctx.font=`${Math.max(8,10*scale)}px 'Jost',sans-serif`;sctx.textAlign='center';
       sctx.fillStyle=isSel?'#d4a0ff':'rgba(200,180,230,0.7)';
@@ -903,7 +889,6 @@ function animateSolar(ts){
   requestAnimationFrame(animateSolar);
 }
 
-/* hit test */
 function getBodyAt(mx,my){
   const scale=getScale();
   for(let i=BODIES.length-1;i>=0;i--){
@@ -942,13 +927,11 @@ sc.addEventListener('click',e=>{
   const hit=getBodyAt(mx,my);if(hit)selectBody(hit,false);
 });
 
-/* speed/pause */
 document.querySelectorAll('.spd-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{speedMult=parseFloat(btn.dataset.speed);document.querySelectorAll('.spd-btn').forEach(b=>b.classList.toggle('active',b===btn));});
 });
 document.getElementById('pauseBtn').addEventListener('click',()=>{paused=!paused;document.getElementById('pauseBtn').textContent=paused?'▶ Resume':'⏸ Pause';});
 
-/* prev/next */
 let currentIdx=0;
 document.getElementById('prevBtn').addEventListener('click',()=>{currentIdx=(currentIdx-1+BODIES.length)%BODIES.length;selectBody(BODIES[currentIdx].id,true);});
 document.getElementById('nextBtn').addEventListener('click',()=>{currentIdx=(currentIdx+1)%BODIES.length;selectBody(BODIES[currentIdx].id,true);});
@@ -971,18 +954,15 @@ function selectBody(id,scrollTo){
   document.getElementById('bip-moons').textContent=p.moons;
   document.getElementById('bip-funfact').textContent=p.funfact;
 
-  // stat pills
   document.getElementById('bip-stat-pills').innerHTML=p.details.slice(0,2).map(d=>`
     <div class="bip-stat-pill"><span class="bip-spl">${d.icon} ${d.n}</span><span class="bip-spv">${d.v}</span></div>
   `).join('');
 
-  // video — autoplay muted loop
   const va=document.getElementById('bip-video-area');
   va.innerHTML=p.videoId
     ?`<iframe src="https://www.youtube.com/embed/${p.videoId}?autoplay=1&mute=1&loop=1&playlist=${p.videoId}&controls=1&modestbranding=1&rel=0" title="${p.name}" allow="autoplay; encrypted-media" allowfullscreen></iframe>`
     :`<div class="bip-video-placeholder"><div class="play-ring" style="width:46px;height:46px;border-color:#3d2d6a;"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M5 3L13 8L5 13V3Z" fill="#3d2d6a"/></svg></div><span style="font-size:0.78rem;color:var(--muted);">No render embedded yet</span></div>`;
 
-  // details right
   document.getElementById('bip-details').innerHTML=p.details.map(d=>`
     <div class="bip-detail-card">
       <div class="bip-dc-icon">${d.icon}</div>
@@ -995,7 +975,6 @@ function selectBody(id,scrollTo){
   if(scrollTo)panel.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
-/* init solar */
 resizeSolar();
 addEventListener('resize',resizeSolar);
 requestAnimationFrame(ts=>{lastT=ts;animateSolar(ts);});
@@ -1003,9 +982,8 @@ selectBody('sun',false);
 
 /* ════════════════════ HUMAN FIGURE CANVAS ════════════════════ */
 const hcanvas=document.getElementById('humanCanvas'),hctx=hcanvas.getContext('2d');
-let currentHumanAge=null,humanAnimProgress=0,humanAnimTarget=0,humanAnimFrame=null;
+let currentHumanAge=null;
 
-// Life stages based on age on a given body
 function getLifeStage(age){
   if(age<1)return{stage:'Infant',color:'#a0d8ff',desc:'Baby'};
   if(age<12)return{stage:'Child',color:'#90e090',desc:'Child'};
@@ -1038,14 +1016,11 @@ function darkenHex(h,a){
   catch(e){return h;}
 }
 
-// animateHuman is defined later in the calculator section
-
 /* ════════════════════ CALCULATOR ════════════════════ */
 const calcBodies=BODIES;
 let currentEarthAge=null;
 let activePlanetId=null;
 
-/* Second human canvas */
 const hcanvas2=document.getElementById('humanCanvas2');
 const hctx2=hcanvas2.getContext('2d');
 
@@ -1058,11 +1033,9 @@ function calculateAges(){
   const ls=getLifeStage(val);
   document.getElementById('had-age').textContent=val.toFixed(1);
   document.getElementById('had-desc').textContent=ls.stage;
-  // show planet picker
   buildPickerButtons(val);
   document.getElementById('calc-planet-picker').style.display='block';
   renderCards(val);
-  // auto-select Earth as default comparison
   switchCalcPlanet('earth',val);
 }
 
@@ -1089,7 +1062,6 @@ function switchCalcPlanet(planetId,earthAge){
   const earthDays=earthAge*365.25;
   const planetAge=earthDays/p.calcOrbitalDays;
   const ls=getLifeStage(planetAge);
-  // update right human
   currentPlanetAge=planetAge;
   currentPlanetColor=p.color;
   document.getElementById('planet-emoji-label').textContent=p.emoji;
@@ -1097,7 +1069,6 @@ function switchCalcPlanet(planetId,earthAge){
   document.getElementById('planet-had-label').textContent='Age on '+p.name;
   document.getElementById('planet-had-age').textContent=planetAge.toFixed(1);
   document.getElementById('planet-had-desc').textContent=ls.stage;
-  // update video center
   document.getElementById('calc-video-emoji').textContent=p.emoji;
   document.getElementById('calc-video-name').textContent=p.name;
   document.getElementById('calc-video-type').textContent=p.type;
@@ -1111,7 +1082,6 @@ function switchCalcPlanet(planetId,earthAge){
   ageBar.style.display='flex';
   document.getElementById('calc-video-planet-age').textContent=planetAge.toFixed(2)+' yrs';
   document.getElementById('calc-video-life-stage').textContent=ls.stage;
-  // refresh picker active states
   document.querySelectorAll('.calc-pick-btn').forEach(b=>b.classList.toggle('cpb-active',b.dataset.id===planetId));
 }
 
@@ -1160,10 +1130,8 @@ let currentPlanetAge=null;
 let currentPlanetColor='#d4a0ff';
 
 function animateHuman(){
-  // left canvas: Earth human
   if(currentHumanAge!==null) drawHumanFigure(currentHumanAge);
   else drawHumanFigure(null);
-  // right canvas: planet human
   if(currentPlanetAge!==null) drawHumanFigure2(currentPlanetAge,currentPlanetColor);
   else drawHumanFigureEmpty2();
   requestAnimationFrame(animateHuman);
@@ -1175,7 +1143,6 @@ function drawHumanFigure2(age,col){
   const color=col||ls.color;
   const scale=age<1?0.42:age<5?0.52:age<12?0.66:age<18?0.82:age<70?0.96:0.9;
   const wrinkle=Math.max(0,Math.min(1,(age-50)/50));
-  // reuse same drawing but on hctx2
   drawSilhouetteOnCtx(hctx2,70,age<12?115:105,scale,age,color,true,wrinkle,age);
 }
 function drawHumanFigureEmpty2(){
@@ -1192,36 +1159,28 @@ function drawSilhouetteOnCtx(c,cx2,baseY,scale,age,color,filled,wrinkle,realAge)
     c.beginPath();c.arc(0,30,80,0,Math.PI*2);c.fillStyle=glowG;c.fill();
   }
   const legColor=filled?darkenHex(color,20):'rgba(80,60,120,0.5)';
-  // legs
   c.beginPath();c.moveTo(-14,bodyH);c.quadraticCurveTo(-16,bodyH+legH*0.5,-14,bodyH+legH);c.quadraticCurveTo(-12,bodyH+legH+8,-5,bodyH+legH+8);c.quadraticCurveTo(-8,bodyH+legH,-10,bodyH+legH);c.quadraticCurveTo(-12,bodyH+legH*0.5,-10,bodyH);c.closePath();c.fillStyle=legColor;c.fill();
   c.beginPath();c.moveTo(10,bodyH);c.quadraticCurveTo(12,bodyH+legH*0.5,10,bodyH+legH);c.quadraticCurveTo(8,bodyH+legH+8,18,bodyH+legH+8);c.quadraticCurveTo(20,bodyH+legH,16,bodyH+legH);c.quadraticCurveTo(14,bodyH+legH*0.5,12,bodyH);c.closePath();c.fillStyle=legColor;c.fill();
-  // body
   const bg2=c.createLinearGradient(-shoulderW,0,shoulderW,bodyH);
   if(filled){bg2.addColorStop(0,color);bg2.addColorStop(1,darkenHex(color,30));}
   else{bg2.addColorStop(0,'rgba(80,60,120,0.4)');bg2.addColorStop(1,'rgba(50,30,80,0.3)');}
   c.beginPath();c.moveTo(-shoulderW,0);c.bezierCurveTo(-shoulderW,-5,-shoulderW+5,-2,-shoulderW+8,bodyH);c.lineTo(shoulderW-8,bodyH);c.bezierCurveTo(shoulderW-5,-2,shoulderW,-5,shoulderW,0);c.closePath();c.fillStyle=bg2;c.fill();
-  // arms
   const armAngle=realAge>60?0.25:0.08;
   c.beginPath();c.moveTo(-shoulderW+2,4);c.quadraticCurveTo(-shoulderW-16+armAngle*20,armH*0.4,-shoulderW-12+armAngle*15,armH);c.quadraticCurveTo(-shoulderW-8+armAngle*10,armH+6,-shoulderW-2,armH+6);c.quadraticCurveTo(-shoulderW+2,armH,-shoulderW+4,armH);c.quadraticCurveTo(-shoulderW-4,armH*0.4,-shoulderW+4,4);c.closePath();c.fillStyle=legColor;c.fill();
   c.beginPath();c.moveTo(shoulderW-2,4);c.quadraticCurveTo(shoulderW+16-armAngle*20,armH*0.4,shoulderW+12-armAngle*15,armH);c.quadraticCurveTo(shoulderW+8-armAngle*10,armH+6,shoulderW+2,armH+6);c.quadraticCurveTo(shoulderW-2,armH,shoulderW-4,armH);c.quadraticCurveTo(shoulderW+4,armH*0.4,shoulderW-4,4);c.closePath();c.fillStyle=legColor;c.fill();
-  // neck
   c.beginPath();c.moveTo(-7,-2);c.lineTo(7,-2);c.lineTo(6,-headR+4);c.lineTo(-6,-headR+4);c.closePath();c.fillStyle=filled?lightenHex(color,10):'rgba(80,60,120,0.4)';c.fill();
-  // head
   const hg=c.createRadialGradient(-headR*0.3,-headR*1.2,2,-headR*0.1,-headR*1,headR);
   if(filled){hg.addColorStop(0,lightenHex(color,40));hg.addColorStop(0.7,color);hg.addColorStop(1,darkenHex(color,20));}
   else{hg.addColorStop(0,'rgba(100,80,140,0.5)');hg.addColorStop(1,'rgba(60,40,100,0.3)');}
   const hs=realAge>60?0.92:1.0;
   c.save();c.scale(1,hs);c.beginPath();c.arc(0,-headR*1.05,headR,0,Math.PI*2);c.fillStyle=hg;c.fill();c.restore();
-  // wrinkles
   if(filled&&wrinkle>0.4){c.globalAlpha=Math.min(1,(wrinkle-0.4)*2)*0.45;c.strokeStyle='rgba(80,60,80,0.8)';c.lineWidth=0.7;for(let w=0;w<3;w++){c.beginPath();c.moveTo(-10+w*2,-headR*1.05-6+w*3);c.quadraticCurveTo(0,-headR*1.05-7+w*3,10-w*2,-headR*1.05-6+w*3);c.stroke();}c.globalAlpha=1;}
-  // eyes
   if(filled){
     const eyeY=-headR*1.05-2,eyeSize=realAge>70?2.5:3;
     c.fillStyle='rgba(30,20,50,0.9)';c.beginPath();c.arc(-7,eyeY,eyeSize,0,Math.PI*2);c.fill();c.beginPath();c.arc(7,eyeY,eyeSize,0,Math.PI*2);c.fill();
     c.fillStyle='rgba(255,255,255,0.8)';c.beginPath();c.arc(-7,eyeY,eyeSize*0.6,0,Math.PI*2);c.fill();c.beginPath();c.arc(7,eyeY,eyeSize*0.6,0,Math.PI*2);c.fill();
     const smileY=-headR*1.05+9;c.strokeStyle='rgba(30,20,50,0.6)';c.lineWidth=1.2;c.beginPath();
     if(realAge<30){c.arc(0,smileY-3,5,0.3,Math.PI-0.3);}else if(realAge<70){c.moveTo(-5,smileY);c.lineTo(5,smileY);}else{c.arc(0,smileY+3,5,-Math.PI+0.3,-0.3);}c.stroke();
-    // hair
     if(realAge<70){c.fillStyle=realAge<50?darkenHex(color,40):'#888888';c.beginPath();c.arc(0,-headR*1.05,headR,Math.PI,0);c.closePath();c.fill();}
     else{c.fillStyle='#c0c8d0';c.beginPath();c.arc(0,-headR*1.05,headR,Math.PI+0.4,-0.4);c.closePath();c.fill();}
   }
