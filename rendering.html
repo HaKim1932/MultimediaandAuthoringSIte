@@ -151,7 +151,7 @@ footer .footer-brand{font-family:var(--font-serif);font-size:1rem;color:var(--li
 }
 .nav-current-index{font-size:0.65rem;color:var(--muted);display:block;margin-top:1px;font-family:var(--font-sans);letter-spacing:0.12em;}
 
-/* ── INFO PANEL (STRIKING REDESIGN) ── */
+/* ── INFO PANEL ── */
 .body-info-panel{
   display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:0;
   border:1px solid var(--border);border-radius:20px;overflow:hidden;
@@ -403,8 +403,6 @@ footer .footer-brand{font-family:var(--font-serif);font-size:1rem;color:var(--li
 <p class="body-text">The completed 3D rendered solar system animation — featuring all eight planets in orbit around the Sun, with accurate relative sizing, texturing, and lighting simulation.</p>
 <div class="video-wrap">
   <iframe
-    style="border:none;width:100%;"
-    height="400"
     src="https://www.youtube.com/embed/FNY7JsjoRfg"
     title="3D Solar System — Final Render"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -412,17 +410,15 @@ footer .footer-brand{font-family:var(--font-serif);font-size:1rem;color:var(--li
   </iframe>
 </div>
 <p class="video-label">Solar System 3D Render — Final Output</p>
-  
+
   <!-- ════════════════════════ SOLAR EXPLORER ════════════════════════ -->
   <div class="solar-section">
     <h2 class="block-title">Celestial <em>Bodies</em> Explorer</h2>
     <div class="block-sub">Interactive Orbital Simulation</div>
     <p class="body-text">Navigate the live orbital simulation — click any body or use the selector and arrows to explore physical properties, rendered animations, and fun facts for all 11 celestial bodies.</p>
 
-    <!-- SELECTOR BUTTONS (Top) -->
     <div class="planet-selector" id="planetSelector"></div>
 
-    <!-- SOLAR CANVAS -->
     <div class="solar-wrapper">
       <canvas id="solarCanvas"></canvas>
       <div id="solar-tooltip">
@@ -431,7 +427,6 @@ footer .footer-brand{font-family:var(--font-serif);font-size:1rem;color:var(--li
       </div>
     </div>
 
-    <!-- SPEED + PAUSE -->
     <div class="solar-controls">
       <span class="ctrl-label">Orbit Speed</span>
       <div class="speed-btns">
@@ -444,7 +439,6 @@ footer .footer-brand{font-family:var(--font-serif);font-size:1rem;color:var(--li
       <button class="pause-btn" id="pauseBtn">⏸ Pause</button>
     </div>
 
-    <!-- PREV / NEXT NAV -->
     <div class="body-nav">
       <button class="nav-arrow" id="prevBtn">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
@@ -460,7 +454,6 @@ footer .footer-brand{font-family:var(--font-serif);font-size:1rem;color:var(--li
       </button>
     </div>
 
-    <!-- INFO PANEL -->
     <div class="body-info-panel" id="bodyInfoPanel">
       <!-- LEFT -->
       <div class="bip-left">
@@ -494,7 +487,6 @@ footer .footer-brand{font-family:var(--font-serif);font-size:1rem;color:var(--li
       </div>
     </div>
   </div>
-  <!-- ═════════════════════ END SOLAR EXPLORER ═════════════════════ -->
 
   <!-- TOOLS -->
   <h2 class="block-title">Tools &amp; <em>Technologies</em></h2>
@@ -517,7 +509,6 @@ footer .footer-brand{font-family:var(--font-serif);font-size:1rem;color:var(--li
   <div class="calc-outer">
     <div class="calc-bg-glow"></div>
     <div class="calc-inner">
-      <!-- INPUT -->
       <div class="calc-top">
         <div class="calc-top-grid">
           <div class="calc-field-fancy">
@@ -532,13 +523,11 @@ footer .footer-brand{font-family:var(--font-serif);font-size:1rem;color:var(--li
         <p class="calc-hint-fancy">* Enter your Earth age to visualize your life stage and compute your age on all 11 celestial bodies including the Moon and Pluto.</p>
       </div>
 
-      <!-- PLANET PICKER BUTTONS -->
       <div id="calc-planet-picker" style="display:none;padding:1rem 2rem 0.8rem;background:rgba(13,9,32,0.85);border-bottom:1px solid var(--border);">
         <div style="font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent3);margin-bottom:0.6rem;">Compare yourself on — click to switch:</div>
         <div id="calc-picker-btns" style="display:flex;flex-wrap:wrap;gap:0.4rem;"></div>
       </div>
 
-      <!-- MAIN VISUAL: EARTH HUMAN | VIDEO | PLANET HUMAN -->
       <div class="calc-visual">
         <!-- LEFT: YOU ON EARTH -->
         <div class="calc-human-side">
@@ -600,7 +589,6 @@ footer .footer-brand{font-family:var(--font-serif);font-size:1rem;color:var(--li
         </div>
       </div>
 
-      <!-- DETAILED CARDS -->
       <div class="calc-cards-section">
         <div class="calc-cards-label">Detailed breakdown per celestial body</div>
         <div class="calc-cards-grid planets-grid" id="planets-grid"></div>
@@ -674,7 +662,6 @@ footer .footer-brand{font-family:var(--font-serif);font-size:1rem;color:var(--li
 })();
 
 /* ════════════════════ PLANET DATA ════════════════════ */
-// ORDER: Sun, Mercury, Venus, Earth, Moon, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto
 const BODIES = [
   {id:'sun',name:'Sun',emoji:'☀️',letter:'☀',type:'Star',
    desc:'The Sun is the star at the center of our solar system, accounting for 99.86% of the system\'s total mass. Its powerful gravity holds all planets in orbit. The core reaches 15 million °C where nuclear fusion converts hydrogen into helium — releasing all light and warmth that sustains life on Earth.',
@@ -867,7 +854,6 @@ function animateSolar(ts){
     }
     const ps=p.size*scale*0.5;
     const isSel=selectedId===p.id,isHov=hoveredId===p.id;
-
     if(isSel){
       sctx.beginPath();sctx.arc(px,py,ps+5,0,Math.PI*2);sctx.strokeStyle='rgba(212,160,255,0.7)';sctx.lineWidth=1.5;sctx.stroke();
       const pulse=ps+8+3*Math.sin(lastT*0.004);
@@ -940,11 +926,9 @@ function selectBody(id,scrollTo){
   selectedId=id;
   currentIdx=BODIES.findIndex(p=>p.id===id);
   const p=BODIES[currentIdx];if(!p)return;
-
   document.querySelectorAll('.psel-btn').forEach(b=>b.classList.toggle('active',b.dataset.id===id));
   document.getElementById('navCurrentName').textContent=p.emoji+' '+p.name;
   document.getElementById('navCurrentIndex').textContent=`${currentIdx+1} of ${BODIES.length}`;
-
   document.getElementById('bip-type').textContent=p.type;
   document.getElementById('bip-title').textContent=p.name;
   document.getElementById('bip-desc').textContent=p.desc;
@@ -952,23 +936,19 @@ function selectBody(id,scrollTo){
   document.getElementById('bip-orbital').textContent=p.orbital;
   document.getElementById('bip-moons').textContent=p.moons;
   document.getElementById('bip-funfact').textContent=p.funfact;
-
   document.getElementById('bip-stat-pills').innerHTML=p.details.slice(0,2).map(d=>`
     <div class="bip-stat-pill"><span class="bip-spl">${d.icon} ${d.n}</span><span class="bip-spv">${d.v}</span></div>
   `).join('');
-
   const va=document.getElementById('bip-video-area');
   va.innerHTML=p.videoId
     ?`<iframe src="https://www.youtube.com/embed/${p.videoId}?autoplay=1&mute=1&loop=1&playlist=${p.videoId}&controls=1&modestbranding=1&rel=0" title="${p.name}" allow="autoplay; encrypted-media" allowfullscreen></iframe>`
     :`<div class="bip-video-placeholder"><div class="play-ring" style="width:46px;height:46px;border-color:#3d2d6a;"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M5 3L13 8L5 13V3Z" fill="#3d2d6a"/></svg></div><span style="font-size:0.78rem;color:var(--muted);">No render embedded yet</span></div>`;
-
   document.getElementById('bip-details').innerHTML=p.details.map(d=>`
     <div class="bip-detail-card">
       <div class="bip-dc-icon">${d.icon}</div>
       <div><div class="bip-dc-name">${d.n}</div><div class="bip-dc-val">${d.v}</div></div>
     </div>
   `).join('');
-
   const panel=document.getElementById('bodyInfoPanel');
   panel.classList.add('visible');
   if(scrollTo)panel.scrollIntoView({behavior:'smooth',block:'nearest'});
@@ -1019,7 +999,6 @@ function darkenHex(h,a){
 const calcBodies=BODIES;
 let currentEarthAge=null;
 let activePlanetId=null;
-
 const hcanvas2=document.getElementById('humanCanvas2');
 const hctx2=hcanvas2.getContext('2d');
 
