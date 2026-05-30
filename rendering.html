@@ -95,34 +95,21 @@ footer{border-top:1px solid rgba(168,85,247,0.1);background:rgba(13,9,32,0.7);te
 footer span{color:var(--mid);}
 footer .footer-brand{font-family:var(--font-serif);font-size:1rem;color:var(--light);letter-spacing:0.1em;display:block;margin-bottom:0.3rem;}
 
-/* ════════════════════════════
-   SOLAR EXPLORER SECTION
-════════════════════════════ */
+/* SOLAR EXPLORER SECTION */
 .solar-section{margin-top:5rem;}
 
-/* SELECTOR BUTTONS TOP */
 .planet-selector{display:flex;flex-wrap:wrap;gap:0.45rem;justify-content:center;margin-bottom:1.6rem;}
-.psel-btn{
-  display:flex;align-items:center;gap:5px;
-  padding:0.38rem 0.9rem;
-  background:rgba(255,255,255,0.03);
-  border:1px solid var(--border);
-  border-radius:30px;color:var(--mid);
-  font-family:var(--font-sans);font-size:0.7rem;letter-spacing:0.07em;
-  cursor:pointer;white-space:nowrap;transition:all 0.22s;
-}
+.psel-btn{display:flex;align-items:center;gap:5px;padding:0.38rem 0.9rem;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:30px;color:var(--mid);font-family:var(--font-sans);font-size:0.7rem;letter-spacing:0.07em;cursor:pointer;white-space:nowrap;transition:all 0.22s;}
 .psel-btn:hover{border-color:var(--accent2);color:var(--white);background:rgba(124,58,237,0.14);}
 .psel-btn.active{background:linear-gradient(135deg,var(--accent2),var(--accent));border-color:transparent;color:#fff;box-shadow:0 0 18px rgba(168,85,247,0.4);}
 .psel-btn .pe{font-size:0.9rem;}
 
-/* SOLAR CANVAS */
 .solar-wrapper{position:relative;width:100%;border:1px solid var(--border);border-radius:20px;overflow:hidden;background:radial-gradient(ellipse at 50% 55%,rgba(80,30,140,0.2) 0%,rgba(6,4,15,0.98) 70%);box-shadow:0 0 100px rgba(124,58,237,0.15),inset 0 0 80px rgba(0,0,0,0.5);margin-bottom:1.4rem;}
 #solarCanvas{display:block;width:100%;cursor:pointer;}
 #solar-tooltip{position:absolute;background:rgba(13,9,32,0.96);border:1px solid var(--border);border-radius:10px;padding:0.55rem 0.9rem;font-size:0.74rem;color:var(--light);pointer-events:none;opacity:0;transition:opacity 0.15s;white-space:nowrap;z-index:10;box-shadow:0 8px 32px rgba(124,58,237,0.3);}
 #solar-tooltip.show{opacity:1;}
 #solar-tooltip .tt-name{font-family:var(--font-serif);font-size:0.95rem;color:var(--accent3);display:block;margin-bottom:1px;}
 
-/* CONTROLS */
 .solar-controls{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;}
 .ctrl-label{font-size:0.66rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);}
 .speed-btns{display:flex;gap:0.35rem;}
@@ -132,73 +119,29 @@ footer .footer-brand{font-family:var(--font-serif);font-size:1rem;color:var(--li
 .pause-btn{padding:0.32rem 1.1rem;background:rgba(124,58,237,0.15);border:1px solid var(--accent2);border-radius:20px;color:var(--accent3);font-family:var(--font-sans);font-size:0.7rem;cursor:pointer;transition:all 0.2s;letter-spacing:0.07em;}
 .pause-btn:hover{background:rgba(124,58,237,0.3);}
 
-/* ── PREV/NEXT NAVIGATION ── */
 .body-nav{display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:1.4rem;}
-.nav-arrow{
-  display:flex;align-items:center;gap:7px;
-  padding:0.5rem 1.4rem;
-  background:rgba(124,58,237,0.1);
-  border:1px solid var(--border);
-  border-radius:30px;color:var(--mid);
-  font-family:var(--font-sans);font-size:0.75rem;letter-spacing:0.08em;
-  cursor:pointer;transition:all 0.2s;
-}
+.nav-arrow{display:flex;align-items:center;gap:7px;padding:0.5rem 1.4rem;background:rgba(124,58,237,0.1);border:1px solid var(--border);border-radius:30px;color:var(--mid);font-family:var(--font-sans);font-size:0.75rem;letter-spacing:0.08em;cursor:pointer;transition:all 0.2s;}
 .nav-arrow:hover{border-color:var(--accent);color:var(--accent3);background:rgba(124,58,237,0.2);box-shadow:0 0 20px rgba(168,85,247,0.2);}
 .nav-arrow svg{flex-shrink:0;}
-.nav-current-label{
-  font-family:var(--font-serif);font-size:1.1rem;color:var(--accent3);
-  min-width:180px;text-align:center;letter-spacing:0.04em;
-}
+.nav-current-label{font-family:var(--font-serif);font-size:1.1rem;color:var(--accent3);min-width:180px;text-align:center;letter-spacing:0.04em;}
 .nav-current-index{font-size:0.65rem;color:var(--muted);display:block;margin-top:1px;font-family:var(--font-sans);letter-spacing:0.12em;}
 
-/* ── INFO PANEL ── */
-.body-info-panel{
-  display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:0;
-  border:1px solid var(--border);border-radius:20px;overflow:hidden;
-  background:rgba(10,6,22,0.95);
-  box-shadow:0 0 80px rgba(124,58,237,0.15);
-  opacity:0;transform:translateY(20px);
-  transition:opacity 0.45s ease,transform 0.45s ease;
-}
+.body-info-panel{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:0;border:1px solid var(--border);border-radius:20px;overflow:hidden;background:rgba(10,6,22,0.95);box-shadow:0 0 80px rgba(124,58,237,0.15);opacity:0;transform:translateY(20px);transition:opacity 0.45s ease,transform 0.45s ease;}
 .body-info-panel.visible{opacity:1;transform:translateY(0);}
 
-/* LEFT PANEL */
-.bip-left{
-  padding:2rem 1.8rem;
-  border-right:1px solid var(--border);
-  background:linear-gradient(160deg,rgba(124,58,237,0.08) 0%,transparent 60%);
-  display:flex;flex-direction:column;gap:1.4rem;
-}
-.bip-planet-badge{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:0.35rem 0.9rem;
-  background:rgba(124,58,237,0.2);
-  border:1px solid rgba(168,85,247,0.35);
-  border-radius:30px;
-  font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent3);
-  width:fit-content;
-}
+.bip-left{padding:2rem 1.8rem;border-right:1px solid var(--border);background:linear-gradient(160deg,rgba(124,58,237,0.08) 0%,transparent 60%);display:flex;flex-direction:column;gap:1.4rem;}
+.bip-planet-badge{display:inline-flex;align-items:center;gap:8px;padding:0.35rem 0.9rem;background:rgba(124,58,237,0.2);border:1px solid rgba(168,85,247,0.35);border-radius:30px;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent3);width:fit-content;}
 .bip-planet-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--accent3);animation:pulse 2s infinite;}
 .bip-left-title{font-family:var(--font-serif);font-size:1.7rem;font-weight:300;color:var(--white);line-height:1.1;}
 .bip-left-title em{font-style:italic;color:var(--accent3);}
 .bip-divider{width:40px;height:2px;background:linear-gradient(to right,var(--accent),transparent);}
 .bip-desc{font-size:0.82rem;line-height:1.9;color:var(--mid);font-weight:300;flex:1;}
-
-/* stat pills */
 .bip-stat-pills{display:flex;flex-direction:column;gap:0.6rem;}
-.bip-stat-pill{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0.6rem 0.9rem;
-  background:rgba(255,255,255,0.03);
-  border:1px solid rgba(255,255,255,0.06);
-  border-radius:10px;
-  transition:border-color 0.2s,background 0.2s;
-}
+.bip-stat-pill{display:flex;align-items:center;justify-content:space-between;padding:0.6rem 0.9rem;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;transition:border-color 0.2s,background 0.2s;}
 .bip-stat-pill:hover{border-color:rgba(168,85,247,0.3);background:rgba(124,58,237,0.07);}
 .bip-spl{font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);}
 .bip-spv{font-size:0.82rem;color:var(--light);font-weight:400;}
 
-/* CENTER PANEL */
 .bip-center{border-right:1px solid var(--border);}
 .bip-video-area{width:100%;aspect-ratio:16/9;position:relative;background:#000;}
 .bip-video-area iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
@@ -212,74 +155,35 @@ footer .footer-brand{font-family:var(--font-serif);font-size:1rem;color:var(--li
 .bip-ff-label{font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-bottom:4px;}
 .bip-ff-text{font-size:0.8rem;color:var(--mid);line-height:1.6;font-style:italic;}
 
-/* RIGHT PANEL */
 .bip-right{padding:2rem 1.8rem;background:linear-gradient(200deg,rgba(60,20,100,0.06) 0%,transparent 60%);}
 .bip-right-title{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent3);margin-bottom:1.2rem;display:flex;align-items:center;gap:8px;}
 .bip-right-title::before{content:'';width:20px;height:1px;background:var(--accent3);}
-.bip-detail-card{
-  display:flex;align-items:center;gap:12px;
-  padding:0.8rem 1rem;
-  background:rgba(255,255,255,0.025);
-  border:1px solid rgba(255,255,255,0.05);
-  border-radius:12px;margin-bottom:0.7rem;
-  position:relative;overflow:hidden;
-  transition:border-color 0.2s,transform 0.2s;
-}
+.bip-detail-card{display:flex;align-items:center;gap:12px;padding:0.8rem 1rem;background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.05);border-radius:12px;margin-bottom:0.7rem;position:relative;overflow:hidden;transition:border-color 0.2s,transform 0.2s;}
 .bip-detail-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--accent2),var(--accent));border-radius:3px 0 0 3px;}
 .bip-detail-card:hover{border-color:rgba(168,85,247,0.3);transform:translateX(3px);}
 .bip-dc-icon{width:34px;height:34px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1rem;background:rgba(124,58,237,0.18);border:1px solid rgba(168,85,247,0.25);}
 .bip-dc-name{font-size:0.6rem;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:2px;}
 .bip-dc-val{font-size:0.86rem;color:var(--light);font-weight:400;}
 
-/* ════════════════════════════
-   ADVANCED CALCULATOR
-════════════════════════════ */
+/* ADVANCED CALCULATOR */
 .calc-outer{position:relative;border-radius:24px;overflow:hidden;margin-bottom:2.5rem;}
 .calc-bg-glow{position:absolute;inset:0;background:linear-gradient(135deg,rgba(124,58,237,0.12) 0%,rgba(168,85,247,0.06) 50%,rgba(60,20,100,0.12) 100%);pointer-events:none;}
 .calc-inner{position:relative;border:1px solid var(--border);border-radius:24px;overflow:hidden;backdrop-filter:blur(20px);}
 
-/* TOP: INPUT SECTION */
 .calc-top{padding:2rem 2.2rem 1.6rem;border-bottom:1px solid var(--border);background:rgba(13,9,32,0.8);}
 .calc-top-grid{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:end;margin-bottom:0.8rem;}
 .calc-field-fancy{display:flex;flex-direction:column;gap:8px;}
 .calc-field-fancy label{font-size:0.64rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent3);}
 .calc-input-wrap{position:relative;}
-.calc-input-fancy{
-  width:100%;padding:1rem 1.2rem;
-  border:1px solid var(--border);
-  background:rgba(6,4,15,0.8);
-  font-family:var(--font-sans);font-size:1.3rem;font-weight:300;
-  color:var(--white);border-radius:14px;
-  transition:border-color 0.2s,box-shadow 0.2s;outline:none;
-}
+.calc-input-fancy{width:100%;padding:1rem 1.2rem;border:1px solid var(--border);background:rgba(6,4,15,0.8);font-family:var(--font-sans);font-size:1.3rem;font-weight:300;color:var(--white);border-radius:14px;transition:border-color 0.2s,box-shadow 0.2s;outline:none;}
 .calc-input-fancy:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(168,85,247,0.2);}
 .calc-input-unit{position:absolute;right:1.2rem;top:50%;transform:translateY(-50%);font-size:0.72rem;color:var(--muted);letter-spacing:0.1em;pointer-events:none;}
-.calc-btn-fancy{
-  padding:1rem 2rem;
-  background:linear-gradient(135deg,var(--accent2),var(--accent));
-  color:#fff;border:none;font-family:var(--font-sans);
-  font-size:0.82rem;font-weight:500;letter-spacing:0.1em;
-  border-radius:14px;cursor:pointer;white-space:nowrap;
-  transition:opacity 0.2s,box-shadow 0.2s,transform 0.15s;
-  text-transform:uppercase;
-}
+.calc-btn-fancy{padding:1rem 2rem;background:linear-gradient(135deg,var(--accent2),var(--accent));color:#fff;border:none;font-family:var(--font-sans);font-size:0.82rem;font-weight:500;letter-spacing:0.1em;border-radius:14px;cursor:pointer;white-space:nowrap;transition:opacity 0.2s,box-shadow 0.2s,transform 0.15s;text-transform:uppercase;}
 .calc-btn-fancy:hover{opacity:0.9;box-shadow:0 0 30px rgba(168,85,247,0.5);transform:translateY(-1px);}
 .calc-hint-fancy{font-size:0.72rem;color:var(--muted);}
 
-/* HUMAN FIGURE + VIDEO + PLANET HUMAN */
-.calc-visual{
-  display:grid;grid-template-columns:200px 1fr 200px;
-  border-bottom:1px solid var(--border);
-  background:rgba(10,6,22,0.95);
-  min-height:420px;
-}
-.calc-human-side{
-  border-right:1px solid var(--border);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:1.4rem 1rem;gap:0.8rem;
-  position:relative;overflow:hidden;
-  background:linear-gradient(180deg,rgba(124,58,237,0.07) 0%,transparent 100%);
-}
+.calc-visual{display:grid;grid-template-columns:200px 1fr 200px;border-bottom:1px solid var(--border);background:rgba(10,6,22,0.95);min-height:420px;}
+.calc-human-side{border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.4rem 1rem;gap:0.8rem;position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(124,58,237,0.07) 0%,transparent 100%);}
 .calc-human-right{border-right:none;border-left:1px solid var(--border);}
 .calc-human-side::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(168,85,247,0.14) 0%,transparent 70%);pointer-events:none;}
 .calc-human-label-top{display:flex;align-items:center;gap:7px;margin-bottom:0.3rem;}
@@ -291,52 +195,18 @@ footer .footer-brand{font-family:var(--font-serif);font-size:1rem;color:var(--li
 .had-age{font-family:var(--font-serif);font-size:2.2rem;color:var(--accent3);font-weight:300;line-height:1;}
 .had-desc{font-size:0.65rem;color:var(--mid);margin-top:4px;}
 
-/* CENTER VIDEO */
-.calc-video-center{
-  display:flex;flex-direction:column;
-  background:rgba(6,4,15,0.8);
-  min-height:0;
-}
-.calc-video-title-bar{
-  padding:0.9rem 1.2rem;border-bottom:1px solid var(--border);
-  display:flex;align-items:center;gap:10px;flex-shrink:0;
-  background:rgba(124,58,237,0.06);
-}
-.calc-video-frame-wrap{
-  flex:1;position:relative;min-height:240px;
-  background:#000;
-}
-.calc-video-frame-wrap iframe{
-  position:absolute;top:0;left:0;width:100%;height:100%;border:none;display:block;
-}
-.calc-video-empty{
-  position:absolute;inset:0;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  background:radial-gradient(ellipse at 50% 50%,rgba(40,15,80,0.4) 0%,rgba(4,2,13,0.98) 80%);
-  text-align:center;padding:2rem;
-}
-.calc-video-age-bar{
-  padding:0.9rem 1.4rem;border-top:1px solid var(--border);
-  display:flex;justify-content:space-between;align-items:center;
-  background:linear-gradient(135deg,rgba(124,58,237,0.12),rgba(168,85,247,0.05));
-  flex-shrink:0;
-}
+.calc-video-center{display:flex;flex-direction:column;background:rgba(6,4,15,0.8);min-height:0;}
+.calc-video-title-bar{padding:0.9rem 1.2rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-shrink:0;background:rgba(124,58,237,0.06);}
+.calc-video-frame-wrap{flex:1;position:relative;min-height:240px;background:#000;}
+.calc-video-frame-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;display:block;}
+.calc-video-empty{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 50%,rgba(40,15,80,0.4) 0%,rgba(4,2,13,0.98) 80%);text-align:center;padding:2rem;}
+.calc-video-age-bar{padding:0.9rem 1.4rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,rgba(124,58,237,0.12),rgba(168,85,247,0.05));flex-shrink:0;}
 
-/* DETAILED CALC CARDS */
 .calc-cards-section{padding:1.4rem 2rem;background:rgba(13,9,32,0.6);}
 .calc-cards-label{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--mid);margin-bottom:1rem;}
 .calc-cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:0.9rem;}
 
-/* CALC PICKER BUTTONS */
-.calc-pick-btn{
-  display:inline-flex;align-items:center;gap:5px;
-  padding:0.32rem 0.75rem;
-  background:rgba(255,255,255,0.03);
-  border:1px solid var(--border);
-  border-radius:20px;color:var(--mid);
-  font-family:var(--font-sans);font-size:0.68rem;letter-spacing:0.06em;
-  cursor:pointer;white-space:nowrap;transition:all 0.2s;
-}
+.calc-pick-btn{display:inline-flex;align-items:center;gap:5px;padding:0.32rem 0.75rem;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:20px;color:var(--mid);font-family:var(--font-sans);font-size:0.68rem;letter-spacing:0.06em;cursor:pointer;white-space:nowrap;transition:all 0.2s;}
 .calc-pick-btn:hover{border-color:var(--accent2);color:var(--white);background:rgba(124,58,237,0.15);}
 .calc-pick-btn.cpb-active{background:linear-gradient(135deg,var(--accent2),var(--accent));border-color:transparent;color:#fff;box-shadow:0 0 14px rgba(168,85,247,0.4);}
 .cpb-age{background:rgba(0,0,0,0.25);border-radius:10px;padding:0.1rem 0.4rem;font-size:0.62rem;margin-left:2px;}
@@ -411,7 +281,7 @@ footer .footer-brand{font-family:var(--font-serif);font-size:1rem;color:var(--li
 </div>
 <p class="video-label">Solar System 3D Render — Final Output</p>
 
-  <!-- ════════════════════════ SOLAR EXPLORER ════════════════════════ -->
+  <!-- SOLAR EXPLORER -->
   <div class="solar-section">
     <h2 class="block-title">Celestial <em>Bodies</em> Explorer</h2>
     <div class="block-sub">Interactive Orbital Simulation</div>
@@ -694,7 +564,7 @@ const BODIES = [
   {id:'moon',name:'Moon',emoji:'🌙',letter:'Mo',type:"Earth's Natural Satellite",
    desc:"The Moon is Earth's only natural satellite and the fifth-largest moon in the solar system. It was formed ~4.5 billion years ago, likely from debris ejected when a Mars-sized body collided with early Earth. Its gravity drives Earth's ocean tides and slows Earth's rotation.",
    funfact:"The Moon is slowly drifting away from Earth at about 3.8 cm per year.",
-   videoId:null,diameter:'3,474 km',orbital:'27.3 days',moons:'—',
+   videoId:'aFEQIbvZlBU',diameter:'3,474 km',orbital:'27.3 days',moons:'—',
    details:[{icon:'📏',n:'Distance from Earth',v:'384,400 km'},{icon:'🌡️',n:'Temp Range',v:'-173 to 127 °C'},{icon:'⏱️',n:'Orbital Period',v:'27.3 days'},{icon:'🌀',n:'Gravity',v:'1.62 m/s²'}],
    orbitalRadius:125,orbitalPeriod:1.08,size:4,color:'#C8C0B8',glow:'rgba(200,192,184,0.5)',isMoon:true,
    calcOrbitalDays:27.32,distance:'384,400 km from Earth'},
