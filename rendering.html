@@ -218,7 +218,7 @@ footer .footer-brand{font-family:var(--font-serif);font-size:1rem;color:var(--li
 .download-title{font-family:var(--font-serif);font-size:1.9rem;color:var(--white);font-weight:300;margin-bottom:0.5rem;}
 .download-sub{font-size:0.85rem;color:var(--mid);line-height:1.7;max-width:420px;font-weight:300;}
 .download-btns{display:flex;align-items:center;gap:0.9rem;flex-wrap:wrap;}
-.dl-btn{display:inline-flex;align-items:center;gap:8px;padding:0.85rem 1.6rem;border-radius:40px;font-family:var(--font-sans);font-size:0.8rem;font-weight:500;letter-spacing:0.08em;text-decoration:none;cursor:pointer;transition:all 0.25s;white-space:nowrap;}
+.dl-btn{display:inline-flex;align-items:center;gap:8px;padding:0.85rem 1.6rem;border-radius:40px;font-family:var(--font-sans);font-size:0.8rem;font-weight:500;letter-spacing:0.08em;text-decoration:none;cursor:pointer;transition:all 0.25s;white-space:nowrap;border:none;font:inherit;}
 .dl-btn-primary{background:linear-gradient(135deg,var(--accent2),var(--accent));color:#fff;border:none;box-shadow:0 0 24px rgba(168,85,247,0.35);}
 .dl-btn-primary:hover{opacity:0.88;box-shadow:0 0 40px rgba(168,85,247,0.55);transform:translateY(-2px);}
 .dl-btn-outline{background:rgba(168,85,247,0.1);color:var(--accent3);border:1px solid rgba(168,85,247,0.5);}
@@ -226,6 +226,24 @@ footer .footer-brand{font-family:var(--font-serif);font-size:1rem;color:var(--li
 .dl-btn-ghost{background:transparent;color:var(--mid);border:1px solid var(--border);}
 .dl-btn-ghost:hover{color:var(--accent3);border-color:var(--accent2);background:rgba(124,58,237,0.1);transform:translateY(-2px);}
 @media(max-width:800px){.download-inner{flex-direction:column;align-items:flex-start;padding:2rem 1.6rem;}.download-btns{width:100%;}.dl-btn{flex:1;justify-content:center;}}
+
+/* SCRIPT VIEWER MODAL */
+.script-modal-overlay{position:fixed;inset:0;background:rgba(4,2,10,0.82);backdrop-filter:blur(6px);z-index:1000;display:none;align-items:center;justify-content:center;padding:2rem;opacity:0;transition:opacity 0.25s ease;}
+.script-modal-overlay.open{display:flex;}
+.script-modal-overlay.show{opacity:1;}
+.script-modal{width:100%;max-width:880px;max-height:85vh;background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 30px 100px rgba(0,0,0,0.6),0 0 80px rgba(124,58,237,0.2);transform:translateY(16px);transition:transform 0.25s ease;}
+.script-modal-overlay.show .script-modal{transform:translateY(0);}
+.script-modal-head{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.5rem;border-bottom:1px solid var(--border);background:rgba(124,58,237,0.06);flex-shrink:0;}
+.script-modal-title{display:flex;align-items:center;gap:10px;font-family:var(--font-serif);font-size:1.05rem;color:var(--white);}
+.script-modal-title span.dot{width:7px;height:7px;border-radius:50%;background:var(--accent3);}
+.script-modal-actions{display:flex;align-items:center;gap:0.6rem;}
+.script-copy-btn{padding:0.4rem 0.9rem;background:rgba(168,85,247,0.12);border:1px solid rgba(168,85,247,0.4);border-radius:20px;color:var(--accent3);font-family:var(--font-sans);font-size:0.7rem;letter-spacing:0.05em;cursor:pointer;transition:all 0.2s;}
+.script-copy-btn:hover{background:rgba(168,85,247,0.25);color:#fff;}
+.script-close-btn{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--mid);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;font-size:0.9rem;line-height:1;}
+.script-close-btn:hover{background:rgba(255,255,255,0.1);color:#fff;}
+.script-modal-body{overflow:auto;padding:0;background:#050310;}
+.script-modal-body pre{margin:0;padding:1.5rem 1.6rem;font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;font-size:0.78rem;line-height:1.7;color:#cdbfff;white-space:pre-wrap;word-break:break-word;}
+.script-modal-body code{color:inherit;}
 
 @media(max-width:900px){
   .body-info-panel{grid-template-columns:1fr;}
@@ -242,6 +260,7 @@ footer .footer-brand{font-family:var(--font-serif);font-size:1rem;color:var(--li
   .calc-top-grid{grid-template-columns:1fr;}
   .calc-btn-fancy{width:100%;}
   .body-nav{flex-wrap:wrap;}
+  .script-modal{max-height:90vh;}
 }
 </style>
 </head>
@@ -495,10 +514,10 @@ footer .footer-brand{font-family:var(--font-serif);font-size:1rem;color:var(--li
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1v9M4 7l4 4 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
           Download Blender Project
         </a>
-        <a href="https://drive.google.com/drive/folders/19e5c9GNYklSoFxD4b5IgeW94QK0DuuJG" target="_blank" rel="noopener" class="dl-btn dl-btn-outline">
+        <button type="button" class="dl-btn dl-btn-outline" id="viewScriptBtn">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 2h5l3 3v9H4V2Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M9 2v3h3M6 8h4M6 11h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
           &lt;/&gt; View Script
-        </a>
+        </button>
         <a href="rotoscoping.html" class="dl-btn dl-btn-ghost">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7L9 12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
           View Rotoscoping Project
@@ -508,6 +527,866 @@ footer .footer-brand{font-family:var(--font-serif);font-size:1rem;color:var(--li
   </div>
 
 </div><!-- /content -->
+
+<!-- SCRIPT VIEWER MODAL -->
+<div class="script-modal-overlay" id="scriptModalOverlay">
+  <div class="script-modal">
+    <div class="script-modal-head">
+      <div class="script-modal-title"><span class="dot"></span>SolarSystem_FULL.py — Blender Script</div>
+      <div class="script-modal-actions">
+        <button class="script-copy-btn" id="scriptCopyBtn">Copy</button>
+        <button class="script-close-btn" id="scriptCloseBtn" aria-label="Close">✕</button>
+      </div>
+    </div>
+    <div class="script-modal-body">
+      <pre><code id="scriptCodeContent">import bpy
+import math
+import os
+import random
+from mathutils import Vector, Quaternion
+
+# --- LINEAR KEYFRAMES ---
+bpy.context.preferences.edit.keyframe_new_interpolation_type = 'LINEAR'
+
+# --- CLEAR SCENE ---
+bpy.ops.object.select_all(action='SELECT')
+bpy.ops.object.delete(use_global=False)
+for obj in list(bpy.data.objects):
+    bpy.data.objects.remove(obj, do_unlink=True)
+for block_collection in (
+    bpy.data.meshes, bpy.data.materials, bpy.data.textures,
+    bpy.data.images, bpy.data.curves, bpy.data.lights,
+    bpy.data.cameras, bpy.data.actions, bpy.data.node_groups,
+):
+    for item in list(block_collection):
+        try: block_collection.remove(item, do_unlink=True)
+        except Exception: pass
+
+# ====================================================================
+# GLOBAL CONTROLS — 60 seconds @ 25fps = 1500 frames
+# Schedule: Sun(108f) + 9 planets(108f each) + 9 travels(18f)
+#         + Rocket montage(140f) + Grand zoom-out(117f) = 1500
+# ====================================================================
+FPS            = 25
+TOTAL_FRAMES   = 1500
+FOCUS_F        = 108   # ~4.3s per body
+TRAVEL_F       = 18    # 0.72s between bodies
+ASTEROID_TRAVEL_F = 60 # longer travel between Mars &amp; Jupiter so the belt gets its own flyby moment
+ROCKET_F       = 140   # 5.6s rocket montage (was 3s — too quick to register)
+ZOOM_F         = 117   # ~4.7s grand pull-back (trimmed to give rockets more time)
+
+SPEED_MULT     = 4.5
+MOON_SPEED_SCALE = 0.15   # moons were orbiting way too fast (100+ laps in 60s);
+                          # this scales their speed down independently of SPEED_MULT.
+                          # Lower this further (e.g. 0.08) to slow them even more.
+
+# ── Sun lighting — dimmed so planet textures stay visible ──────────
+# Point light: was 55000, now 8000 (softer falloff, no blown-out look)
+# Fill light on camera: was 18000, now 4000
+# Sun emission: was 1.2, now 0.9 (glows but not blinding)
+SUN_LIGHT_POWER       = 2500
+FILL_LIGHT_POWER      = 1200
+SUN_EMISSION_STRENGTH = 0.45
+
+scene = bpy.context.scene
+scene.frame_start = 1
+scene.frame_end   = TOTAL_FRAMES
+scene.render.fps  = FPS
+
+# --- FOLDER SETUP ---
+BASE_FOLDER    = r"C:\solar_system"
+TEXTURE_FOLDER = BASE_FOLDER
+
+scene.render.filepath = os.path.join(BASE_FOLDER, "frame_")
+scene.render.image_settings.file_format = 'PNG'
+scene.render.image_settings.color_mode  = 'RGB'
+scene.render.image_settings.compression = 15
+
+def apply_texture(node, filename):
+    filepath = os.path.join(TEXTURE_FOLDER, filename)
+    if not os.path.exists(filepath):
+        return
+    img = bpy.data.images.get(filename)
+    if img:
+        img.filepath     = filepath
+        img.filepath_raw = filepath
+        try: img.reload()
+        except Exception: pass
+    else:
+        img = bpy.data.images.load(filepath)
+    node.image = img
+
+# ====================================================================
+# PLANET DATA
+# moon_count = actual confirmed count
+# ====================================================================
+planets_data = [
+    # name       dist  size  orb_spd  rot_spd  tilt   texture         moons
+    ("Mercury",  7,   0.43,  4.1,    0.5,    0,   "mercury.png",    0),
+    ("Venus",   10,   0.78,  1.6,   -0.2,  177,   "venus.png",      0),
+    ("Earth",   13,   0.87,  1.0,    1.0,   23,   "earth.png",      1),
+    ("Mars",    16,   0.61,  0.5,    0.9,   25,   "mars.png",       2),
+    ("Jupiter", 23,   3.15,  0.08,   2.4,    3,   "jupiter.png",   95),
+    ("Saturn",  32,   2.62,  0.03,   2.2,   26,   "saturn.png",   274),
+    ("Uranus",  40,   1.75,  0.01,  -1.4,   98,   "uranus.png",    27),
+    ("Neptune", 47,   1.66,  0.006,  1.5,   28,   "neptune.png",   14),
+    ("Pluto",   53,   0.26,  0.004,  0.1,  122,   "pluto.png",      5),
+]
+
+golden_angle  = 137.508 * (math.pi / 180)
+planet_dist   = {name: dist for name, dist, *_ in planets_data}
+planet_orb_sp = {name: orb  for name, dist, size, orb, *_ in planets_data}
+planet_size   = {name: size for name, dist, size, *_ in planets_data}
+
+BODIES = ["Sun", "Mercury", "Venus", "Earth", "Mars",
+          "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"]
+
+# ====================================================================
+# CAMERA SCHEDULE
+# ====================================================================
+schedule = []
+frame = 1
+for i, body in enumerate(BODIES):
+    schedule.append({"name": body, "focus_start": frame, "focus_end": frame + FOCUS_F - 1})
+    frame += FOCUS_F
+    if i &lt; len(BODIES) - 1:
+        frame += ASTEROID_TRAVEL_F if body == "Mars" else TRAVEL_F
+
+ROCKET_START = frame          # 1243
+ROCKET_END   = frame + ROCKET_F - 1   # 1317
+ZOOM_START   = ROCKET_END + 1         # 1318
+ZOOM_END     = TOTAL_FRAMES           # 1500
+
+sched_by_name = {s["name"]: s for s in schedule}
+
+print(f"Total frames: {TOTAL_FRAMES}  ({TOTAL_FRAMES/FPS:.1f}s)")
+print(f"Rocket montage: {ROCKET_START}–{ROCKET_END}")
+print(f"Grand zoom-out: {ZOOM_START}–{ZOOM_END}")
+
+# ====================================================================
+# WORLD — STARS
+# ====================================================================
+world = scene.world
+world.use_nodes = True
+wnodes = world.node_tree.nodes
+for node in list(wnodes):
+    if node.type in ('TEX_ENVIRONMENT', 'BACKGROUND'):
+        wnodes.remove(node)
+bg_node  = wnodes.new('ShaderNodeBackground')
+out_node = wnodes.get("World Output") or wnodes.new('ShaderNodeOutputWorld')
+world.node_tree.links.new(bg_node.outputs['Background'], out_node.inputs['Surface'])
+env_tex = wnodes.new('ShaderNodeTexEnvironment')
+apply_texture(env_tex, "2k_stars.jpg")   # .jpg
+world.node_tree.links.new(env_tex.outputs['Color'], bg_node.inputs['Color'])
+bg_node.inputs['Strength'].default_value = 1.0
+
+# ====================================================================
+# GLOBAL MATERIALS
+# ====================================================================
+orbit_mat = bpy.data.materials.new(name="Orbit_Line_Mat")
+orbit_mat.use_nodes = True
+orbit_mat.node_tree.nodes.get("Principled BSDF").inputs['Emission Strength'].default_value = 0.25
+
+moon_mat = bpy.data.materials.new(name="Universal_Moon_Mat")
+moon_mat.use_nodes = True
+m_bsdf = moon_mat.node_tree.nodes.get("Principled BSDF")
+m_tex  = moon_mat.node_tree.nodes.new('ShaderNodeTexImage')
+apply_texture(m_tex, "moon.png")
+moon_mat.node_tree.links.new(m_tex.outputs['Color'], m_bsdf.inputs['Base Color'])
+m_bsdf.inputs['Roughness'].default_value = 0.85
+
+# ====================================================================
+# SUN  (dimmed)
+# ====================================================================
+bpy.ops.mesh.primitive_uv_sphere_add(radius=4.8, location=(0, 0, 0))
+bpy.ops.object.shade_smooth()
+sun      = bpy.context.active_object
+sun.name = "Sun"
+sun_mat  = bpy.data.materials.new(name="Sun_Mat")
+sun_mat.use_nodes = True
+s_bsdf   = sun_mat.node_tree.nodes.get("Principled BSDF")
+s_tex    = sun_mat.node_tree.nodes.new('ShaderNodeTexImage')
+apply_texture(s_tex, "sun.png")
+sun_mat.node_tree.links.new(s_tex.outputs['Color'], s_bsdf.inputs['Base Color'])
+sun_mat.node_tree.links.new(s_tex.outputs['Color'], s_bsdf.inputs['Emission Color'])
+s_bsdf.inputs['Emission Strength'].default_value = SUN_EMISSION_STRENGTH
+sun.data.materials.append(sun_mat)
+
+bpy.ops.object.light_add(type='POINT', radius=4.9, location=(0, 0, 0))
+sun_light              = bpy.context.active_object
+sun_light.name         = "Sun_Light"
+sun_light.data.energy  = SUN_LIGHT_POWER
+sun_light.parent       = sun
+sun_light.data.use_shadow = False
+
+# ====================================================================
+# MOON GENERATION HELPERS
+# ====================================================================
+random.seed(42)
+
+def make_moon_system(planet_name, planet_size_val, planet_dist_val,
+                     orbit_anchor, total_moons, orb_speed):
+    """
+    Spawns `total_moons` moon objects parented to orbit_anchor.
+    Named moons are placed first with accurate sizes/colors;
+    the rest are procedurally generated to fill the count.
+    """
+    # Named / notable moons per planet
+    named = {
+        "Earth": [
+            {"name":"Luna",     "r":0.24, "d":1.8,  "spd":24.0, "c":(0.70,0.70,0.68,1)},
+        ],
+        "Mars": [
+            {"name":"Phobos",   "r":0.10, "d":1.3,  "spd":38.0, "c":(0.45,0.38,0.30,1)},
+            {"name":"Deimos",   "r":0.08, "d":1.9,  "spd":20.0, "c":(0.40,0.35,0.28,1)},
+        ],
+        "Jupiter": [
+            {"name":"Io",       "r":0.32, "d":4.2,  "spd":16.0, "c":(0.90,0.80,0.40,1)},
+            {"name":"Europa",   "r":0.28, "d":5.0,  "spd":11.0, "c":(0.82,0.76,0.70,1)},
+            {"name":"Ganymede", "r":0.40, "d":6.0,  "spd": 7.5, "c":(0.55,0.50,0.45,1)},
+            {"name":"Callisto", "r":0.38, "d":7.2,  "spd": 4.8, "c":(0.38,0.35,0.32,1)},
+        ],
+        "Saturn": [
+            {"name":"Titan",    "r":0.44, "d":13.0, "spd": 3.2, "c":(0.72,0.52,0.28,1)},
+            {"name":"Rhea",     "r":0.20, "d":10.5, "spd": 5.5, "c":(0.78,0.76,0.73,1)},
+            {"name":"Iapetus",  "r":0.18, "d":16.5, "spd": 1.4, "c":(0.55,0.48,0.42,1)},
+            {"name":"Dione",    "r":0.18, "d": 9.4, "spd": 7.6, "c":(0.80,0.78,0.75,1)},
+            {"name":"Tethys",   "r":0.16, "d": 8.6, "spd": 9.8, "c":(0.86,0.84,0.82,1)},
+            {"name":"Enceladus","r":0.13, "d": 7.8, "spd":12.5, "c":(0.95,0.95,0.98,1)},
+            {"name":"Mimas",    "r":0.11, "d": 7.0, "spd":16.0, "c":(0.88,0.86,0.84,1)},
+        ],
+        "Uranus": [
+            {"name":"Titania",  "r":0.20, "d":4.6,  "spd": 6.2, "c":(0.65,0.63,0.60,1)},
+            {"name":"Oberon",   "r":0.19, "d":5.5,  "spd": 4.4, "c":(0.48,0.46,0.44,1)},
+            {"name":"Ariel",    "r":0.15, "d":3.1,  "spd":13.0, "c":(0.72,0.70,0.68,1)},
+            {"name":"Umbriel",  "r":0.14, "d":3.8,  "spd": 9.0, "c":(0.38,0.37,0.36,1)},
+            {"name":"Miranda",  "r":0.10, "d":2.5,  "spd":18.0, "c":(0.65,0.63,0.60,1)},
+        ],
+        "Neptune": [
+            {"name":"Triton",   "r":0.27, "d":3.3,  "spd":-9.5, "c":(0.72,0.74,0.80,1)},
+            {"name":"Proteus",  "r":0.11, "d":2.4,  "spd":20.0, "c":(0.38,0.37,0.36,1)},
+            {"name":"Nereid",   "r":0.09, "d":6.8,  "spd": 0.8, "c":(0.45,0.43,0.40,1)},
+        ],
+        "Pluto": [
+            {"name":"Charon",   "r":0.12, "d":0.7,  "spd":21.0, "c":(0.58,0.56,0.54,1)},
+            {"name":"Nix",      "r":0.07, "d":1.4,  "spd":10.5, "c":(0.60,0.58,0.56,1)},
+            {"name":"Hydra",    "r":0.07, "d":2.1,  "spd": 6.2, "c":(0.55,0.53,0.51,1)},
+            {"name":"Styx",     "r":0.06, "d":1.1,  "spd":14.0, "c":(0.50,0.48,0.46,1)},
+            {"name":"Kerberos", "r":0.06, "d":1.7,  "spd": 7.8, "c":(0.48,0.46,0.44,1)},
+        ],
+    }
+
+    named_list = named.get(planet_name, [])
+    created    = 0
+
+    # ── Named moons first ────────────────────────────────────────────
+    for m in named_list:
+        _spawn_moon(f"{planet_name}_{m['name']}", orbit_anchor,
+                    planet_dist_val, m["d"] * planet_size_val,
+                    m["r"], m["spd"], orb_speed, m["c"])
+        created += 1
+
+    # ── Procedural fill ───────────────────────────────────────────────
+    # For large counts (Jupiter 95, Saturn 274) we spread moons across
+    # several rings so they don't all pile up at one radius.
+    needed = total_moons - created
+    if needed &lt;= 0:
+        return
+
+    inner = planet_size_val * 1.5
+    outer = planet_size_val * {
+        "Jupiter": 40.0, "Saturn": 50.0,
+        "Uranus":  18.0, "Neptune": 16.0,
+        "Pluto":    5.0,
+    }.get(planet_name, 10.0)
+
+    for i in range(needed):
+        t     = i / max(1, needed - 1)
+        dist  = inner + t * (outer - inner) + random.uniform(-0.3, 0.3)
+        dist  = max(inner, dist)
+        # Outer moons are tiny — scale radius down with distance
+        r     = max(0.05, random.uniform(0.06, 0.18) * (1.0 - t * 0.7))
+        spd   = random.uniform(1.0, 25.0) * (1.0 / max(dist, 0.1) ** 0.5)
+        if random.random() &lt; 0.05:
+            spd = -spd   # ~5% retrograde
+        base  = random.uniform(0.35, 0.75)
+        color = (base + random.uniform(-0.05, 0.05),
+                 base + random.uniform(-0.05, 0.05),
+                 base + random.uniform(-0.05, 0.05), 1.0)
+        _spawn_moon(f"{planet_name}_Moon_{created+i:03d}", orbit_anchor,
+                    planet_dist_val, dist, r, spd, orb_speed, color)
+
+
+def _spawn_moon(full_name, orbit_anchor, planet_dist_val,
+                moon_dist, moon_radius, moon_speed, parent_orb_speed, color):
+    # Moon orbit anchor (child of planet's orbit anchor, offset to planet pos)
+    bpy.ops.object.empty_add(type='PLAIN_AXES', location=(0, 0, 0))
+    m_anchor          = bpy.context.active_object
+    m_anchor.name     = f"{full_name}_Anchor"
+    m_anchor.parent   = orbit_anchor
+    m_anchor.location = (planet_dist_val, 0, 0)
+
+    start_rot = random.uniform(0, 2 * math.pi)
+    m_anchor.rotation_euler[2] = start_rot
+    m_anchor.keyframe_insert(data_path="rotation_euler", index=2, frame=1)
+    m_anchor.rotation_euler[2] = start_rot + math.radians(
+        moon_speed * SPEED_MULT * MOON_SPEED_SCALE * (TOTAL_FRAMES / 1000.0) * 360
+    )
+    m_anchor.keyframe_insert(data_path="rotation_euler", index=2, frame=TOTAL_FRAMES)
+
+    # Moon sphere
+    bpy.ops.mesh.primitive_uv_sphere_add(radius=max(0.05, moon_radius),
+                                          segments=16, ring_count=8)
+    bpy.ops.object.shade_smooth()
+    moon_obj          = bpy.context.active_object
+    moon_obj.name     = full_name
+    moon_obj.parent   = m_anchor
+    moon_obj.location = (moon_dist, 0, random.uniform(-0.08, 0.08))
+    moon_obj.visible_shadow = False
+
+    # Material — moon.png texture on every moon, tinted per-moon so we
+    # keep some color variety instead of every moon looking identical.
+    mm   = bpy.data.materials.new(name=f"{full_name}_Mat")
+    mm.use_nodes = True
+    mb   = mm.node_tree.nodes.get("Principled BSDF")
+    mb.inputs['Roughness'].default_value  = 0.85
+    me   = mm.node_tree.nodes.new('ShaderNodeEmission')
+    mx   = mm.node_tree.nodes.new('ShaderNodeMixShader')
+    mo   = mm.node_tree.nodes.get("Material Output") or mm.node_tree.nodes.new('ShaderNodeOutputMaterial')
+
+    moon_tex_path = os.path.join(TEXTURE_FOLDER, "moon.png")
+    if os.path.exists(moon_tex_path):
+        m_tex = mm.node_tree.nodes.new('ShaderNodeTexImage')
+        apply_texture(m_tex, "moon.png")
+        tint  = mm.node_tree.nodes.new('ShaderNodeMixRGB')
+        tint.blend_type = 'MULTIPLY'
+        tint.inputs['Fac'].default_value    = 0.85
+        tint.inputs['Color2'].default_value = color
+        mm.node_tree.links.new(m_tex.outputs['Color'], tint.inputs['Color1'])
+        mm.node_tree.links.new(tint.outputs['Color'],  mb.inputs['Base Color'])
+        mm.node_tree.links.new(tint.outputs['Color'],  me.inputs['Color'])
+    else:
+        mb.inputs['Base Color'].default_value = color
+        me.inputs['Color'].default_value      = color
+
+    me.inputs['Strength'].default_value = 0.4
+    mx.inputs['Fac'].default_value      = 0.3
+    mm.node_tree.links.new(mb.outputs['BSDF'],     mx.inputs[1])
+    mm.node_tree.links.new(me.outputs['Emission'], mx.inputs[2])
+    mm.node_tree.links.new(mx.outputs['Shader'],   mo.inputs['Surface'])
+    moon_obj.data.materials.append(mm)
+
+# ====================================================================
+# PLANETS  (no labels)
+# ====================================================================
+planet_objects_map  = {}
+orbit_anchor_map    = {}
+planet_labels       = []
+
+label_mat = bpy.data.materials.new(name="Label_Mat")
+label_mat.use_nodes = True
+_l_bsdf = label_mat.node_tree.nodes.get("Principled BSDF")
+_l_bsdf.inputs['Base Color'].default_value      = (1, 1, 1, 1)
+_l_bsdf.inputs['Emission Color'].default_value  = (1, 1, 1, 1)
+_l_bsdf.inputs['Emission Strength'].default_value = 2.5
+
+for index, (name, dist, size, orb_speed, rot_speed, tilt, tex_file, moon_count) in enumerate(planets_data):
+    # Orbit line
+    bpy.ops.curve.primitive_bezier_circle_add(radius=dist)
+    ol = bpy.context.active_object
+    ol.name = f"{name}_Orbit_Line"
+    ol.data.bevel_depth = 0.02
+    ol.data.materials.append(orbit_mat)
+    ol.visible_shadow = False
+
+    # Orbit anchor
+    bpy.ops.object.empty_add(type='PLAIN_AXES', location=(0, 0, 0))
+    orbit_anchor      = bpy.context.active_object
+    orbit_anchor.name = f"{name}_Orbit_Anchor"
+    s_ang             = (index + 1) * golden_angle
+    orbit_anchor.rotation_euler[2] = s_ang
+    orbit_anchor.keyframe_insert(data_path="rotation_euler", index=2, frame=1)
+    orbit_anchor.rotation_euler[2] = s_ang + math.radians(
+        360 * orb_speed * SPEED_MULT * (TOTAL_FRAMES / 1000.0)
+    )
+    orbit_anchor.keyframe_insert(data_path="rotation_euler", index=2, frame=TOTAL_FRAMES)
+    orbit_anchor_map[name] = orbit_anchor
+
+    # Planet sphere
+    bpy.ops.mesh.primitive_uv_sphere_add(radius=size, segments=32, ring_count=16)
+    bpy.ops.object.shade_smooth()
+    planet             = bpy.context.active_object
+    planet.name        = name
+    planet.parent      = orbit_anchor
+    planet.location    = (dist, 0, 0)
+    planet_objects_map[name] = planet
+
+    planet.rotation_mode     = 'ZXY'
+    planet.rotation_euler[0] = math.radians(-tilt)
+    planet.rotation_euler[2] = 0
+    planet.keyframe_insert(data_path="rotation_euler", index=2, frame=1)
+    planet.rotation_euler[2] = math.radians(
+        360 * rot_speed * SPEED_MULT * (TOTAL_FRAMES / 1000.0)
+    )
+    planet.keyframe_insert(data_path="rotation_euler", index=2, frame=TOTAL_FRAMES)
+
+    # Planet material
+    mat   = bpy.data.materials.new(name=f"{name}_Mat")
+    mat.use_nodes = True
+    p_bsdf = mat.node_tree.nodes.get("Principled BSDF")
+    p_tex  = mat.node_tree.nodes.new('ShaderNodeTexImage')
+    p_uv   = mat.node_tree.nodes.new('ShaderNodeTexCoord')
+    apply_texture(p_tex, tex_file)
+    mat.node_tree.links.new(p_uv.outputs['UV'],      p_tex.inputs['Vector'])
+    mat.node_tree.links.new(p_tex.outputs['Color'],  p_bsdf.inputs['Base Color'])
+    p_bsdf.inputs['Roughness'].default_value = 0.55
+    planet.data.materials.append(mat)
+
+    # Saturn ring
+    if name == "Saturn":
+        bpy.ops.mesh.primitive_torus_add(
+            major_radius=(size * 1.3 + size * 2.2) / 2,
+            minor_radius=(size * 2.2 - size * 1.3) / 2,
+            major_segments=64
+        )
+        ring          = bpy.context.active_object
+        ring.name     = "Saturn_Ring"
+        ring.parent   = planet
+        ring.scale[2] = 0.001
+        r_mat         = bpy.data.materials.new(name="Saturn_Ring_Mat")
+        r_mat.use_nodes    = True
+        r_mat.blend_method = 'HASHED'
+        r_tex  = r_mat.node_tree.nodes.new('ShaderNodeTexImage')
+        r_bsdf = r_mat.node_tree.nodes.get("Principled BSDF")
+        if os.path.exists(os.path.join(TEXTURE_FOLDER, "saturn_ring.png")):
+            apply_texture(r_tex, "saturn_ring.png")
+            r_mat.node_tree.links.new(r_tex.outputs['Color'], r_bsdf.inputs['Base Color'])
+            r_mat.node_tree.links.new(r_tex.outputs['Alpha'],  r_bsdf.inputs['Alpha'])
+        else:
+            r_bsdf.inputs['Base Color'].default_value = (0.88, 0.78, 0.55, 1)
+            r_bsdf.inputs['Alpha'].default_value      = 0.75
+            r_bsdf.inputs['Roughness'].default_value  = 0.6
+        ring.data.materials.append(r_mat)
+
+    # Moons — full count
+    if moon_count &gt; 0:
+        make_moon_system(name, size, dist, orbit_anchor, moon_count, orb_speed)
+
+print("Moon systems created.")
+
+# ====================================================================
+# ASTEROID BELT
+# ====================================================================
+meteor_mat = bpy.data.materials.new("Meteor_Rock_Mat")
+meteor_mat.use_nodes = True
+m_rock_bsdf = meteor_mat.node_tree.nodes.get("Principled BSDF")
+m_rock_bsdf.inputs['Base Color'].default_value = (0.32, 0.27, 0.22, 1)
+m_rock_bsdf.inputs['Emission Color'].default_value    = (0.32, 0.27, 0.22, 1)
+m_rock_bsdf.inputs['Emission Strength'].default_value = 0.25
+
+for i in range(50):
+    a_dist = random.uniform(18.5, 21.0)
+    a_size = random.uniform(0.07, 0.18)
+    a_orb  = random.uniform(0.15, 0.3)
+    bpy.ops.object.empty_add(type='PLAIN_AXES', location=(0, 0, 0))
+    ast           = bpy.context.active_object
+    ast.name      = f"Asteroid_Anchor_{i}"
+    a_start       = random.uniform(0, 2 * math.pi)
+    ast.rotation_euler[2] = a_start
+    ast.keyframe_insert(data_path="rotation_euler", index=2, frame=1)
+    ast.rotation_euler[2] = a_start + math.radians(
+        360 * a_orb * SPEED_MULT * (TOTAL_FRAMES / 1000.0)
+    )
+    ast.keyframe_insert(data_path="rotation_euler", index=2, frame=TOTAL_FRAMES)
+    bpy.ops.mesh.primitive_ico_sphere_add(subdivisions=1, radius=a_size)
+    rock          = bpy.context.active_object
+    rock.parent   = ast
+    rock.location = (a_dist, 0, random.uniform(-0.3, 0.3))
+    rock.data.materials.append(meteor_mat)
+    rock.visible_shadow = False
+
+# ====================================================================
+# CAMERA + FILL LIGHT
+# ====================================================================
+bpy.ops.object.camera_add(location=(0, -25, 12))
+camera            = bpy.context.active_object
+camera.name       = "Master_Cinematic_Camera"
+camera.data.lens  = 35
+camera.data.clip_end = 1000.0
+scene.camera      = camera
+
+bpy.ops.object.light_add(type='POINT', radius=50.0, location=(0, 0, 0))
+fill_light               = bpy.context.active_object
+fill_light.name          = "Camera_Fill_Light"
+fill_light.parent        = camera
+fill_light.data.energy   = FILL_LIGHT_POWER
+fill_light.data.use_shadow = False
+
+bpy.ops.object.empty_add(type='PLAIN_AXES', radius=0.1, location=(0, 0, 0))
+target_anchor      = bpy.context.active_object
+target_anchor.name = "Camera_Target_Anchor"
+
+track_con            = camera.constraints.new(type='TRACK_TO')
+track_con.track_axis = 'TRACK_NEGATIVE_Z'
+track_con.up_axis    = 'UP_Y'
+track_con.target     = target_anchor
+
+# ====================================================================
+# CAMERA HELPERS
+# ====================================================================
+def set_cam(f, cam_loc, tgt_loc):
+    camera.location = cam_loc
+    camera.keyframe_insert(data_path="location", frame=f)
+    target_anchor.location = tgt_loc
+    target_anchor.keyframe_insert(data_path="location", frame=f)
+
+
+def planet_pos_at(name, frame):
+    """Math-only world XY — matches orbit anchor keyframe math."""
+    idx       = [p[0] for p in planets_data].index(name)
+    dist      = planet_dist[name]
+    orb_speed = planet_orb_sp[name]
+    s_ang     = (idx + 1) * golden_angle
+    e_ang     = s_ang + math.radians(
+        360 * orb_speed * SPEED_MULT * (TOTAL_FRAMES / 1000.0)
+    )
+    t   = (frame - 1) / max(1, TOTAL_FRAMES - 1)
+    ang = s_ang + t * (e_ang - s_ang)
+    return (dist * math.cos(ang), dist * math.sin(ang), 0.0)
+
+
+SUN_FACING_PLANETS = {"Jupiter", "Saturn", "Uranus", "Neptune"}
+
+def cam_locked_offset(planet_name, frame=None):
+    """Fixed offset — camera tracks planet with zero zoom."""
+    r    = planet_size[planet_name]
+    dist = max(r * 6.5, 4.0)
+    up   = max(r * 2.5, 1.6)
+
+    if planet_name in SUN_FACING_PLANETS and frame is not None:
+        # Now that the Sun is dimmer, these far planets need the camera on
+        # their actually-lit side or their face just looks like a dark blob.
+        # Compute the real direction from the planet toward the Sun (origin)
+        # at this point in its orbit, then bias the camera a bit off dead-
+        # center so it's a nice three-quarter lit view instead of flat/frontal.
+        px, py, _ = planet_pos_at(planet_name, frame)
+        sun_dir_angle = math.atan2(-py, -px)
+        a = sun_dir_angle + math.radians(30)
+    else:
+        angle_offsets = {
+            "Mercury": math.radians(145),
+            "Venus":   math.radians(150),
+            "Earth":   math.radians(145),
+            "Mars":    math.radians(140),
+            "Pluto":   math.radians(148),
+        }
+        a = angle_offsets.get(planet_name, math.radians(140))
+    return (math.cos(a) * dist, math.sin(a) * dist, up)
+
+# ====================================================================
+# CAMERA ANIMATION
+# ====================================================================
+
+# ── SUN: zoom out ────────────────────────────────────────────────────
+sun_s = sched_by_name["Sun"]
+set_cam(sun_s["focus_start"], ( 6.0,  -5.0, 3.0), (0.0, 0.0, 0.0))
+set_cam((sun_s["focus_start"] + sun_s["focus_end"]) // 2,
+        ( 9.0,  -9.0, 5.5), (0.0, 0.0, 0.0))
+set_cam(sun_s["focus_end"],  (12.0, -12.0, 7.0), (0.0, 0.0, 0.0))
+
+# ── PLANETS: Mercury tracks, all others locked offset ────────────────
+PLANET_STEP = 8
+
+for body in BODIES[1:]:
+    seg = sched_by_name[body]
+    f_s = seg["focus_start"]
+    f_e = seg["focus_end"]
+    ox, oy, oz = cam_locked_offset(body, f_s)
+
+    if body == "Mercury":
+        # Mercury has the fastest orbit of all bodies (orb_spd 4.1), so it
+        # needs the DENSEST keyframes, not the sparsest. With only 5 keys
+        # over 108 frames the camera was linear-interpolating in a wide arc
+        # between distant Mercury positions, which cut straight through the
+        # Sun. Tight step size keeps the camera locked to Mercury the whole way.
+        MERCURY_STEP = 2
+        for f in range(f_s, f_e + 1, MERCURY_STEP):
+            px, py, _ = planet_pos_at("Mercury", f)
+            set_cam(f, (px + ox, py + oy, oz), (px, py, 0.0))
+        px, py, _ = planet_pos_at("Mercury", f_e)
+        set_cam(f_e, (px + ox, py + oy, oz), (px, py, 0.0))
+        continue
+
+    # All other planets
+    for f in range(f_s, f_e + 1, PLANET_STEP):
+        px, py, _ = planet_pos_at(body, f)
+        set_cam(f, (px + ox, py + oy, oz), (px, py, 0.0))
+    px, py, _ = planet_pos_at(body, f_e)
+    set_cam(f_e, (px + ox, py + oy, oz), (px, py, 0.0))
+
+# ── ASTEROID BELT FLYBY (Mars → Jupiter gap) ─────────────────────────
+# The belt sits at radius ~18.5-21, between Mars(16) and Jupiter(23).
+# It already existed in the model but never got its own camera moment —
+# this sweeps through it during the extended travel gap.
+mars_end   = sched_by_name["Mars"]["focus_end"]
+belt_start = mars_end + 1
+belt_end   = belt_start + ASTEROID_TRAVEL_F - 1
+belt_mid   = (belt_start + belt_end) // 2
+set_cam(belt_start, (24, -6, 5),  (20, 4, 0))
+set_cam(belt_mid,   (14, -14, 6), (19, 0, 0))
+set_cam(belt_end,   (10, -18, 7), (18, -6, 0))
+
+# NOTE: the rocket montage camera keyframes are added further below,
+# AFTER the ships are built and their real flight paths are baked —
+# that's what makes the camera actually chase the rockets instead of
+# guessing where they might be.
+
+# ── GRAND ZOOM-OUT: full solar system ────────────────────────────────
+# Pluto = dist 53; Sun at origin. At (0, -115, 82) all orbits fit in frame.
+px, py, _ = planet_pos_at("Pluto", ZOOM_START)
+set_cam(ZOOM_START, (px + 3.0, py - 8.0, 6.0), (0.0, 0.0, 0.0))
+
+zm1 = ZOOM_START + ZOOM_F // 4
+zm2 = ZOOM_START + ZOOM_F // 2
+zm3 = ZOOM_START + 3 * ZOOM_F // 4
+
+set_cam(zm1, ( 30,  -72, 48), (0, 0, 0))
+set_cam(zm2, ( 10,  -88, 62), (0, 0, 0))
+set_cam(zm3, ( -5, -102, 74), (0, 0, 0))
+set_cam(ZOOM_END, (0, -118, 85), (0, 0, 0))
+
+# ====================================================================
+# SPACESHIPS + TRAILS
+# ====================================================================
+hull_mat = bpy.data.materials.new("Hull_M")
+hull_mat.use_nodes = True
+hull_mat.node_tree.nodes.get("Principled BSDF").inputs['Base Color'].default_value = (0.1, 0.15, 0.22, 1)
+hull_mat.node_tree.nodes.get("Principled BSDF").inputs['Metallic'].default_value   = 0.8
+hull_mat.node_tree.nodes.get("Principled BSDF").inputs['Roughness'].default_value  = 0.25
+
+trail_mats = {
+    "blue":  bpy.data.materials.new("T_Blue"),
+    "cyan":  bpy.data.materials.new("T_Cyan"),
+    "green": bpy.data.materials.new("T_Green"),
+}
+t_colors = {
+    "blue":  ((0.2, 0.4, 1.0, 1), 15.0),
+    "cyan":  ((0.1, 0.8, 0.9, 1), 18.0),
+    "green": ((0.1, 0.9, 0.2, 1), 16.0),
+}
+for k, mat in trail_mats.items():
+    mat.use_nodes    = True
+    mat.blend_method = 'BLEND'
+    bsdf = mat.node_tree.nodes.get("Principled BSDF")
+    base, strength = t_colors[k]
+    bsdf.inputs['Base Color'].default_value      = base
+    bsdf.inputs['Emission Color'].default_value  = base
+    bsdf.inputs['Emission Strength'].default_value = strength
+    bsdf.inputs['Alpha'].default_value           = 0.55
+
+_trail_trackers = []
+_motion_drivers = []
+ROCKET_POSITIONS = {}   # ship name -&gt; list of Vector positions, index = frame-1
+
+class TrailTracker:
+    def __init__(self, target, name, material):
+        self.target       = target
+        self.trail_length = 100
+        cd                = bpy.data.curves.new(name=f"{name}_C", type='CURVE')
+        cd.dimensions     = '3D'
+        cd.bevel_depth    = 0.06
+        self.spline       = cd.splines.new('POLY')
+        self.curve_obj    = bpy.data.objects.new(name, cd)
+        self.curve_obj.visible_shadow = False
+        bpy.context.collection.objects.link(self.curve_obj)
+        cd.materials.append(material)
+
+class ConstantVelocityDriver:
+    def __init__(self, target, waypoints, speed):
+        self.target    = target
+        self.waypoints = [Vector(w) for w in waypoints]
+        self.speed     = speed
+        self.segments  = []
+        total = 0.0
+        for i in range(len(self.waypoints) - 1):
+            a, b = self.waypoints[i], self.waypoints[i + 1]
+            l    = (b - a).length
+            self.segments.append((a, b, l)); total += l
+        a, b = self.waypoints[-1], self.waypoints[0]
+        l    = (b - a).length
+        self.segments.append((a, b, l))
+        self.total_length = total + l
+
+def build_spaceship(name):
+    bpy.ops.object.empty_add(type='PLAIN_AXES')
+    root      = bpy.context.active_object
+    root.name = name
+    bpy.ops.mesh.primitive_cone_add(vertices=16, radius1=0.3, depth=1.5)
+    body = bpy.context.active_object
+    body.rotation_euler = (0, math.radians(90), 0)
+    body.parent = root
+    body.data.materials.append(hull_mat)
+    body.visible_shadow = False
+    return root
+
+def spawn_ship_on_flightpath(name, pts, mat):
+    ship = build_spaceship(name)
+    cd   = bpy.data.curves.new(name=f"{name}_P", type='CURVE')
+    sp   = cd.splines.new('BEZIER')
+    sp.use_cyclic_u = True
+    sp.bezier_points.add(len(pts) - 1)
+    for i, wp in enumerate(pts):
+        sp.bezier_points[i].co                = wp
+        sp.bezier_points[i].handle_left_type  = 'AUTO'
+        sp.bezier_points[i].handle_right_type = 'AUTO'
+    path_obj = bpy.data.objects.new(f"{name}_P", cd)
+    bpy.context.collection.objects.link(path_obj)
+    dg    = bpy.context.evaluated_depsgraph_get()
+    ev    = path_obj.evaluated_get(dg)
+    md    = bpy.data.meshes.new_from_object(ev)
+    wpts  = [v.co.copy() for v in md.vertices]
+    bpy.data.meshes.remove(md)
+    tl    = sum((wpts[(i+1)%len(wpts)] - wpts[i]).length for i in range(len(wpts)))
+    spd   = tl / TOTAL_FRAMES
+    drv   = ConstantVelocityDriver(target=ship, waypoints=wpts, speed=spd)
+    _motion_drivers.append(drv)
+    _trail_trackers.append(TrailTracker(ship, f"{name}_Trail", mat))
+
+# Rocket waypoints match the montage camera positions above
+spawn_ship_on_flightpath("Rocket_Alpha",
+    [(12, -18, 4), (22, 5, 7), (14, 20, 2), (-18, -15, 5)],
+    trail_mats["blue"])
+spawn_ship_on_flightpath("Rocket_Bravo",
+    [(-30, 25, 6), (5, 42, 10), (35, -10, 3), (-15, -35, 8)],
+    trail_mats["cyan"])
+spawn_ship_on_flightpath("Rocket_Charlie",
+    [(0, -25, 12), (48, 35, 5), (-45, 15, -4), (15, -50, 6)],
+    trail_mats["green"])
+
+def bake_all_space_physics():
+    motion_paths = {}
+    for d in _motion_drivers:
+        positions = []
+        for frame in range(1, TOTAL_FRAMES + 1):
+            dist = ((frame - 1) * d.speed) % d.total_length
+            pos  = d.waypoints[-1]
+            for (a, b, length) in d.segments:
+                if dist &lt;= length:
+                    pos = a.lerp(b, dist / length if length &gt; 0 else 0)
+                    break
+                dist -= length
+            positions.append(pos.copy())
+        motion_paths[id(d)] = positions
+        ROCKET_POSITIONS[d.target.name] = positions
+        d.target.rotation_mode = 'QUATERNION'
+        for frame in range(1, TOTAL_FRAMES + 1):
+            idx = frame - 1
+            d.target.location = positions[idx]
+            fwd = ((positions[idx+1] - positions[idx])
+                   if idx+1 &lt; len(positions)
+                   else (positions[idx] - positions[idx-1]))
+            fwd.normalize()
+            d.target.rotation_quaternion = fwd.to_track_quat('X', 'Z')
+            d.target.keyframe_insert(data_path="location",            frame=frame)
+            d.target.keyframe_insert(data_path="rotation_quaternion", frame=frame)
+
+    for tracker in _trail_trackers:
+        spline = tracker.spline
+        n      = tracker.trail_length
+        if len(spline.points) &lt; n:
+            spline.points.add(n - len(spline.points))
+        for i in range(n):
+            spline.points[i].radius = (i / max(1, n - 1)) ** 1.5
+        t_path = motion_paths[
+            next(id(d) for d in _motion_drivers if d.target == tracker.target)
+        ]
+        for frame in range(1, TOTAL_FRAMES + 1):
+            for i in range(n):
+                pos = t_path[max(0, (frame-1) - (n-1-i))]
+                spline.points[i].co = (pos.x, pos.y, pos.z, 1.0)
+                spline.points[i].keyframe_insert(data_path="co", frame=frame)
+
+bake_all_space_physics()
+print("Rockets baked.")
+
+# ── ROCKET MONTAGE CAMERA (real chase-cam) ───────────────────────────
+# Built only now that we KNOW where each rocket actually is at every
+# frame. Each rocket gets its own slice of the montage where the camera
+# follows its true position — this is what makes the travel visible.
+seg_len    = ROCKET_F // 4
+CHASE_STEP = 4
+rocket_chase = [
+    ("Rocket_Alpha",   (3, -4, 2)),
+    ("Rocket_Bravo",   (4, -5, 2)),
+    ("Rocket_Charlie", (5, -4, 2)),
+]
+for i, (ship_name, off) in enumerate(rocket_chase):
+    seg_start = ROCKET_START + i * seg_len
+    seg_end   = seg_start + seg_len - 1
+    positions = ROCKET_POSITIONS[ship_name]
+    for f in range(seg_start, seg_end + 1, CHASE_STEP):
+        p = positions[f - 1]
+        set_cam(f, (p.x + off[0], p.y + off[1], p.z + off[2]), (p.x, p.y, p.z))
+    p = positions[seg_end - 1]
+    set_cam(seg_end, (p.x + off[0], p.y + off[1], p.z + off[2]), (p.x, p.y, p.z))
+
+# Final slice: wide shot pulling back to show all three rockets together
+wide_start = ROCKET_START + 3 * seg_len
+set_cam(wide_start, (0, -55, 35), (0, 0, 0))
+set_cam(ROCKET_END, (0, -55, 35), (0, 0, 0))
+
+# ====================================================================
+# FORCE LINEAR INTERPOLATION (Blender 3.x + 5.x safe)
+# ====================================================================
+for action in bpy.data.actions:
+    if hasattr(action, 'fcurves'):
+        for fc in action.fcurves:
+            for kp in fc.keyframe_points:
+                kp.interpolation = 'LINEAR'
+    elif hasattr(action, 'layers'):
+        try:
+            for layer in action.layers:
+                for strip in layer.strips:
+                    if hasattr(strip, 'channelbags'):
+                        for bag in strip.channelbags:
+                            for fc in bag.fcurves:
+                                for kp in fc.keyframe_points:
+                                    kp.interpolation = 'LINEAR'
+        except Exception as e:
+            print(f"Warning: {e}")
+
+scene.frame_set(1)
+
+# ====================================================================
+# SAVE
+# ====================================================================
+SAVE_PATH = os.path.join(BASE_FOLDER, "planet.blend")
+try:
+    bpy.ops.wm.save_as_mainfile(filepath=SAVE_PATH)
+    print(f"\n[SUCCESS] Saved to: {SAVE_PATH}")
+except Exception as e:
+    print(f"[WARNING] Save failed: {e}")
+
+print("=" * 60)
+print(f"  60-SECOND SOLAR SYSTEM — BUILD COMPLETE")
+print(f"  {TOTAL_FRAMES} frames @ {FPS}fps = {TOTAL_FRAMES/FPS:.0f}s")
+print()
+print("  CAMERA SCHEDULE:")
+for s in schedule:
+    dur = s['focus_end'] - s['focus_start'] + 1
+    print(f"    {s['name']:10s}: {s['focus_start']:4d}-{s['focus_end']:4d}  ({dur/FPS:.1f}s)")
+print(f"    {'ROCKETS':10s}: {ROCKET_START:4d}-{ROCKET_END:4d}  ({ROCKET_F/FPS:.1f}s)")
+print(f"    {'ZOOM-OUT':10s}: {ZOOM_START:4d}-{ZOOM_END:4d}  ({(ZOOM_END-ZOOM_START+1)/FPS:.1f}s)")
+print()
+print("  MOON COUNTS:")
+for name, dist, size, orb, rot, tilt, tex, moons in planets_data:
+    if moons &gt; 0:
+        print(f"    {name:10s}: {moons}")
+print("=" * 60)
+</code></pre>
+    </div>
+  </div>
+</div>
 
 <footer>
   <span class="footer-brand">Hannah Kim F. Nariz</span>
@@ -570,6 +1449,36 @@ footer .footer-brand{font-family:var(--font-serif);font-size:1rem;color:var(--li
     setTimeout(()=>{location.href='rotoscoping.html';},980);
   });
   tg.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();tg.click();}});
+})();
+
+/* ════════════════════ SCRIPT VIEWER MODAL ════════════════════ */
+(function(){
+  const btn=document.getElementById('viewScriptBtn');
+  const overlay=document.getElementById('scriptModalOverlay');
+  const closeBtn=document.getElementById('scriptCloseBtn');
+  const copyBtn=document.getElementById('scriptCopyBtn');
+  const codeEl=document.getElementById('scriptCodeContent');
+
+  function openModal(){
+    overlay.classList.add('open');
+    requestAnimationFrame(()=>overlay.classList.add('show'));
+    document.body.style.overflow='hidden';
+  }
+  function closeModal(){
+    overlay.classList.remove('show');
+    document.body.style.overflow='';
+    setTimeout(()=>overlay.classList.remove('open'),250);
+  }
+  btn.addEventListener('click',openModal);
+  closeBtn.addEventListener('click',closeModal);
+  overlay.addEventListener('click',e=>{if(e.target===overlay)closeModal();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('open'))closeModal();});
+  copyBtn.addEventListener('click',()=>{
+    navigator.clipboard.writeText(codeEl.textContent).then(()=>{
+      copyBtn.textContent='Copied!';
+      setTimeout(()=>copyBtn.textContent='Copy',1400);
+    });
+  });
 })();
 
 /* ════════════════════ PLANET DATA ════════════════════ */
